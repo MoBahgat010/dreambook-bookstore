@@ -1,0 +1,371 @@
+nav {
+    background-color: #8B572A;
+}
+
+a {
+    text-decoration: none;
+}
+
+nav .collapse ul li.terms {
+    font-size: 10px;
+}
+
+nav .collapse ul li.terms:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+nav .collapse ul li.social-media-li {
+    padding: 0 0.25rem;
+}
+
+nav .collapse ul li.social-media-li .social-media > div > div:hover {
+    transition: 300ms;
+    cursor: pointer;
+}
+
+nav .collapse ul li.social-media-li .social-media > div > div i {
+    transition: 300ms;
+}
+
+nav .collapse ul li.social-media-li .social-media > div > div:hover i {
+    color: white;
+    transition: 300ms;
+}
+
+nav .collapse ul li.social-media-li .social-media > div > div:hover {
+    background-color: black;
+    transition: 300ms;
+}
+
+nav .collapse ul li .social-media {
+    position: relative;
+    padding: 0 0.2rem;
+}
+
+nav .collapse ul li .social-media::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav .collapse ul li .social-media::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav .collapse ul li .social-media div {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.2rem;
+    border-radius: 50%;
+}
+
+nav .collapse ul li .social-media div div {
+    background-color: white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .collapse ul li .social-media div div i {
+    color: black;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: scale(0.7);
+}
+
+nav .collapse ul li .social-media div div i::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav .collapse ul li.email .link-li {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 10px;
+}
+
+nav .collapse ul li.email:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+nav .collapse ul li.email .link-li > div {
+    padding: 0 0.2rem;
+}
+
+nav .collapse ul li.email .link-li > p {
+    padding: 0 0.2rem;
+    margin-bottom: 0.1rem;
+}
+
+nav .collapse ul li.currency {
+    cursor: pointer;
+}
+
+nav .collapse ul li.currency p {
+    font-size: 12px;
+}
+
+nav .collapse ul li.currency .arrow {
+    width: 0.5rem;
+    height: 0.5rem;
+    right: 0.5rem;
+    top: 45%;
+    border-left: 0.3rem solid transparent;
+    border-top: 0.3rem solid white;
+    border-right: 0.3rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+}
+
+nav .collapse ul li.currency .currency-dropdown {
+    top: 150%;
+    left: 50%;
+    transform: translateX(-40%);
+    width: 9rem;
+    background-color: #8B572A;
+    visibility: hidden;
+    opacity: 0;
+    transition: 500ms;
+    list-style: none;
+}
+
+nav .collapse ul li.currency .currency-dropdown li {
+    text-align: center;
+    transition: 300ms;
+}
+
+nav .collapse ul li.currency .currency-dropdown li p {
+    margin-bottom: 5px;
+}
+
+nav .collapse ul li.currency .currency-dropdown li:hover {
+    transform: scale(1.1);
+    transition: 300ms;
+}
+
+nav .collapse ul li.currency:hover .currency-dropdown {
+    top: 100%;
+    opacity: 1;
+    visibility: visible;
+    transition: 500ms;
+}
+
+nav .collapse ul li.language {
+    position: relative;
+    font-size: 12px;
+}
+
+nav .collapse ul li.language::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav .collapse ul li.language::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav .collapse ul li.login .link-li {
+    text-decoration: none;
+    color: inherit;
+    font-size: 12px;
+}
+
+nav .collapse ul li.current-country {
+    position: relative;
+    cursor: pointer;
+}
+
+nav .collapse ul li.current-country::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav .collapse ul li.current-country div {
+    width: 1.8rem;
+    height: 1.8rem;
+    object-fit: cover;
+}
+
+nav .collapse ul li.current-country div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+nav .collapse ul li.current-country .country-dropdown {
+    top: 150%;
+    left: 0;
+    right: -1rem;
+    background-color: #8B572A;
+    list-style: none;
+    padding: 0.1rem 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: 500ms;
+}
+
+nav .collapse ul li.current-country:hover .country-dropdown {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    transition: 500ms;
+    border-radius: 1rem;
+}
+
+nav .collapse ul li.current-country .country-dropdown li p {
+    transition: 500ms;
+}
+
+nav .collapse ul li.current-country .country-dropdown li:hover p {
+    transform: translateX(1rem);
+    transition: 500ms;
+}
+
+@media (min-width: 576px) {
+    nav {
+        font-size: 14px;
+    }
+    .navbar-expand .navbar-nav .nav-link {
+        padding-right: 0.3rem;
+    }
+    nav .collapse ul li .social-media-li {
+        padding: 0 0.2rem;
+    }
+    nav .collapse ul li .social-media {
+        position: relative;
+        padding: 0 0.3rem;
+    }
+    nav .collapse ul li .social-media div {
+        width: 1.3rem;
+        height: 1.3rem;
+        padding: 0 0.15rem;
+        border-radius: 50%;
+    }
+    nav .collapse ul li .social-media div div i {
+        width: 70%;
+        height: 70%;
+    }
+    nav .collapse ul li .social-media div div i {
+        transform: scale(0.8);
+    }
+    nav .collapse ul li.terms {
+        font-size: 12px;
+    }
+    nav .collapse ul li.email .link-li {
+        font-size: 12px;
+    }
+    nav .collapse ul li.email .link-li {
+        font-size: 14px;
+    }
+    nav .collapse ul li.language {
+        font-size: 14px;
+    }
+    nav .collapse ul li.login .link-li {
+        font-size: 14px;
+    }
+    nav .collapse ul li.currency .currency-dropdown li p {
+        margin-bottom: 8px;
+    }
+}
+
+@media (min-width: 768px) {
+    nav {
+        font-size: 11px;
+    }
+    .navbar-expand .navbar-nav .nav-link {
+        padding-right: 0.4rem;
+    }
+    nav .collapse ul li .social-media {
+        position: relative;
+        padding: 0 0.7rem;
+    }
+    nav .collapse ul li .social-media-li {
+        padding: 0 0.3rem;
+    }
+    nav .collapse ul li .social-media div {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0.2rem;
+        border-radius: 50%;
+    }
+    nav .collapse ul li .social-media div div i {
+        transform: scale(0.9);
+    }
+    nav .collapse ul li.terms {
+        font-size: 12px;
+    }
+    nav .collapse ul li.email .link-li {
+        font-size: 13px;
+    }
+    nav .collapse ul li.language {
+        font-size: 16px;
+    }
+    nav .collapse ul li.login .link-li {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 992px) {
+    nav {
+        font-size: 16px;
+    }
+    .navbar-expand .navbar-nav .nav-link {
+        padding-right: 0.5rem;
+    }
+    nav .collapse ul li .social-media-li {
+        padding: 0 0.4rem;
+    }
+    nav .collapse ul li .social-media div {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.2rem;
+        border-radius: 50%;
+    }
+    nav .collapse ul li .social-media div div i {
+        transform: scale(1);
+    }
+    nav .collapse ul li.terms {
+        font-size: 16px;
+    }
+    nav .collapse ul li.email .link-li {
+        font-size: 16px;
+    }
+}
