@@ -1,0 +1,36 @@
+.cart-page table .image-container {
+    border-right: 1px solid gray;
+    width: 15rem;
+    height: 10rem;
+}
+
+.cart-page table {
+    vertical-align: middle;
+}
+
+.cart-page table .cross i {
+    cursor: pointer;
+}
+
+.cart-page table caption button {
+    background-color: #8B572A;
+    border: none;
+    outline: none;
+    color: white;
+    transition: 300ms;
+    border: 2px solid #8B572A;
+}
+
+.cart-page table caption button:hover {
+    background-color: white;
+    color: #8B572A;
+    transition: 300ms;
+    border: 2px solid #8B572A;
+}
+
+.cart-page table caption {
+    width: 100%;
+    border-right: 1px solid #DEE2E6;
+    border-top: 1px solid #DEE2E6;
+    border-bottom: 1px solid #DEE2E6;
+}

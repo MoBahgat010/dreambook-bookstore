@@ -15,7 +15,7 @@ p {
 }
 
 .upper-footer .container .logo-container {
-    width: 16rem;
+    width: 12rem;
 }
 
 .upper-footer .container input {
@@ -58,9 +58,6 @@ p {
 .middle-footer {
     background-color: #8B572A;
 }
-.middle-footer .container {
-
-}
 
 @media (min-width: 576px) {
     
@@ -68,7 +65,7 @@ p {
 
 @media (min-width: 768px) {
     .upper-footer .container .logo-container {
-        width: 40%;
+        width: 30%;
     }
      
 }

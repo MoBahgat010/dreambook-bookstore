@@ -13,6 +13,11 @@ p {
 }
 .card {
     height: 30rem;
+    transition: 300ms;
+}
+.card:hover {
+    transform: scale(1.02);
+    transition: 300ms;
 }
 .card .image-container {
     height: 70%;

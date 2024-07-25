@@ -12,12 +12,14 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "../../RTK/Slices/SelectedCurrencySlice";
 import { changeCountry } from "../../RTK/Slices/SelectedCountrySlice";
+import { showComponents } from "../../RTK/Slices/ComponentsSlice";
 
 function Header() {
 
     const { countryImg, countryName } = useSelector(state => state.SelectCountry);
     const { currencyName } = useSelector(state => state.SelectedCurrency);
     const { wishproducts } = useSelector(state => state.WishList);
+    const { CartProducts } = useSelector(state => state.Cart);
     const dispatch = useDispatch();
     const countriesImages = [ 
         {
@@ -190,7 +192,7 @@ function Header() {
     }
 
     return (
-        <header className="position-sticky top-0">
+        <header>
             <nav className="upper-one navbar navbar-expand">
               <div className="container">
                 <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center align-items-center" id="navbarSupportedContent">
@@ -243,7 +245,7 @@ function Header() {
                         <p className="mb-0">EN</p>
                     </li>
                     <li className="login p-2 d-flex align-items-center">
-                        <Link className="link-li">Login</Link>
+                        <Link to={"login"} className="link-li">Login</Link>
                     </li>
                     <li className="current-country position-relative p-2 d-flex align-items-center">
                         <p className="mb-0">Change Country</p>
@@ -280,10 +282,12 @@ function Header() {
                         <div className="px-2 wishlist position-relative">
                             <Link to={"/wishlist"} className="fa-regular fa-heart"></Link>
                             <div className="position-absolute">{wishproducts.length}</div>
-                        </div   >
-                        <div className="px-2 cart position-relative">
-                            <i className="fa-solid fa-cart-shopping"></i>
-                            <div className="position-absolute">0</div>
+                        </div>
+                        <div onClick={() => {
+                            dispatch(showComponents());
+                        }} className="px-2 cart position-relative">
+                            <Link className="fa-solid fa-cart-shopping"></Link>
+                            <div className="position-absolute">{CartProducts.length}</div>
                         </div>
                     </div>
                 </div>

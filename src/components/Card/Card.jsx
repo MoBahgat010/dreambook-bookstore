@@ -4,6 +4,8 @@ import "./Card.css"
 import { useDispatch, useSelector } from "react-redux";
 import ShoppingCart from "../../assets/shopping-cart.png"
 import { addProductToWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import { addProduct } from "../../RTK/Slices/ProductCartSlice";
+import { Link } from "react-router-dom";
 
 function Card(props) {
 
@@ -13,7 +15,7 @@ function Card(props) {
     const dispatch = useDispatch();
 
     return (
-        <div className="card w-100 position-relative overflow-hidden">
+        <Link to={"/single-page"} className="card w-100 position-relative overflow-hidden">
             {
                 newBadge &&
                 <div className="new-badge d-flex justify-content-center align-items-center position-absolute">New</div>
@@ -26,7 +28,9 @@ function Card(props) {
                 <p className="card-text">5000 {currencyName}</p>
                 <div className="options mt-3 d-flex justify-content-center align-items-center">
                     <div className="button">
-                        <button className="btn btn-primary">Add to Cart</button>
+                        <button onClick={() => {
+                            dispatch(addProduct(1))
+                        }} className="btn btn-primary">Add to Cart</button>
                     </div>
                     <div className="button px-2">
                         <button onClick={() => {
@@ -37,7 +41,7 @@ function Card(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
 

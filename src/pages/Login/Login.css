@@ -1,0 +1,11 @@
+form input[type="password"] {
+    outline: none;
+    border: 1px solid gray;
+}
+.login .container .state p p {
+    cursor: pointer;
+    border-bottom: 3px solid gray;
+}
+.login .container .state p .active {
+    border-bottom: 3px solid blue;
+}

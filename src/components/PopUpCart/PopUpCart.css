@@ -1,0 +1,51 @@
+.pop-up-cart {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.518);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+}
+.pop-up-cart .inner-container {
+    position: absolute;
+    width: 65%;
+    left: 50%;
+    top: -30%;
+    transform: translateX(-50%);
+    z-index: 110;
+    max-height: 30rem;
+    overflow: auto;
+}
+.pop-up-cart .inner-container table {
+    vertical-align: middle;
+}
+.pop-up-cart .inner-container table thead tr th.image {
+    width: 5rem;
+}
+.pop-up-cart .inner-container .image-container {
+    width: 10rem;
+    height: 10rem;
+}
+.pop-up-cart .inner-container .image-container {
+    width: 4rem;
+    height: 4rem;
+}
+.product-text {
+    font-size: 10px;
+}
+
+@media (min-width: 576px) {
+    .product-text {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 768px) {
+    .product-text {
+        font-size: 16px;
+    }
+    .pop-up-cart .inner-container .image-container {
+        width: 10rem;
+        height: 10rem;
+    }
+}

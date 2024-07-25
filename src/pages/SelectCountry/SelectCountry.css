@@ -1,4 +1,4 @@
-img {
+.select-country img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -10,7 +10,7 @@ a {
 ul, ol {
     list-style: none;
 }
-p {
+.select-country p {
     margin: 0;
 }
 .select-country {

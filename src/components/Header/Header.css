@@ -313,8 +313,9 @@ nav.middle-one .container .icons-container > div > div {
     color: white;
 }
 
-nav.middle-one .container .icons-container > div i {
+nav.middle-one .container .icons-container > div a {
     transform: scale(1);
+    color: #8B572A;
 }
 
 nav.middle-one .container .search-bar {
@@ -438,7 +439,7 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         padding: 0;
     }
     nav.middle-one .container .logo-container {
-        width: 20%;
+        width: 10rem;
         font-size: 8px;
     }
     nav.middle-one .container .logo-container img {
@@ -554,8 +555,8 @@ nav.lower-one .container .has-dropdown ul li:hover p {
     nav.middle-one .container .search-bar input::placeholder {
         color: #8B572A;
     }
-    nav.middle-one .container .icons-container > div i {
-        transform: scale(1.2);
+    nav.middle-one .container .icons-container > div a {
+        transform: scale(1.3);
     }
     nav.upper-one {
         font-size: 11px;

@@ -13,7 +13,7 @@ function Footer() {
                         <img src={logo} alt="logo" />
                     </div>
                     <p className="my-3 fs-3">NewsLetter</p>
-                    <input type="text" placeholder="Enter your e-mail address" />
+                    <input className="text-center" type="text" placeholder="Enter your e-mail address" />
                     <div className="social-media d-flex justify-content-center align-items-center">
                         <div>
                             <div>
