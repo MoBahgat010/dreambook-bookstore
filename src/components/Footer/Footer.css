@@ -1,0 +1,78 @@
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ul, ol {
+    list-style: none;
+}
+p {
+    margin: 0;
+}
+
+.upper-footer .container .logo-container {
+    width: 16rem;
+}
+
+.upper-footer .container input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background-color: #8B572A;
+    outline: none;
+    border: none;
+    color: white;
+}
+.upper-footer .container input::placeholder {
+    color: white;
+    text-align: center;
+}
+.upper-footer .container p {
+    color: #8B572A;
+    font-weight: 600;
+}
+.upper-footer .container .social-media {
+    color: #8B572A;
+    padding: 2rem 0;
+}
+.upper-footer .container .social-media > div {
+    padding: 0 2rem;
+}
+.upper-footer .container .social-media > div > div {
+    width: 100%;
+    height: 100%;
+}
+.upper-footer .container .social-media > div > div > i {
+    transform: scale(2);
+    transition: 300ms;
+}
+.upper-footer .container .social-media > div > div > i:hover {
+    color: black;
+    cursor: pointer;
+    transition: 300ms;
+}
+.middle-footer {
+    background-color: #8B572A;
+}
+.middle-footer .container {
+
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    .upper-footer .container .logo-container {
+        width: 40%;
+    }
+     
+}
+
+@media (min-width: 992px) {
+    
+}

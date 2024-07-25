@@ -1,0 +1,620 @@
+nav.upper-one {
+    background-color: #8B572A;
+}
+
+a {
+    text-decoration: none;
+}
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+nav.upper-one .collapse ul li.terms {
+    font-size: 10px;
+}
+
+nav.upper-one .collapse ul li.terms:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+nav.upper-one .collapse ul li.social-media-li {
+    padding: 0 0.25rem;
+}
+
+nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover {
+    transition: 300ms;
+    cursor: pointer;
+}
+
+nav.upper-one .collapse ul li.social-media-li .social-media > div > div i {
+    transition: 300ms;
+}
+
+nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover i {
+    color: white;
+    transition: 300ms;
+}
+
+nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover {
+    background-color: black;
+    transition: 300ms;
+}
+
+nav.upper-one .collapse ul li .social-media {
+    position: relative;
+    padding: 0 0.2rem;
+}
+
+nav.upper-one .collapse ul li .social-media::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li .social-media::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li .social-media div {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.2rem;
+    border-radius: 50%;
+}
+
+nav.upper-one .collapse ul li .social-media div div {
+    background-color: white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.upper-one .collapse ul li .social-media div div i {
+    color: black;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: scale(0.7);
+}
+
+nav.upper-one .collapse ul li .social-media div div i::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav.upper-one .collapse ul li.email .link-li {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 10px;
+}
+
+nav.upper-one .collapse ul li.email:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+nav.upper-one .collapse ul li.email .link-li > div {
+    padding: 0 0.2rem;
+}
+
+nav.upper-one .collapse ul li.email .link-li > p {
+    padding: 0 0.2rem;
+    margin-bottom: 0.1rem;
+}
+
+nav.upper-one .collapse ul li.currency {
+    cursor: pointer;
+}
+
+nav.upper-one .collapse ul li.currency p {
+    font-size: 12px;
+}
+
+nav.upper-one .collapse ul li.currency .arrow {
+    width: 0.5rem;
+    height: 0.5rem;
+    right: 0.5rem;
+    top: 45%;
+    border-left: 0.3rem solid transparent;
+    border-top: 0.3rem solid white;
+    border-right: 0.3rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+}
+
+nav.upper-one .collapse ul li.currency .currency-dropdown {
+    top: 150%;
+    left: 50%;
+    transform: translateX(-40%);
+    width: 9rem;
+    background-color: #8B572A;
+    visibility: hidden;
+    opacity: 0;
+    transition: 500ms;
+    list-style: none;
+    z-index: 100;
+}
+
+nav.upper-one .collapse ul li.currency .currency-dropdown li {
+    text-align: center;
+    transition: 300ms;
+}
+
+nav.upper-one .collapse ul li.currency .currency-dropdown li p {
+    margin-bottom: 5px;
+}
+
+nav.upper-one .collapse ul li.currency .currency-dropdown li:hover {
+    transform: scale(1.1);
+    transition: 300ms;
+}
+
+nav.upper-one .collapse ul li.currency:hover .currency-dropdown {
+    top: 100%;
+    opacity: 1;
+    visibility: visible;
+    transition: 500ms;
+}
+
+nav.upper-one .collapse ul li.language {
+    position: relative;
+    font-size: 12px;
+}
+
+nav.upper-one .collapse ul li.language::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li.language::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li.login .link-li {
+    text-decoration: none;
+    color: inherit;
+    font-size: 12px;
+}
+
+nav.upper-one .collapse ul li.current-country {
+    position: relative;
+    cursor: pointer;
+}
+
+nav.upper-one .collapse ul li.current-country::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li.current-country div {
+    width: 1.8rem;
+    height: 1.8rem;
+    object-fit: cover;
+}
+
+nav.upper-one .collapse ul li.current-country div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+nav.upper-one .collapse ul li.current-country .country-dropdown {
+    top: 150%;
+    left: 0;
+    right: -1rem;
+    background-color: #8B572A;
+    list-style: none;
+    padding: 0.1rem 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: 500ms;
+    z-index: 100;
+}
+
+nav.upper-one .collapse ul li.current-country:hover .country-dropdown {
+    opacity: 1;
+    visibility: visible;
+    top: 100%;
+    transition: 500ms;
+    border-radius: 1rem;
+}
+
+nav.upper-one .collapse ul li.current-country .country-dropdown li p {
+    transition: 500ms;
+}
+
+nav.upper-one .collapse ul li.current-country .country-dropdown li:hover p {
+    transform: translateX(1rem);
+    transition: 500ms;
+}
+
+nav.middle-one {
+    border-bottom: 1px solid brown;
+}
+
+nav.middle-one .container .logo-container {
+    width: 7rem;
+}
+
+nav.middle-one .container .logo-container img {
+    object-fit: contain;
+}
+
+nav.middle-one .container .icons-container {
+    width: 10%;
+}
+
+nav.middle-one .container .icons-container > div {
+    width: fit-content;
+    height: 100%;
+    cursor: pointer;
+    transition: 300ms; 
+}
+
+nav.middle-one .container .icons-container > div:hover {
+    transform: scale(1.1); 
+    transition: 300ms;   
+}
+
+nav.middle-one .container .icons-container > div > div {
+    top: 0;
+    right: 4px;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: #c17c40;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-size: 7px;
+    color: white;
+}
+
+nav.middle-one .container .icons-container > div i {
+    transform: scale(1);
+}
+
+nav.middle-one .container .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.middle-one .container .search-bar {
+    width: 40%;
+}
+
+nav.middle-one .container .search-bar > div.icon-container {
+    height: 100%;
+    padding: 0.65rem 0.7rem;
+    border-left: 2px solid #8B572A;
+    border-top: 2px solid #8B572A;
+    border-bottom: 2px solid #8B572A;
+    background-color: #8B572A;
+    cursor: pointer;
+}
+
+nav.middle-one .container .search-bar > div.icon-container i {
+    color: white;
+}
+
+nav.middle-one .container .search-bar input {
+    width: 100%;
+    color: #8B572A;
+    outline: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 0;
+    padding: 0;
+    border: 0px solid #8B572A;
+}
+
+nav.middle-one .container .search-bar .menu-container {
+    cursor: pointer;
+}
+
+nav.lower-one {
+    position: sticky;
+    background-color: #8B572A;
+    z-index: 150;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    padding: 0;
+}
+
+nav.lower-one .container {
+    color: rgb(255, 255, 255);
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav.lower-one .container > div {
+    cursor: pointer;
+}
+
+nav.lower-one .container .has-dropdown {
+    width: 100%;
+}
+
+nav.lower-one .container .has-dropdown ul {
+    transition: 300ms;
+    width: 100%;
+    overflow: hidden;
+    top: 130%;
+    left: 0;
+    height: 0;
+    background-color: #8B572A;
+    transition: 300ms;
+}
+
+nav.lower-one .container .has-dropdown:hover ul {
+    height: 8rem;
+    overflow-y: auto;
+    transition: 300ms;
+}
+
+nav.lower-one .container .has-dropdown ul li {
+    border-bottom: 1px solid white;
+}
+
+nav.lower-one .container .has-dropdown ul li p {
+    transition: 300ms;
+    padding-left: 0.4rem;
+}
+
+nav.lower-one .container .has-dropdown ul li:hover p {
+    transform: translateX(0.5rem);
+    cursor: pointer;
+    transition: 300ms;
+}
+
+@media (min-width: 576px) {
+    nav.lower-one .container .has-dropdown ul {
+        height: 0;
+        transition: 450ms;  
+    }
+    nav.lower-one .container .has-dropdown:hover ul {
+        height: 12rem;
+        transition: 450ms;
+        overflow-y: auto;
+    }
+    nav.middle-one .container .search-bar > div.icon-container {
+        height: 100%;
+        padding: 0.65rem 0.7rem;
+    }
+    nav.middle-one .container .search-bar input {
+        width: 100%;
+        padding: 0;
+    }
+    nav.middle-one .container .logo-container {
+        width: 20%;
+        font-size: 8px;
+    }
+    nav.middle-one .container .logo-container img {
+        object-fit: cover;
+    }
+    nav.upper-one {
+        font-size: 14px;
+    }
+    .nav.upper-onebar-expand .nav.upper-onebar-nav.upper-one .nav.upper-one-link {
+        padding-right: 0.3rem;
+    }
+    nav.upper-one .collapse ul li .social-media-li {
+        padding: 0 0.2rem;
+    }
+    nav.upper-one .collapse ul li .social-media {
+        position: relative;
+        padding: 0 0.3rem;
+    }
+    nav.upper-one .collapse ul li .social-media div {
+        width: 1.3rem;
+        height: 1.3rem;
+        padding: 0 0.15rem;
+        border-radius: 50%;
+    }
+    nav.upper-one .collapse ul li .social-media div div i {
+        width: 70%;
+        height: 70%;
+    }
+    nav.upper-one .collapse ul li .social-media div div i {
+        transform: scale(0.8);
+    }
+    nav.upper-one .collapse ul li.terms {
+        font-size: 12px;
+    }
+    nav.upper-one .collapse ul li.email .link-li {
+        font-size: 12px;
+    }
+    nav.upper-one .collapse ul li.email .link-li {
+        font-size: 14px;
+    }
+    nav.upper-one .collapse ul li.language {
+        font-size: 14px;
+    }
+    nav.upper-one .collapse ul li.login .link-li {
+        font-size: 14px;
+    }
+    nav.upper-one .collapse ul li.currency .currency-dropdown li p {
+        margin-bottom: 8px;
+    }
+}
+
+@media (min-width: 768px) {
+    nav.lower-one .container .has-dropdown {
+        position: relative;
+        width: fit-content;
+    }
+    nav.lower-one .container .has-dropdown ul {
+        position: absolute;
+        top: 130%;
+        visibility: hidden;
+        opacity: 0;
+        height: 11rem;
+        overflow-y: auto;
+    }
+    nav.lower-one .container .has-dropdown:hover ul {
+        top: 100%;
+        opacity: 1;
+        visibility: visible;
+        height: 11rem;
+        transition: 300ms;
+    }
+    nav.lower-one {
+        position: static;
+        background-color: #8B572A;
+    }
+    nav.lower-one .container {
+        background-color: #8B572A;
+        padding: 0.5rem 0;
+        height: auto;
+        overflow: visible;
+    }
+    nav.lower-one .container .has-dropdown ul {
+        width: 12rem;
+        max-height: 20rem;
+    }
+    nav.lower-one .container {
+        font-size: 10px;
+    }
+    nav.middle-one .container .icons-container > div > div {
+        width: 1.1rem;
+        height: 1.1rem;
+        font-size: 11px;
+        top: -20%;
+        right: 0;
+    }
+    nav.middle-one .container .search-bar {
+        width: 40%;
+    }
+    nav.middle-one .container .search-bar > div.icon-container {
+        height: 100%;
+        padding: 0.65rem 0.7rem;
+    }
+    nav.middle-one .container .search-bar > div.icon-container i {
+        color: white;
+    }
+    nav.middle-one .container .search-bar input {
+        width: 100%;
+        position: static;
+        height: 3rem;
+        padding: 0.5rem;
+        border: 2px solid #8B572A;
+    }
+    nav.middle-one .container .search-bar input::placeholder {
+        color: #8B572A;
+    }
+    nav.middle-one .container .icons-container > div i {
+        transform: scale(1.2);
+    }
+    nav.upper-one {
+        font-size: 11px;
+    }
+    .nav.upper-onebar-expand .nav.upper-onebar-nav.upper-one .nav.upper-one-link {
+        padding-right: 0.4rem;
+    }
+    nav.upper-one .collapse ul li .social-media {
+        position: relative;
+        padding: 0 0.7rem;
+    }
+    nav.upper-one .collapse ul li .social-media-li {
+        padding: 0 0.3rem;
+    }
+    nav.upper-one .collapse ul li .social-media div {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0.2rem;
+        border-radius: 50%;
+    }
+    nav.upper-one .collapse ul li .social-media div div i {
+        transform: scale(0.9);
+    }
+    nav.upper-one .collapse ul li.terms {
+        font-size: 12px;
+    }
+    nav.upper-one .collapse ul li.email .link-li {
+        font-size: 13px;
+    }
+    nav.upper-one .collapse ul li.language {
+        font-size: 16px;
+    }
+    nav.upper-one .collapse ul li.login .link-li {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 992px) {
+    nav.lower-one .container {
+        font-size: 14px;
+    }
+    nav.middle-one .container .icons-container > div i {
+        transform: scale(1.5);
+    }
+    nav.upper-one {
+        font-size: 16px;
+    }
+    .nav.upper-onebar-expand .nav.upper-onebar-nav.upper-one .nav.upper-one-link {
+        padding-right: 0.5rem;
+    }
+    nav.upper-one .collapse ul li .social-media-li {
+        padding: 0 0.4rem;
+    }
+    nav.upper-one .collapse ul li .social-media div {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.2rem;
+        border-radius: 50%;
+    }
+    nav.upper-one .collapse ul li .social-media div div i {
+        transform: scale(1);
+    }
+    nav.upper-one .collapse ul li.terms {
+        font-size: 16px;
+    }
+    nav.upper-one .collapse ul li.email .link-li {
+        font-size: 16px;
+    }
+}
