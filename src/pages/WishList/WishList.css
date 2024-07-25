@@ -1,0 +1,18 @@
+.wishlist .image-container {
+    width: 10rem;
+    height: 13rem;
+}
+
+.product-image {
+    width: 5rem;
+}
+
+.no-items p {
+    background-color: #7e5d4099;
+}
+
+th[scope="row"],
+.product-title,
+.remove-col {
+    vertical-align: middle;
+}

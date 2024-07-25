@@ -17,6 +17,7 @@ function Header() {
 
     const { countryImg, countryName } = useSelector(state => state.SelectCountry);
     const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const { wishproducts } = useSelector(state => state.WishList);
     const dispatch = useDispatch();
     const countriesImages = [ 
         {
@@ -189,7 +190,7 @@ function Header() {
     }
 
     return (
-        <header>
+        <header className="position-sticky top-0">
             <nav className="upper-one navbar navbar-expand">
               <div className="container">
                 <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center align-items-center" id="navbarSupportedContent">
@@ -232,7 +233,7 @@ function Header() {
                   </ul>
                   <ul className="navbar-nav text-white d-flex align-items-center">
                     <li className="p-2 currency position-relative">
-                        <p className="mb-0 me-3">{currencyName}</p>
+                        <p className="mb-0 fs-6 me-3">{currencyName}</p>
                         <div className="arrow position-absolute"></div>
                         <ul className="currency-dropdown p-2 position-absolute">
                             { renderCurrencies() }
@@ -251,26 +252,13 @@ function Header() {
                         </div>
                         <ul className="country-dropdown position-absolute">
                             { renderCountries() }
-                            
-                            {/* <li className="py-1 py-md-2 d-flex justify-content-between">
-                                <p>Emirates</p>
-                                <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
-                                    <img src={emirates} alt="bahrain" />
-                                </div>
-                            </li>
-                            <li className="pt-1 pt-md-2 d-flex justify-content-between">
-                                <p>Saudi Arabia</p>
-                                <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
-                                    <img src={saudiarabia} alt="bahrain" />
-                                </div>
-                            </li> */}
                         </ul>
                     </li>
                   </ul>
                 </div>
               </div>
             </nav>
-            <nav className="middle-one navbar navbar-expand">
+            <nav className="middle-one navbar navbar-expand bg-white">
                 <div className="container d-flex justify-content-between">
                     <div className="logo-container">
                         <img src={logo} alt="logo" />
@@ -283,17 +271,16 @@ function Header() {
                         </div>
                         <input type="text" placeholder="Search" />
                         <div className="menu-container px-2 d-block d-md-none" onClick={() => {
-                                console.log("heyy");
                                 ManipulateMenuBar();
                             }}>
                             <i className="fa-solid fa-bars"></i>
                         </div>
                     </div>
-                    <div className="icons-container pe-2 d-flex align-items-center justify-content-center">
+                    <div className="icons-container pe-4 d-flex align-items-center justify-content-center">
                         <div className="px-2 wishlist position-relative">
-                            <i className="fa-regular fa-heart"></i>
-                            <div className="position-absolute">0</div>
-                        </div>
+                            <Link to={"/wishlist"} className="fa-regular fa-heart"></Link>
+                            <div className="position-absolute">{wishproducts.length}</div>
+                        </div   >
                         <div className="px-2 cart position-relative">
                             <i className="fa-solid fa-cart-shopping"></i>
                             <div className="position-absolute">0</div>
@@ -310,27 +297,27 @@ function Header() {
                         ManipulateSubDropDowns(2);
                     }}>
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <p className="mb-0 me-2">Books</p>
+                            <Link to={"/shop-page"} className="mb-0 me-2">Books</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>Oliver Twist</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>A Tale Of Two Cities</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>Robinson Crusoe</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>David Copperfield</p>
                                 </Link> 
                             </li>
@@ -338,27 +325,27 @@ function Header() {
                     </div>
                     <div className="has-dropdown mb-2 mb-md-0 px-1">
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <p className="mb-0 me-2">Staionary</p>
+                            <Link to={"/shop-page"} className="mb-0 me-2">Staionary</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>Oliver Twist</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>A Tale Of Two Cities</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>Robinson Crusoe</p>
                                 </Link> 
                             </li>
                             <li className="py-2">
-                                <Link className="link-tap">
+                                <Link to={"/shop-page"} className="link-tap">
                                     <p>David Copperfield</p>
                                 </Link> 
                             </li>
@@ -368,15 +355,15 @@ function Header() {
                         <p className="mb-0">Offers and discounts</p>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <p className="mb-0 me-2">English Books</p>
+                        <Link to={"/shop-page"} className="mb-0 me-2">English Books</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <p className="mb-0 me-2">Kids Books</p>
+                        <Link to={"/shop-page"} className="mb-0 me-2">Kids Books</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <p className="mb-0 me-2">Learning Languages</p>
+                        <Link to={"/shop-page"} className="mb-0 me-2">Learning Languages</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1">

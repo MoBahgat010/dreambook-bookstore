@@ -1,0 +1,32 @@
+.shop-page {
+    background-color: #F2F2F2;
+}
+
+.shop-page aside > div {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 30%;
+}
+
+.shop-page aside {
+    width: 100%;
+}
+
+.shop-page .row {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    .shop-page aside {
+        width: 25%;
+    }
+    
+    .shop-page .row {
+        width: 75%;
+    }
+    
+}

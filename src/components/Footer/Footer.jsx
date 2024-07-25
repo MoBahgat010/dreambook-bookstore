@@ -97,6 +97,9 @@ function Footer() {
                     </div>
                 </div>
             </div>
+            <div className="lower-footer text-center py-2">
+                <p>Kalemat Bookstore. © 2020. | All Rights Reserved | Designed & Developed By Pixipine</p>
+            </div>
         </footer>
     );
 }
