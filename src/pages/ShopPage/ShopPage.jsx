@@ -5,7 +5,7 @@ function ShopPage () {
 
     return (
         <div className="shop-page pb-2 pt-4">
-            <div className="container  d-flex flex-column-reverse flex-md-row">
+            <div className="container d-flex flex-column-reverse align-items-center align-items-md-start   flex-md-row">
                 <aside className="filter mt-4 top-5 px-3">
                     <div className="w-100">
                         <div className="department">

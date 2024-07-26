@@ -12,7 +12,7 @@ p {
     padding: 0;
 }
 .card {
-    height: 30rem;
+    height: 40rem;
     transition: 300ms;
 }
 .card:hover {
@@ -20,7 +20,7 @@ p {
     transition: 300ms;
 }
 .card .image-container {
-    height: 70%;
+    height: 90%;
     width: 100% !important;
 }
 .new-badge {
@@ -31,4 +31,14 @@ p {
     color: white;
     transform: rotateZ(-45deg);
     background-color: green;
+}
+@media (max-width: 768px) {
+    .card {
+        height: 50rem;
+        transition: 300ms;
+    }
+    .card .image-container {
+        height: 82%;
+        width: 100% !important;
+    }
 }

@@ -1,0 +1,31 @@
+.home .upper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home .upper .image-container {
+    width: 100%;
+    height: 100%;
+}
+
+.home .home-body .container .swiper-slide {
+    width: 12rem;
+    height: 12rem;
+}
+
+.home .home-body .container .swiper-slide > a {
+    width: 100%;
+    height: 100%;
+}
+
+.home .home-body .container .swiper-slide > a .image-container {
+    width: 100%;
+    height: 80%;
+}
+
+.home .home-body .container .swiper-slide > a .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

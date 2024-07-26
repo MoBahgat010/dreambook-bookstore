@@ -1,0 +1,52 @@
+.single-page .container .inner-container .data .upper-data {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid gray;
+}
+
+.single-page .container .inner-container .data .upper-data .review .hollow-stars i {
+    color: rgb(190, 170, 56);
+}
+
+.single-page .container .inner-container .data .upper-data .review .solid-stars {
+    color: rgb(190, 170, 56);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.single-page .container .inner-container .upper-data div button {
+    background-color: #8B572A;
+    border: none;
+}
+
+.single-page .container .inner-container .lower-data table tr div {
+    background-color: #F2F2F2 !important;
+    font-weight: 500;
+}
+
+.single-page .container .inner-container .lower-data .more-options i {
+    transform: scale(1.6);
+}
+
+.single-page .container .inner-container .lower-data .more-options div {
+    cursor: pointer;
+}
+
+.single-page .container .inner-container .lower-data .more-options .like:hover i.fa-solid {
+    opacity: 1;
+    transition: 300ms;
+}
+
+.single-page .container .inner-container .lower-data .more-options i.fa-solid {
+    transition: 300ms;
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+}
+
+.like-active {
+    opacity: 1 !important;
+}

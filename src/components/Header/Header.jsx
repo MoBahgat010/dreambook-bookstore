@@ -295,7 +295,7 @@ function Header() {
             <nav className="lower-one navbar navbar-expand">
                 <div className="container fw--md-bold d-flex flex-md-row flex-column justify-content-md-evenly align-items-start align-items-md-center">
                     <div className="mb-2 mb-md-0">
-                        <Link to={"/"}>Home</Link>
+                        <Link to={"home"}>Home</Link>
                     </div>
                     <div className="has-dropdown mb-2 mb-md-0 position-relative px-1" onClick={() => {
                         ManipulateSubDropDowns(2);

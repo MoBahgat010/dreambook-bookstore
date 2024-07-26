@@ -12,6 +12,7 @@ import PopUpCart from './components/PopUpCart/PopUpCart';
 import CartPage from './pages/CartPage/CartPage';
 import Login from './pages/Login/Login';
 import SinglePage from './pages/ٍSinglePage/SinglePage';
+import Home from './pages/Home/home';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <PopUpCart />
       <Routes>
         <Route path='/' element={<SelectCountry />} />
+        <Route path='home' element={<Home />} />
         <Route path='shop-page' element={<ShopPage />} />
         <Route path='wishlist' element={<WishList />} />
         <Route path='cart' element={<CartPage />} />
