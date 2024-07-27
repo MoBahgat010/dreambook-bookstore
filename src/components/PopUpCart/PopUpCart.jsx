@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 function PopUpCart() {
 
+    const { CartProducts } = useSelector(state => state.Cart);
     const isSmallScreen = useMediaQuery({ query: '(max-width: 678px)' })
 
     const { isShown } = useSelector(state => state.Components);
@@ -17,6 +18,9 @@ function PopUpCart() {
     const dispatch = useDispatch();
 
     function ShowPopUpCart() {
+      gsap.set("body", {
+        overflow: "hidden",
+      })
       gsap.to(".pop-up-cart", {
         visibility: "visible",
         opacity: 1,
@@ -25,7 +29,7 @@ function PopUpCart() {
       if(isSmallScreen) {
           gsap.to(".pop-up-cart .inner-container", {
             duration: 0.5,
-            yPercent: 100,
+            y: 350,
             visibility: "visible",
             opacity: 1
           })
@@ -33,7 +37,7 @@ function PopUpCart() {
         else {
             gsap.to(".pop-up-cart .inner-container", {
               duration: 0.5,
-              yPercent: 60,
+              y: 280,
               visibility: "visible",
               opacity: 1
             })        
@@ -41,14 +45,17 @@ function PopUpCart() {
     }
     
     function HidePopUpCart() {
+      gsap.set("body", {
+        overflow: "visible"
+      })
       gsap.to(".pop-up-cart", {
         visibility: "hidden",
         opacity: 0,
         zIndex: -1
-    })
-    gsap.to(".pop-up-cart .inner-container", {
+      })
+      gsap.to(".pop-up-cart .inner-container", {
         duration: 0.5,
-        yPercent: 0,
+        y: 0,
         visibility: "invisible",
         opacity: 0,
       })
@@ -71,35 +78,36 @@ function PopUpCart() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>
-                    <div className="image-container">
-                      <img src={TestImage} alt="" />
-                    </div>
-                  </th>
-                  <td className="product-text">Psychology of Money (Physical Book)</td>
-                  <td product-text>1</td>
-                  <td className='text-center product-text'>
-                    <p>BHD</p>
-                    <p>11400</p>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <div className="image-container">
-                      <img src={TestImage} alt="" />
-                    </div>
-                  </th>
-                  <td className="product-text">Psychology of Money (Physical Book)</td>
-                  <td product-text>1</td>
-                  <td className='text-center product-text'>
-                    <p>BHD</p>
-                    <p>11400</p>
-                  </td>
-                </tr>
+                {
+                  CartProducts?.map(product => {
+                    return (
+                      <tr>
+                        <th>
+                          <div className="image-container">
+                            <img src={TestImage} alt="" />
+                          </div>
+                        </th>
+                        <td className="product-text">Psychology of Money (Physical Book)</td>
+                        <td product-text>1</td>
+                        <td className='text-center product-text'>
+                          <p>BHD</p>
+                          <p>11400</p>
+                        </td>
+                      </tr>
+                    );
+                  })
+                }
               </tbody>
+              {
+                !CartProducts.length && 
+                  <caption>
+                    <div className="w-100 px-2">
+                      <p className="no-items w-100 text-center text-white no-items py-2 rounded">no items</p>
+                    </div>
+                  </caption>
+              }
             </table>
-            <div className="options pb-2 d-flex justify-content-end">
+            <div className="options position-sticky bottom-0 bg-white pb-2 d-flex justify-content-end">
                 <div className="close px-1">
                   <button onClick={() => {
                     dispatch(hideComponents());

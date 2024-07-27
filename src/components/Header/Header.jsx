@@ -192,7 +192,7 @@ function Header() {
     }
 
     return (
-        <header>
+        <header className="position-sticky top-0">
             <nav className="upper-one navbar navbar-expand">
               <div className="container">
                 <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center align-items-center" id="navbarSupportedContent">

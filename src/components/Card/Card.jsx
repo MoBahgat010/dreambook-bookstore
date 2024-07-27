@@ -27,13 +27,17 @@ function Card(props) {
                 <h5 className="card-title text-center">Card title</h5>
                 <p className="card-text">5000 {currencyName}</p>
                 <div className="options mt-3 d-flex justify-content-center align-items-center">
-                    <div className="button">
-                        <button onClick={() => {
-                            dispatch(addProduct(1))
-                        }} className="btn btn-primary">Add to Cart</button>
+                    <div className="button add-button">
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            dispatch(addProduct(1));
+                        }} className="btn btn-primary"><p>Add to Cart</p></button>
                     </div>
-                    <div className="button px-2">
-                        <button onClick={() => {
+                    <div className="button like-button px-sm-2 px-1">
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
                             dispatch(addProductToWishList(1));
                         }} className="btn btn-primary">
                             <i className="fa-regular fa-heart"></i>

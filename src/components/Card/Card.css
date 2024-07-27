@@ -11,8 +11,13 @@ p {
     margin: 0;
     padding: 0;
 }
+
+.card img {
+    object-fit: contain;
+}
+
 .card {
-    height: 40rem;
+    /* height: 100%; */
     transition: 300ms;
 }
 .card:hover {
@@ -20,25 +25,45 @@ p {
     transition: 300ms;
 }
 .card .image-container {
-    height: 90%;
+    height: 75%;
     width: 100% !important;
 }
+
 .new-badge {
     top: 4%;
-    right: 63%;
-    width: 50%;
+    right: 36%;
+    width: 100%;
     height: 5%;
     color: white;
     transform: rotateZ(-45deg);
     background-color: green;
 }
+
+.card .card-body .options .add-button {
+    font-size: 8px;
+}
+
+.card .card-body .options .like-button {
+    transform: scale(0.8);
+}
+
+@media (min-width:576px) {
+    .card .card-body .options .add-button {
+        font-size: 16px;
+    }
+    
+    .card .card-body .options .like-button {
+        transform: scale(0.9);
+    }
+}
+
 @media (max-width: 768px) {
-    .card {
+    /* .card {
         height: 50rem;
         transition: 300ms;
     }
     .card .image-container {
         height: 82%;
         width: 100% !important;
-    }
+    } */
 }

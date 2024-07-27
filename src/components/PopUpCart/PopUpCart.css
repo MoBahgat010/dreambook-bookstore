@@ -29,9 +29,14 @@
 .pop-up-cart .inner-container .image-container {
     width: 4rem;
     height: 4rem;
+    overflow: ;
 }
 .product-text {
     font-size: 10px;
+}
+
+.pop-up-cart .no-items {
+    background-color: #8B572A;
 }
 
 @media (min-width: 576px) {

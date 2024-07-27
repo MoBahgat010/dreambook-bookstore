@@ -9,23 +9,86 @@
     height: 100%;
 }
 
-.home .home-body .container .swiper-slide {
-    width: 12rem;
-    height: 12rem;
+.home .home-body {
+    background-color: #f2f2f2;
 }
 
-.home .home-body .container .swiper-slide > a {
+.home .home-body .container .categories .swiper-slide {
+    height: 15rem;
+}
+
+.home .home-body .container .categories .swiper-slide > a {
     width: 100%;
     height: 100%;
 }
 
-.home .home-body .container .swiper-slide > a .image-container {
+.home .home-body .container .categories .swiper-slide > a .image-container {
     width: 100%;
     height: 80%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.home .home-body .container .swiper-slide > a .image-container img {
+.home .home-body .container .categories .swiper-slide > a .image-container img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.home .home-body .container .categories .options > div > div {
+    cursor: pointer;
+    background-color: #2a8b79;
+}
+
+.home .home-body .container > div:not(.categories) .options > .d-flex > div > div {
+    cursor: pointer;
+    background-color: #2a8b79;
+}
+
+.home .home-body .container > div:not(.categories) .swiper-slide {
+    min-height: 38rem;
+}
+
+.home .home-body .container > div:not(.categories) .options .text a {
+    font-weight: 700;
+    color: black;
+}
+
+.home .home-body .container > div:not(.categories) .options .text a:hover {
+    text-decoration: underline;
+}
+
+.home .home-body .container .swiper-slide > a p {
+    font-size: 10px;
+}
+
+.home h3 {
+    color: #2a8b79;
+}
+
+@media (min-width: 576px) {
+    .home .home-body .container .categories .swiper-slide > a {
+        padding: 1rem;
+    }
+    .home .home-body .container .swiper-slide > a p {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .home .home-body .container .categories .swiper-slide > a {
+        padding: 1rem;
+    }
+    .home .home-body .container .swiper-slide > a p {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 992px) {
+    .home .home-body .container .categories .swiper-slide > a {
+        padding: 2rem;
+    }
+    .home .home-body .container .swiper-slide > a p {
+        font-size: 16px;
+    }
 }
