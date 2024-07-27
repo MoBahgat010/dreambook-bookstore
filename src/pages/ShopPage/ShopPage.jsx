@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import Card from "../../components/Card/Card";
 import "./ShopPage.css"
 
 function ShopPage () {
+
+    const { t } = useTranslation();
 
     return (
         <div className="shop-page pb-2 pt-4">
@@ -10,25 +13,25 @@ function ShopPage () {
                     <div className="w-100">
                         <div className="department">
                             <div className="d-flex px-1 rounded mb-5 bg-white justify-content-between">
-                                <p>DEPARTEMENTS</p>
+                                <p>{t("DEPARTEMENTS")}</p>
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                         </div>
                         <div className="categories">
                             <div className="d-flex px-1 rounded mb-5 bg-white justify-content-between">
-                                <p>CATEGORIES</p>
+                                <p>{t("CATEGORIES")}</p>
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                         </div>
                         <div className="author">
                             <div className="d-flex px-1 rounded mb-5 bg-white justify-content-between">
-                                <p>AUTHOR</p>
+                                <p>{t("AUTHOR")}</p>
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                         </div>
                         <div className="publication">
                             <div className="d-flex px-1 rounded mb-5 bg-white justify-content-between">
-                                <p>Publication</p>
+                                <p>{t("Publication")}</p>
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                         </div>

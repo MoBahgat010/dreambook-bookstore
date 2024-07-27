@@ -4,9 +4,18 @@
     object-fit: cover;
 }
 
+.home .upper {
+    direction: rtl;
+}
+
 .home .upper .image-container {
     width: 100%;
     height: 100%;
+}
+
+.swiper,
+.swiper-slide {
+    direction: rtl;
 }
 
 .home .home-body {

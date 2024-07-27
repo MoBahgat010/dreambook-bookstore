@@ -17,7 +17,7 @@ img {
 }
 
 nav.upper-one .collapse ul li.terms {
-    font-size: 10px;
+    font-size: 8.7px;
 }
 
 nav.upper-one .collapse ul li.terms:hover {
@@ -150,7 +150,7 @@ nav.upper-one .collapse ul li.currency .currency-dropdown {
     top: 150%;
     left: 50%;
     transform: translateX(-40%);
-    width: 9rem;
+    width: 6rem;
     background-color: #8B572A;
     visibility: hidden;
     opacity: 0;
@@ -207,6 +207,34 @@ nav.upper-one .collapse ul li.language::after {
     background-color: white;
 }
 
+nav.upper-one .collapse ul li.login {
+    position: relative;
+}
+
+nav.upper-one .collapse ul li.login::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+nav.upper-one .collapse ul li.login::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1.3rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+}
+
+
+
 nav.upper-one .collapse ul li.login .link-li {
     text-decoration: none;
     color: inherit;
@@ -216,17 +244,6 @@ nav.upper-one .collapse ul li.login .link-li {
 nav.upper-one .collapse ul li.current-country {
     position: relative;
     cursor: pointer;
-}
-
-nav.upper-one .collapse ul li.current-country::before {
-    content: "";
-    position: absolute;
-    width: 1px;
-    height: 1.3rem;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
 }
 
 nav.upper-one .collapse ul li.current-country div {
@@ -242,16 +259,18 @@ nav.upper-one .collapse ul li.current-country div img {
 }
 
 nav.upper-one .collapse ul li.current-country .country-dropdown {
+    position: absolute;
     top: 150%;
-    left: 0;
-    right: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #8B572A;
     list-style: none;
     padding: 0.1rem 1rem;
     visibility: hidden;
     opacity: 0;
     transition: 500ms;
-    z-index: 100;
+    z-index: 200;
+    font-size: 14px;
 }
 
 nav.upper-one .collapse ul li.current-country:hover .country-dropdown {
@@ -267,8 +286,12 @@ nav.upper-one .collapse ul li.current-country .country-dropdown li p {
 }
 
 nav.upper-one .collapse ul li.current-country .country-dropdown li:hover p {
-    transform: translateX(1rem);
+    transform: scale(1.1rem);
     transition: 500ms;
+}
+
+nav.upper-one .collapse ul li.current-country p {
+    font-size: 10px;
 }
 
 nav.middle-one {
@@ -361,14 +384,13 @@ nav.middle-one .container .search-bar .menu-container {
 }
 
 nav.lower-one {
-    position: sticky;
+    position: relative;
     background-color: #8B572A;
     z-index: 150;
-    left: 0;
-    top: 0;
+    /* left: 0; */
     display: flex;
     flex-direction: column;
-    right: 0;
+    /* right: 0; */
     padding: 0;
 }
 
@@ -421,6 +443,15 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 576px) {
+    nav.upper-one .collapse ul li.currency .currency-dropdown {
+        width: 9rem;
+    }
+    nav.upper-one .collapse ul li.current-country p {
+        font-size: 12px;
+    }
+    .nav.upper-one {
+        font-size: 12px;
+    }
     nav.lower-one .container .has-dropdown ul {
         height: 0;
         transition: 450ms;  
@@ -492,6 +523,14 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 768px) {
+    nav.upper-one .collapse ul li.current-country p {
+        font-size: 12px;
+    }
+    nav.upper-one .collapse ul li.current-country .country-dropdown {
+        top: 150%;
+        padding: 0.1rem 1rem;
+        font-size: 16px;
+    }
     nav.lower-one .container .has-dropdown {
         position: relative;
         width: fit-content;
@@ -512,7 +551,11 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         transition: 300ms;
     }
     nav.lower-one {
-        position: static;
+        /* position: static; */
+        position: sticky;
+        /* position: -webkit-sticky; */
+        top: 0;
+        z-index: 100;
         background-color: #8B572A;
     }
     nav.lower-one .container {
@@ -561,7 +604,7 @@ nav.lower-one .container .has-dropdown ul li:hover p {
     nav.upper-one {
         font-size: 11px;
     }
-    .nav.upper-onebar-expand .nav.upper-onebar-nav.upper-one .nav.upper-one-link {
+    .nav.upper-one .bar-expand .nav.upper-onebar-nav.upper-one .nav.upper-one-link {
         padding-right: 0.4rem;
     }
     nav.upper-one .collapse ul li .social-media {
@@ -595,6 +638,9 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 992px) {
+    nav.upper-one .collapse ul li.current-country p {
+        font-size: 16px;
+    }
     nav.lower-one .container {
         font-size: 14px;
     }
@@ -625,4 +671,8 @@ nav.lower-one .container .has-dropdown ul li:hover p {
     nav.upper-one .collapse ul li.email .link-li {
         font-size: 16px;
     }
+}
+
+.arabic-format {
+    direction: rtl;
 }

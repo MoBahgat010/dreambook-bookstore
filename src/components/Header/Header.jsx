@@ -13,8 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "../../RTK/Slices/SelectedCurrencySlice";
 import { changeCountry } from "../../RTK/Slices/SelectedCountrySlice";
 import { showComponents } from "../../RTK/Slices/ComponentsSlice";
+import i18n from "../../i18n";
+import { useTranslation } from "react-i18next";
 
 function Header() {
+
+    const { i18n, t } = useTranslation();
 
     const { countryImg, countryName } = useSelector(state => state.SelectCountry);
     const { currencyName } = useSelector(state => state.SelectedCurrency);
@@ -85,7 +89,7 @@ function Header() {
                     <li onClick={() => {
                         dispatch(changeCountry({ countryImg: country.countryImg, countryName: country.countryName }));
                     }} key={index} className="py-1 py-md-2 d-flex justify-content-between">
-                        <p>{country.countryName}</p>
+                        <p className="me-2 me-md-0">{t(country.countryName)}</p>
                         <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
                             <img src={country.countryImg} alt="bahrain" />
                         </div>
@@ -192,13 +196,13 @@ function Header() {
     }
 
     return (
-        <header className="position-sticky top-0">
+        <header>
             <nav className="upper-one navbar navbar-expand">
               <div className="container">
-                <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center align-items-center" id="navbarSupportedContent">
-                  <ul className="navbar-nav me-0 me-md-auto">
+                <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center justify-content-md-between align-items-center" id="navbarSupportedContent">
+                  <ul className="navbar-nav">
                     <li className="nav-item d-flex align-items-center terms pr-1 p-md-2 p-lg-3">
-                      <Link className="active text-white" aria-current="page" href="#">Terms and conditions</Link>
+                      <Link className="active terms-link text-white" aria-current="page" href="#">{t('Terms and Conditions')}</Link>
                     </li>
                     <li className="nav-item social-media-li">
                         <div className="w-100 h-100 social-media d-flex align-items-center">
@@ -233,7 +237,7 @@ function Header() {
                         </Link>
                     </li>
                   </ul>
-                  <ul className="navbar-nav text-white d-flex align-items-center">
+                  <ul className="navbar-nav px-0 px-md-1 px-lg-2 text-white d-flex align-items-center">
                     <li className="p-2 currency position-relative">
                         <p className="mb-0 fs-6 me-3">{currencyName}</p>
                         <div className="arrow position-absolute"></div>
@@ -242,14 +246,18 @@ function Header() {
                         </ul>
                     </li>
                     <li className="language p-2 ">
-                        <p className="mb-0">EN</p>
+                        <button style={{backgroundColor: "transparent", border: "none", color: "white"}} onClick={() => {
+                            const newLang = i18n.language === 'en' ? 'ar' : 'en';
+                            i18n.changeLanguage(newLang);
+                            document.documentElement.classList.toggle("arabic-format");
+                        }} className="mb-0">{i18n.language === 'en' ? 'EN' : 'عربي'}</button>
                     </li>
                     <li className="login p-2 d-flex align-items-center">
-                        <Link to={"login"} className="link-li">Login</Link>
+                        <Link to={"login"} className="link-li">{t('Login')}</Link>
                     </li>
                     <li className="current-country position-relative p-2 d-flex align-items-center">
-                        <p className="mb-0">Change Country</p>
-                        <div className="image-container ms-2 d-flex align-items-center">
+                        <p className="mb-0">{t('Change Country')}</p>
+                        <div className="image-container mx-2 d-flex align-items-center">
                             <img src={countryImg} alt="bahrain" />
                         </div>
                         <ul className="country-dropdown position-absolute">
@@ -261,7 +269,7 @@ function Header() {
               </div>
             </nav>
             <nav className="middle-one navbar navbar-expand bg-white">
-                <div className="container d-flex justify-content-between">
+                <div className="container d-flex justify-content-md-between justify-content-evenly">
                     <div className="logo-container">
                         <img src={logo} alt="logo" />
                     </div>
@@ -271,14 +279,14 @@ function Header() {
                         }}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input type="text" placeholder="Search" />
+                        <input type="text" placeholder={t("Search")} />
                         <div className="menu-container px-2 d-block d-md-none" onClick={() => {
                                 ManipulateMenuBar();
                             }}>
                             <i className="fa-solid fa-bars"></i>
                         </div>
                     </div>
-                    <div className="icons-container pe-4 d-flex align-items-center justify-content-center">
+                    <div className="icons-container d-flex align-items-center justify-content-center">
                         <div className="px-2 wishlist position-relative">
                             <Link to={"/wishlist"} className="fa-regular fa-heart"></Link>
                             <div className="position-absolute">{wishproducts.length}</div>
@@ -295,13 +303,13 @@ function Header() {
             <nav className="lower-one navbar navbar-expand">
                 <div className="container fw--md-bold d-flex flex-md-row flex-column justify-content-md-evenly align-items-start align-items-md-center">
                     <div className="mb-2 mb-md-0">
-                        <Link to={"home"}>Home</Link>
+                        <Link to={"home"}>{t('Home')}</Link>
                     </div>
                     <div className="has-dropdown mb-2 mb-md-0 position-relative px-1" onClick={() => {
                         ManipulateSubDropDowns(2);
                     }}>
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <Link to={"/shop-page"} className="mb-0 me-2">Books</Link>
+                            <Link to={"/shop-page"} className="mb-0 mx-2">{t('Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
@@ -329,7 +337,7 @@ function Header() {
                     </div>
                     <div className="has-dropdown mb-2 mb-md-0 px-1">
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <Link to={"/shop-page"} className="mb-0 me-2">Staionary</Link>
+                            <Link to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
@@ -356,24 +364,24 @@ function Header() {
                         </ul>
                     </div>
                     <div className="mb-2 mb-md-0 px-1">
-                        <p className="mb-0">Offers and discounts</p>
+                        <p className="mb-0">{t('Offers and discounts')}</p>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 me-2">English Books</Link>
+                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 me-2">Kids Books</Link>
+                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 me-2">Learning Languages</Link>
+                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
-                    <div className="mb-2 mb-md-0 px-1">
-                        <p className="mb-0">About Us</p>
-                    </div>
-                    <div><p className="mb-0">Contact Us</p></div>
+                    <Link to={"/about-us"} className="mb-2 mb-md-0 px-1">
+                        <p className="mb-0">{t("About Us")}</p>
+                    </Link>
+                    <Link to={"/contact-us"}><p className="mb-0">{t('Contact Us')}</p></Link>
                 </div>
             </nav>
         </header>

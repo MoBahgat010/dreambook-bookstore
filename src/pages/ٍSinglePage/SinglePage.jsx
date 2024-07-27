@@ -3,11 +3,14 @@ import TestImage from "../../assets/TestImage.jpg"
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../RTK/Slices/ProductCartSlice";
+import { useTranslation } from "react-i18next";
 
 function SinglePage() {
 
     const { currencyName } = useSelector(state => state.SelectedCurrency);
     const dispatch = useDispatch();
+
+    const { t } = useTranslation();
 
     const [isLiked, setIsLiked] = useState(false);
     const [quantity, setQuantity] = useState(0);
@@ -52,9 +55,9 @@ function SinglePage() {
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                 </div>
-                                <p className="mt-1 mb-3">0 Reviews</p>
+                                <p className="mt-1 mb-3">0 {t("Reviews")}</p>
                                 <div className="d-flex align-items-center">
-                                    <div className="pe-1">
+                                    <div className="px-1">
                                         <select className="form-select" aria-label="Default select example">
                                             <option value="1">1</option>
                                             <option value="1.5">1.5</option>
@@ -67,7 +70,7 @@ function SinglePage() {
                                             <option value="5">5</option>
                                         </select>
                                     </div>
-                                    <button type="button" className="btn btn-secondary">Add Review</button>
+                                    <button type="button" className="btn btn-secondary">{t("Add Review")}</button>
                                 </div>
                                 <div className="select-quantity mt-2 d-flex align-items-center">
                                     <div className="d-flex pe-1">
@@ -77,10 +80,10 @@ function SinglePage() {
                                         <div className="p-2 d-flex bg-light-subtle align-items-center">{quantity}</div>
                                         <button onClick={() => setQuantity(quantity + 1)} className="text-white fs-3 py-1 px-3">+</button>
                                     </div>
-                                    <div className="ps-1">
+                                    <div className="px-1">
                                         <button onClick={() => {
                                             dispatch(addProduct(1));
-                                        }} type="button" className="h-100 text-white rounded-pill py-2 px-4">Add To Cart</button>
+                                        }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
                                 </div>
                             </div>
@@ -89,61 +92,61 @@ function SinglePage() {
                             <table class="table table-striped table-bordered">
                                 <tbody>
                                   <tr>
-                                      <td>Departement</td>
-                                      <td>Books</td>
+                                      <td>{t("DEPARTEMENTS")}</td>
+                                      <td>{t("Books")}</td>
                                   </tr>
                                   <tr>
-                                      <td>Category</td>
-                                      <td>Articles</td>
+                                      <td>{t("Category")}</td>
+                                      <td>{t("Articles")}</td>
                                   </tr>
                                   <tr>
-                                      <td>Author</td>
+                                      <td>{t("AUTHOR")}</td>
                                       <td>John Doe</td>
                                   </tr>
                                   <tr>
-                                      <td>Publication</td>
+                                      <td>{t("Publication")}</td>
                                       <td>EM</td>
                                   </tr>
                                   <tr>
-                                      <td>Page Count</td>
+                                      <td>{t("Page Count")}</td>
                                       <td>368</td>
                                   </tr>
                                   <tr>
-                                        <td>Weight ( Grams )</td>
+                                        <td>{t("Weight")}</td>
                                         <td>400</td>
                                   </tr>
                                   <tr>
-                                        <td>Code</td>
+                                        <td>{t('Code')}</td>
                                         <td>1000005440</td>
                                   </tr>
                                   <tr>
-                                        <td>Availability</td>
-                                        <td>In STock</td>
+                                        <td>{t('Availability')}</td>
+                                        <td>{t("In Stock")}</td>
                                   </tr>
                                   <tr>
-                                        <td>Views</td>
+                                        <td>{t("Views")}</td>
                                         <td>315</td>
                                   </tr>
                                   <tr>
-                                        <td className="me-auto">Stocks</td>
+                                        <td className="me-auto">{t('Stocks')}</td>
                                         <td>321</td>
                                   </tr>
                                 </tbody>
                             </table>
-                            <div className="more-options d-flex">
-                                <div className="like me-auto position-relative p-2 px-3 bg-info" onClick={() => {
+                            <div className="more-options d-flex justify-content-between">
+                                <div className="like position-relative p-2 px-3 bg-info" onClick={() => {
                                     setLiked();
                                 }}>
                                     <i class="fa-regular fa-heart"></i>
                                     <i ref={WholeHeart} class="fa-solid fa-heart"></i>
                                 </div>
-                                <div className="pe-2 d-flex">
-                                    <div className="pe-1">
+                                <div className="px-1 d-flex">
+                                    <div className="px-1">
                                         <div className="facebook p-2 px-3 bg-info">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </div>
                                     </div>
-                                    <div className="ps-1">
+                                    <div className="px-1">
                                         <div className="facebook p-2 px-3 bg-info">
                                             <i class="fa-brands fa-x-twitter"></i>
                                         </div>

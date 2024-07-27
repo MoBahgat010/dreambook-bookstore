@@ -13,6 +13,9 @@ import CartPage from './pages/CartPage/CartPage';
 import Login from './pages/Login/Login';
 import SinglePage from './pages/ٍSinglePage/SinglePage';
 import Home from './pages/Home/home';
+import Checkout from './pages/Checkout/Checkout';
+import About from './pages/About/about';
+import ContactUs from './pages/Contact Us/ContactUs';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
         <Route path='cart' element={<CartPage />} />
         <Route path='login' element={<Login />} />
         <Route path='single-page' element={<SinglePage />} />
+        <Route path='checkout' element={<Checkout />} />
+        <Route path='about-us' element={<About />} />
+        <Route path='contact-us' element={<ContactUs />} />
       </Routes>
       <Footer />
     </>

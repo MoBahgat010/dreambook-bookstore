@@ -3,12 +3,14 @@ import TestImage from "../../assets/TestImage.jpg"
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProductFromWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import { useTranslation } from "react-i18next";
 
 function WishList() {
 
     const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
     const { wishproducts } = useSelector(state => state.WishList);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     return (
         <section className="wishlist pt-4 pb-2">
@@ -19,17 +21,17 @@ function WishList() {
                     <th scope="col">#</th>
                     {
                         !isSmallScreen &&
-                        <th scope="col product-image">Product Image</th>
+                        <th scope="col product-image">{t("Product Image")}</th>
                     }
-                    <th scope="col">Product title</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">{t("Product Title")}</th>
+                    <th scope="col">{t("Handle")}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         !wishproducts.length ?
                             <div className="no-items position-absolute left-0 right-0 w-100 p-1">
-                                <p className="text-white text-center rounded">No items in wishlist</p>
+                                <p className="text-white text-center rounded">{t("No items in wishlist")}</p>
                             </div>
                         :
                             wishproducts.map((product, index) => {
@@ -46,7 +48,7 @@ function WishList() {
                                     <td className="remove-col">
                                         <button onClick={() => {
                                             dispatch(removeProductFromWishList(index));
-                                        }} class="btn btn-danger">Remove</button>
+                                        }} class="btn btn-danger">{t("Remove")}</button>
                                     </td>
                                 </tr>
                             })

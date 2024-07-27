@@ -6,11 +6,14 @@ import ShoppingCart from "../../assets/shopping-cart.png"
 import { addProductToWishList } from "../../RTK/Slices/ProductsWishListSlice";
 import { addProduct } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Card(props) {
 
     const { currencyName } = useSelector(state => state.SelectedCurrency);
     const [newBadge, setNewBadge] = useState(true);
+
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
 
@@ -32,7 +35,7 @@ function Card(props) {
                             e.stopPropagation();
                             e.preventDefault();
                             dispatch(addProduct(1));
-                        }} className="btn btn-primary"><p>Add to Cart</p></button>
+                        }} className="btn btn-primary"><p>{t("Add to Cart")}</p></button>
                     </div>
                     <div className="button like-button px-sm-2 px-1">
                         <button onClick={(e) => {

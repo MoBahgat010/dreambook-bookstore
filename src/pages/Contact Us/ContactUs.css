@@ -1,0 +1,10 @@
+.contact-us {
+    background-color: #f7f7f7;
+}
+.contact-us .container .row form .submit-button button {
+    color: white;
+    background-color: #8B572A;
+    border: 2px solid #8B572A;
+    padding: 0.5rem 2.5rem;
+    border-radius: 2rem;
+}

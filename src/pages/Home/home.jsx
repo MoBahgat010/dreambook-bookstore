@@ -19,10 +19,12 @@ import 'swiper/css/pagination';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useRef, useState } from "react";
 import Card from "../../components/Card/Card";
+import { useTranslation } from "react-i18next";
 
 function Home() {
 
     const swiper = useState(null);
+    const { t } = useTranslation();
 
     return (
         <section className="home">
@@ -63,12 +65,12 @@ function Home() {
                     <div className="categories mb-5">
                         <div className="options d-flex justify-content-end mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
                             <div className="p-md-2 p-1">
-                                <div className="rounded-pill swiper-button-prev py-md-2 py-0 px-md-3 px-2">
+                                <div className="rounded-pill swiper-button-prev0 py-md-2 py-0 px-md-3 px-2">
                                     <i className="text-white fa-solid fa-chevron-left"></i>
                                 </div>
                             </div>
                             <div className="p-md-2 p-1">
-                                <div className="rounded-pill swiper-button-next py-md-2 py-0 px-md-3 px-2">
+                                <div className="rounded-pill swiper-button-next0 py-md-2 py-0 px-md-3 px-2">
                                     <i className="text-white fa-solid fa-chevron-right"></i>
                                 </div>
                             </div>
@@ -76,8 +78,8 @@ function Home() {
                         <Swiper
                             modules={[Autoplay, Pagination, Navigation]}
                             navigation={{
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
+                                nextEl: '.swiper-button-next0',
+                                prevEl: '.swiper-button-prev0',
                             }}
                             breakpoints={{
                                 0:{
@@ -103,7 +105,7 @@ function Home() {
                                     <div className="image-container">
                                         <img src={KidsBooks} alt="KidsBooks" />
                                     </div>
-                                    <p className="fw-bolder">Kids Books</p>
+                                    <p className="fw-bolder">{t("Kids Books")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
@@ -111,7 +113,7 @@ function Home() {
                                     <div className="image-container">
                                         <img src={Stationary} alt="KidsBooks" />
                                     </div>
-                                    <p className="fw-bolder">Stationary</p>
+                                    <p className="fw-bolder">{t("Staionary")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
@@ -119,7 +121,7 @@ function Home() {
                                     <div className="image-container">
                                         <img src={Offers} alt="KidsBooks" />
                                     </div>
-                                    <p className="fw-bolder">Offers and discounts</p>
+                                    <p className="fw-bolder">{t("Offers and discounts")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
@@ -127,7 +129,7 @@ function Home() {
                                     <div className="image-container">
                                         <img src={LearningLanguages} alt="KidsBooks" />
                                     </div>
-                                    <p className="fw-bolder">Learning Languages</p>
+                                    <p className="fw-bolder">{t("Learning Languages")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
@@ -135,25 +137,25 @@ function Home() {
                                     <div className="image-container">
                                         <img src={EnglishBooks} alt="KidsBooks" />
                                     </div>
-                                    <p className="fw-bolder">English Books</p>
+                                    <p className="fw-bolder">{t("English Books")}</p>
                                 </Link>
                             </SwiperSlide>
                         </Swiper>
                     </div>
                     <div className="non-categories mb-5">
-                        <div className="options d-flex justify-content-end mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
-                            <div className="text me-auto d-flex align-items-center">
-                                <h3>New Arrivals</h3>
-                                <Link className="ms-3">See More</Link>
+                        <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
+                            <div className="text d-flex align-items-center">
+                                <h3 className="mx-2">{t("New Arrivals")}</h3>
+                                <Link className="ms-3">{t("See More")}</Link>
                             </div>
                             <div className="d-flex">
                                 <div className="p-md-2 p-1">
-                                    <div className="rounded-pill swiper-button-prev py-md-2 py-0 px-md-3 px-2">
+                                    <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
                                         <i className="text-white fa-solid fa-chevron-left"></i>
                                     </div>
                                 </div>
                                 <div className="p-md-2 p-1">
-                                    <div className="rounded-pill swiper-button-next py-md-2 py-0 px-md-3 px-2">
+                                    <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
                                         <i className="text-white fa-solid fa-chevron-right"></i>
                                     </div>
                                 </div>
@@ -162,8 +164,8 @@ function Home() {
                         <Swiper
                             modules={[Autoplay, Pagination, Navigation]}
                             navigation={{
-                                nextEl: '.swiper-button-next',
-                                prevEl: '.swiper-button-prev',
+                                nextEl: '.swiper-button-next1',
+                                prevEl: '.swiper-button-prev1',
                             }}
                             breakpoints={{
                                 0:{
