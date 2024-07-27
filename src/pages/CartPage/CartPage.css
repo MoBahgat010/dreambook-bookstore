@@ -12,6 +12,14 @@
     vertical-align: middle;
 }
 
+table tbody {
+    font-size: 8px;
+}
+
+.cart-page table td {
+    font-size: 10px;
+}
+
 .cart-page table .cross i {
     cursor: pointer;
 }
@@ -95,4 +103,27 @@
 
 .step-one {
     background-color: #8B572A;
+}
+
+.cart-page table td {
+    font-size: 10px;
+}
+
+@media (min-width: 576px) {
+    .cart-page table td {
+        font-size: 12px;
+    }
+}
+@media (min-width:768) {
+    .product-text {
+        font-size: 16px;
+    }
+    .cart-page table td {
+        font-size: 14px;
+    }
+}
+@media (min-width:992px) {
+    .cart-page table td {
+        font-size: 16px;
+    }
 }

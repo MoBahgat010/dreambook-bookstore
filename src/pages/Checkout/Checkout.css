@@ -12,6 +12,10 @@
     font-weight: 600;
 }
 
+.checkout .table td {
+    font-size: 10px;
+}
+
 .checkout .left-form select {
     border-radius: 0;
     border: 1px solid #4f4f4f;
@@ -28,6 +32,7 @@
 
 .checkout table .image-container {
     border-right: 1px solid gray;
+    border-left: 1px solid gray;
     width: 8rem;
     height: 10rem;
 }
@@ -117,15 +122,24 @@
         padding: 0.8rem 0.8rem;
         font-size: 12px;
     }
+    .checkout .table td {
+        font-size: 12px;
+    }
 }
 
 @media (min-width: 768px) {
+    .checkout .table td {
+        font-size: 14px;
+    }
     .checkout .container .payement-button button {
         font-size: 14px;
     }
 }
 
 @media (min-width: 992px) {
+    .checkout .table td {
+        font-size: 16px;
+    }
     .checkout .container .payement-button button {
         padding: 1.1rem 1rem;
         font-size: 16px;

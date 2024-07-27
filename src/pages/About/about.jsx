@@ -1,10 +1,14 @@
+import { useTranslation } from "react-i18next";
 import logo from"../../assets/logo.png"
 
 function About() {
+
+    const { t } = useTranslation();
+
     return (
         <section style={{backgroundColor: "#F2F2F2"}} className="about py-5">
             <div className="container p-2">
-                <h2 className="text-center">About Us</h2>
+                <h2 className="text-center">{t("About Us")}</h2>
                 <div className="row align-items-center">
                     <div className="col-12 col-md-6">
                         <div className="pe-1">

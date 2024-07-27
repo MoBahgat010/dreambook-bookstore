@@ -84,5 +84,10 @@
     "Views": "Views",
     "Stocks": "Stocks",
     "In Stock": "In Stock",
-    "Out of Stock": "Out of Stock"
+    "Out of Stock": "Out of Stock",
+    "Contact Form": "Contact Form",
+    "Send": "Send",
+    "Password": "Password",
+    "Re-Password": "Re-Password",
+    "Forgot Password": "Forget Password"
 }

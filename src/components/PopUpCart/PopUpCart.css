@@ -29,9 +29,8 @@
 .pop-up-cart .inner-container .image-container {
     width: 4rem;
     height: 4rem;
-    overflow: ;
 }
-.product-text {
+.pop-up-cart .product-text {
     font-size: 10px;
 }
 
@@ -43,6 +42,9 @@
     .product-text {
         font-size: 13px;
     }
+    .pop-up-cart .product-text {
+        font-size: 13px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -52,5 +54,8 @@
     .pop-up-cart .inner-container .image-container {
         width: 10rem;
         height: 10rem;
+    }
+    .pop-up-cart .product-text {
+        font-size: 16px;
     }
 }

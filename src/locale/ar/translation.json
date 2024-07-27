@@ -57,7 +57,9 @@
     "Quantity": "الكمية",
     "Address Details": "العنوان بالتفصيل",
     "First Name": "الاسم الاول",
+    "Full Name": "الاسم بالكامل",
     "Last Name": "الاسم الاخير",
+    "Message": "رسالة",
     "Email": "البريد الالكتروني",
     "Mobile": "رقم الهاتف",
     "CART DETAIL": "تفاصيل سلة التسوق",
@@ -85,5 +87,10 @@
     "Views": "الزيارات",
     "Stocks": "الكمية المتاحة",
     "In Stock": "متاح",
-    "Out of Stock": "غير متاح"
+    "Out of Stock": "غير متاح",
+    "Contact Form": "ارسل طلب هنا",
+    "Send": "ارسل",
+    "Password": "كلمة المرور",
+    "Re-Password": "اعادة كلمة المرور",
+    "Forgot Password": "نسيت كلمة المرور"
 }

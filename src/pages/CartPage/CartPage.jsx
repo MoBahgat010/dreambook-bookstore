@@ -33,7 +33,7 @@ function CartPage() {
                         <tr>
                           <th>
                             <div className="d-flex align-items-center">
-                                <div className="image-container p-2">
+                                <div className="image-container d-none d-md-block p-2">
                                     <img src={TestImage} alt="" />
                                 </div>
                                 <div className="product-text px-2">
