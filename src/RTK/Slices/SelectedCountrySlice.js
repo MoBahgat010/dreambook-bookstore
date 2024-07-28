@@ -6,8 +6,8 @@ import saudiarabia from "../../assets/saudiarabia.png"
 import world from "../../assets/world.png"
 
 const initialstate = {
-    countryImg: bahrain,
-    countryName: "Bahrain",
+    countryImg: kuwait,
+    countryName: "Kuwait",
 }
 
 export const SelectedCountrySlice = createSlice({

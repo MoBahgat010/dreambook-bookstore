@@ -29,18 +29,23 @@ function Header() {
     const countriesImages = [ 
         {
             countryImg: bahrain,
+            currencyName: "BHD",
             countryName: t("Bahrain")
         } , {
             countryImg: kuwait,
+            currencyName: "KWD",
             countryName: t("Kuwait")
         } , {
             countryImg: World,
+            currencyName: "KWD",
             countryName: t("World")
         } , {
             countryImg: emirates,
+            currencyName: "AED",
             countryName: t("UAE")
         } , {
             countryImg: saudiarabia,
+            currencyName: "SAR",
             countryName: t("SaudiArabia")
         }    
     ];
@@ -96,7 +101,8 @@ function Header() {
                         </div>
                     </li>
                 );
-            }
+            } else
+                dispatch(changeCurrency({ currencyName: country.currencyName, countryName: country.countryName }));
         })
     }
 
