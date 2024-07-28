@@ -25,22 +25,23 @@ function Header() {
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
     const dispatch = useDispatch();
+
     const countriesImages = [ 
         {
             countryImg: bahrain,
-            countryName: "Bahrain"
+            countryName: t("Bahrain")
         } , {
             countryImg: kuwait,
-            countryName: "Kuwait"
+            countryName: t("Kuwait")
         } , {
             countryImg: World,
-            countryName: "World"
+            countryName: t("World")
         } , {
             countryImg: emirates,
-            countryName: "UAE"
+            countryName: t("UAE")
         } , {
             countryImg: saudiarabia,
-            countryName: "Saudi Arabia"
+            countryName: t("SaudiArabia")
         }    
     ];
     const currencies = [
@@ -72,7 +73,7 @@ function Header() {
             currencyName: "GBP",
             countryName: "British"
         }
-        ];
+    ];
 
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
     const [isMenuBarOpen, setIsMenuBarOpen] = useState(false);
@@ -88,7 +89,7 @@ function Header() {
                 return (
                     <li onClick={() => {
                         dispatch(changeCountry({ countryImg: country.countryImg, countryName: country.countryName }));
-                    }} key={index} className="py-1 py-md-2 d-flex justify-content-between">
+                    }} key={index} className="py-1 py-md-2 d-flex align-items-center justify-content-between">
                         <p className="me-2 me-md-0">{t(country.countryName)}</p>
                         <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
                             <img src={country.countryImg} alt="bahrain" />
@@ -112,33 +113,34 @@ function Header() {
 
     function ManipulateSubDropDowns(order) {
         if (isSmallScreen) {
-            if(lastOpenedSubDropDown == order)
-                CloseSubDropDowns(lastOpenedSubDropDown);
-            else
+            if(!lastOpenedSubDropDown)
                 ShowSubDropDowns(order);
+            else if (lastOpenedSubDropDown == order)
+                CloseSubDropDowns(order);
+            else {
+                CloseSubDropDowns(lastOpenedSubDropDown);
+                ShowSubDropDowns(order);
+            }
         }
     }
 
     function ShowSubDropDowns(order) {
-        if(lastOpenedSubDropDown)
-            CloseSubDropDowns(lastOpenedSubDropDown);
-        console.log("opopop");
-        // gsap.to(`nav.lower-one .container .has-dropdown ul`, {
-        //     height: "auto",
-        //     duration: 0.1,
-        //     padding: "0.5rem"
-        // })
-        subDropDowns.current.classList.toggle("drop-down-active");
-        subDropDowns.current.classList.toggle("drop-down-deactive");
+        gsap.to(`nav.lower-one .container .has-dropdown:nth-child(${order}) ul`, {
+            height: "11rem",
+            duration: 0.1,
+            overflowY: "auto"
+            // padding: "0.5rem"
+        })
         setLastOpenedSubDropDown(order);
     }
-
+    
     function CloseSubDropDowns(order) {
-        // gsap.to(`nav.lower-one .container .has-dropdown ul`, {
-        //     height: "0",
-        //     duration: 0.1,
-        //     padding: "0"
-        // })
+        gsap.to(`nav.lower-one .container .has-dropdown:nth-child(${order}) ul`, {
+            height: "0",
+            duration: 0.1,
+            overflowY: "hidden"
+            // padding: "0"
+        })
         setLastOpenedSubDropDown(0);
     }
 
@@ -174,7 +176,6 @@ function Header() {
          setIsMenuBarOpen(false);
     }
 
-
     function ShowSearchBar() {
         gsap.to("nav.middle-one .container .search-bar input", {
             duration: 0.5,
@@ -201,39 +202,39 @@ function Header() {
               <div className="container">
                 <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center justify-content-md-between align-items-center" id="navbarSupportedContent">
                   <ul className="navbar-nav">
-                    <li className="nav-item d-flex align-items-center terms pr-1 p-md-2 p-lg-3">
+                    <li className="nav-item d-flex align-items-center terms pe-1 p-lg-3">
                       <Link className="active terms-link text-white" aria-current="page" href="#">{t('Terms and Conditions')}</Link>
                     </li>
                     <li className="nav-item social-media-li">
                         <div className="w-100 h-100 social-media d-flex align-items-center">
                             <div>
-                                <div>
+                                <Link className="d-block" to={"https://api.whatsapp.com/send/?phone=96551455511&text&type=phone_number&app_absent=0"}>
                                     <i className="fa-brands fa-whatsapp"></i>
-                                </div>
+                                </Link>
                             </div>
                             <div>
-                                <div>
+                                <Link>
                                     <i className="fa-brands fa-facebook-f"></i>
-                                </div>
+                                </Link>
                             </div>
                             <div>
-                                <div>
+                                <Link>
                                     <i className="fa-brands fa-x-twitter"></i>
-                                </div>
+                                </Link>
                             </div>
                             <div>
-                                <div>
+                                <Link className="d-block" to={"https://www.instagram.com/dreambookq8/"}>
                                     <i className="fa-brands fa-instagram"></i>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </li>
                     <li className="email">
-                        <Link className="link-li pl-1 pl-md-2 pl-lg-3 text-light d-flex align-items-center w-100 h-100">
+                        <Link className="link-li text-light d-flex align-items-center w-100 h-100">
                             <div>
                                 <i className="fa-regular fa-envelope"></i>
                             </div>
-                            <p>Info@darkalemat.com</p>
+                            <p>info@dardreambook.com</p>
                         </Link>
                     </li>
                   </ul>
@@ -255,9 +256,11 @@ function Header() {
                     <li className="login p-2 d-flex align-items-center">
                         <Link to={"login"} className="link-li">{t('Login')}</Link>
                     </li>
-                    <li className="current-country position-relative p-2 d-flex align-items-center">
-                        <p className="mb-0">{t('Change Country')}</p>
-                        <div className="image-container mx-2 d-flex align-items-center">
+                    <li className="current-country position-relative ps-1 p-lg-2 d-flex align-items-center">
+                        <div className="w-75 d-flex align-items-center">
+                            <p className="mb-0">{t('Change Country')}</p>
+                        </div>
+                        <div className="image-container mx-2 w-25 d-flex align-items-center">
                             <img src={countryImg} alt="bahrain" />
                         </div>
                         <ul className="country-dropdown position-absolute">
@@ -335,7 +338,9 @@ function Header() {
                             </li>
                         </ul>
                     </div>
-                    <div className="has-dropdown mb-2 mb-md-0 px-1">
+                    <div onClick={() => {
+                        ManipulateSubDropDowns(3);
+                    }} className="has-dropdown mb-2 mb-md-0 px-1">
                         <div className="w-100 h-100 d-flex align-items-center">
                             <Link to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>

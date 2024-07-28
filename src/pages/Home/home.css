@@ -4,7 +4,14 @@
     object-fit: cover;
 }
 
+.mySwiper,
+.mySwiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
 .home .upper {
+    height: 40dvh;
     direction: rtl;
 }
 
@@ -75,6 +82,9 @@
 }
 
 @media (min-width: 576px) {
+    .home .upper {
+        height: 50dvh;
+    }
     .home .home-body .container .categories .swiper-slide > a {
         padding: 1rem;
     }
@@ -84,6 +94,9 @@
 }
 
 @media (min-width: 768px) {
+    .home .upper {
+        height: 70dvh;
+    }
     .home .home-body .container .categories .swiper-slide > a {
         padding: 1rem;
     }
@@ -93,6 +106,9 @@
 }
 
 @media (min-width: 992px) {
+    .home .upper {
+        height: 100dvh;
+    }
     .home .home-body .container .categories .swiper-slide > a {
         padding: 2rem;
     }

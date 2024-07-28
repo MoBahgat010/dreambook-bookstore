@@ -2,8 +2,10 @@ header {
     z-index: 100;
 }
 
+
 nav.upper-one {
     background-color: #8B572A;
+    direction: ltr;
 }
 
 a {
@@ -29,21 +31,21 @@ nav.upper-one .collapse ul li.social-media-li {
     padding: 0 0.25rem;
 }
 
-nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover {
+nav.upper-one .collapse ul li.social-media-li .social-media > div > a:hover {
     transition: 300ms;
     cursor: pointer;
 }
 
-nav.upper-one .collapse ul li.social-media-li .social-media > div > div i {
+nav.upper-one .collapse ul li.social-media-li .social-media > div > a i {
     transition: 300ms;
 }
 
-nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover i {
+nav.upper-one .collapse ul li.social-media-li .social-media > div > a:hover i {
     color: white;
     transition: 300ms;
 }
 
-nav.upper-one .collapse ul li.social-media-li .social-media > div > div:hover {
+nav.upper-one .collapse ul li.social-media-li .social-media > div > a:hover {
     background-color: black;
     transition: 300ms;
 }
@@ -76,13 +78,13 @@ nav.upper-one .collapse ul li .social-media::after {
 }
 
 nav.upper-one .collapse ul li .social-media div {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.7rem;
+    height: 1.7rem;
     padding: 0.2rem;
     border-radius: 50%;
 }
 
-nav.upper-one .collapse ul li .social-media div div {
+nav.upper-one .collapse ul li .social-media div a {
     background-color: white;
     border-radius: 50%;
     width: 100%;
@@ -92,15 +94,15 @@ nav.upper-one .collapse ul li .social-media div div {
     align-items: center;
 }
 
-nav.upper-one .collapse ul li .social-media div div i {
+nav.upper-one .collapse ul li .social-media div a i {
     color: black;
     width: 100%;
     height: 100%;
     position: relative;
-    transform: scale(0.7);
+    transform: scale(0.8);
 }
 
-nav.upper-one .collapse ul li .social-media div div i::before {
+nav.upper-one .collapse ul li .social-media div a i::before {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -124,6 +126,7 @@ nav.upper-one .collapse ul li.email .link-li > div {
 
 nav.upper-one .collapse ul li.email .link-li > p {
     padding: 0 0.2rem;
+    font-size: 8px;
     margin-bottom: 0.1rem;
 }
 
@@ -211,17 +214,6 @@ nav.upper-one .collapse ul li.login {
     position: relative;
 }
 
-nav.upper-one .collapse ul li.login::before {
-    content: "";
-    position: absolute;
-    width: 1px;
-    height: 1.3rem;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-}
-
 nav.upper-one .collapse ul li.login::after {
     content: "";
     position: absolute;
@@ -232,8 +224,6 @@ nav.upper-one .collapse ul li.login::after {
     transform: translateY(-50%);
     background-color: white;
 }
-
-
 
 nav.upper-one .collapse ul li.login .link-li {
     text-decoration: none;
@@ -421,11 +411,11 @@ nav.lower-one .container .has-dropdown ul {
     transition: 300ms;
 }
 
-nav.lower-one .container .has-dropdown:hover ul {
+/* nav.lower-one .container .has-dropdown:hover ul {
     height: 8rem;
     overflow-y: auto;
     transition: 300ms;
-}
+} */
 
 nav.lower-one .container .has-dropdown ul li {
     border-bottom: 1px solid white;
@@ -443,6 +433,9 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 576px) {
+    nav.upper-one .collapse ul li.email .link-li > p {
+        font-size: 10px;
+    }
     nav.upper-one .collapse ul li.currency .currency-dropdown {
         width: 9rem;
     }
@@ -456,11 +449,11 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         height: 0;
         transition: 450ms;  
     }
-    nav.lower-one .container .has-dropdown:hover ul {
+    /* nav.lower-one .container .has-dropdown:hover ul {
         height: 12rem;
         transition: 450ms;
         overflow-y: auto;
-    }
+    } */
     nav.middle-one .container .search-bar > div.icon-container {
         height: 100%;
         padding: 0.65rem 0.7rem;
@@ -523,8 +516,8 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 768px) {
-    nav.upper-one .collapse ul li.current-country p {
-        font-size: 12px;
+    nav.upper-one .collapse ul li.current-country div p {
+        font-size: 11px;
     }
     nav.upper-one .collapse ul li.current-country .country-dropdown {
         top: 150%;
@@ -624,7 +617,7 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         transform: scale(0.9);
     }
     nav.upper-one .collapse ul li.terms {
-        font-size: 12px;
+        font-size: 10px;
     }
     nav.upper-one .collapse ul li.email .link-li {
         font-size: 13px;
@@ -638,6 +631,9 @@ nav.lower-one .container .has-dropdown ul li:hover p {
 }
 
 @media (min-width: 992px) {
+    nav.upper-one .collapse ul li.email .link-li > p {
+        font-size: 14px;
+    }
     nav.upper-one .collapse ul li.current-country p {
         font-size: 16px;
     }

@@ -1,7 +1,9 @@
 import "./home.css"
 import { Link } from "react-router-dom";
 
-import TestImage from "../../assets/CaroudelImage.jpeg"
+import SLiderImage0 from "../../assets/SliderImage0.jpg"
+import SLiderImage1 from "../../assets/SliderImage1.jpg"
+import SLiderImage2 from "../../assets/SliderImage2.jpg"
 import Stationary from "../../assets/stationary.png"
 import Offers from "../../assets/offers and discounts.png"
 import LearningLanguages from "../../assets/Learning Languages.png"
@@ -45,17 +47,17 @@ function Home() {
                 >
                     <SwiperSlide>
                         <div className="image-container">
-                            <img src={TestImage} alt="" />
+                            <img src={SLiderImage0} alt="" />
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="image-container">
-                            <img src={TestImage} alt="" />
+                            <img src={SLiderImage1} alt="" />
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="image-container">
-                            <img src={TestImage} alt="" />
+                            <img src={SLiderImage2} alt="" />
                         </div>
                     </SwiperSlide>
                 </Swiper>

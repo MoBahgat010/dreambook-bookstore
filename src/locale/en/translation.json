@@ -13,9 +13,10 @@
     "About Us": "About Us",
     "Contact Us": "Contact Us",
     "Saudi Arabia": "Saudi Arabia",
+    "SaudiArabia": "KSA",
     "Kuwait": "Kuwait",
     "United Arab Emirates": "United Arab Emirates",
-    "UAE": "United Arab Emirates",
+    "UAE": "UAE",
     "Bahrain": "Bahrain",
     "Other World": "Other World",
     "Search": "Search",
@@ -89,5 +90,5 @@
     "Send": "Send",
     "Password": "Password",
     "Re-Password": "Re-Password",
-    "Forgot Password": "Forget Password"
+    "Forgot Password": "Forgot Password"
 }

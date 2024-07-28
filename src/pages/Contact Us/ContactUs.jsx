@@ -41,8 +41,12 @@ function ContactUs() {
                         </div>
                     </div>
                     <div className="addresses col-12 col-md-6">
-                        <div className="p-3 bg-white">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis ex aperiam maiores nam exercitationem dolores numquam corporis odit, cupiditate iure. Magnam, ipsum. Consequuntur neque enim voluptas nihil sapiente sequi tempore?</p>
+                        <div style={{lineHeight: "40px"}} className="p-3 bg-white text-center">
+                            <p>ابق على تواصل معنا</p>
+                            <p>الكويت</p>
+                            <p>0096551455511 - 0096566016006</p>
+                            <p>خدمة 7 أيام في الأسبوع من 9:00 حتي 05:00 </p>
+                            <p>info@dardreambook.com</p>
                         </div>
                     </div>
                 </div>
