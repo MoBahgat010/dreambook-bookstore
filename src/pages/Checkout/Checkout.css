@@ -32,7 +32,7 @@
 
 .checkout table .image-container {
     border-right: 1px solid gray;
-    border-left: 1px solid gray;
+    /* border-left: 1px solid gray; */
     width: 8rem;
     height: 10rem;
 }

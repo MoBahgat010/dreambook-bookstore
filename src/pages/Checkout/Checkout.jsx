@@ -27,7 +27,7 @@ function Checkout() {
     const OrderNotes = useRef();
 
     const { currencyName } = useSelector(state => state.SelectedCurrency);
-    const { CartProducts } = useSelector(state => state.Cart);
+    const { CartProducts, cartTotal } = useSelector(state => state.Cart);
     const dispatch = useDispatch();
     const [showPaymentMethods, setShowPaymentMethods] = useState(false);
 
@@ -67,7 +67,7 @@ function Checkout() {
                                 </div>
                                 <select ref={Country} onInput={() => {
                                     Country.current.value == "Select Country" ? setShowPaymentMethods(false) : setShowPaymentMethods(true);
-                                }} required class="form-select p-2 form-select-lg" aria-label="Large select example">
+                                }} required className="form-select p-2 form-select-lg" aria-label="Large select example">
                                   <option selected>{t("Select Country")}</option>
                                   <option value="egypt">Egypt</option>
                                 </select>
@@ -143,7 +143,7 @@ function Checkout() {
                                     <p>{t("CART DETAIL")}</p>
                                 </div>
                             </div>
-                            <table class="table table-bordered">
+                            <table className="table table-bordered">
                               <thead>
                                 <tr className="text-center">
                                   <th className="w-50" scope="col">{t("Product")}</th>
@@ -160,7 +160,7 @@ function Checkout() {
                                         <th>
                                           <div className="d-flex align-items-center">
                                               <div className="image-container d-none d-md-block p-2">
-                                                  <img src={TestImage} alt="" />
+                                                  <img src={product.image} alt="" />
                                               </div>
                                               <div className="product-text text-center px-2">
                                                 <strong>Girl, Missing</strong>
@@ -171,11 +171,11 @@ function Checkout() {
                                               </div>
                                           </div>
                                         </th>
-                                        <td className="text-center">{currencyName} 11.000</td>
-                                        <td className="text-center">2</td>
-                                        <td className="text-center">{currencyName} 11.000</td>
+                                        <td className="text-center">{currencyName} {product.price}</td>
+                                        <td className="text-center">{product.quantity}</td>
+                                        <td className="text-center">{currencyName} {product.quantity * product.price}</td>
                                         <td className="text-center cross"><i onClick={() => {
-                                          dispatch(removeProduct(1));
+                                          dispatch(removeProduct({ id: product.id, quantity: product.quantity, price:product.price }));
                                         }} className="fa-solid fa-circle-xmark"></i></td>
                                       </tr>
                                     );
@@ -196,7 +196,7 @@ function Checkout() {
                               <div className="p-2">
                                 <div className="total-amount d-flex justify-content-between">
                                   <div>{t("Total Amount")}:</div>
-                                  <div>52.50 AED</div>
+                                  <div>{cartTotal} AED</div>
                                 </div>
                                 <div className="discount d-flex justify-content-between">
                                   <div>{t('Discount or Coupon')}</div>
@@ -204,11 +204,11 @@ function Checkout() {
                                 </div>
                                 <div className="shipping d-flex justify-content-between">
                                   <div>{t("Shipping")}</div>
-                                  <div>AED0.000</div>
+                                  <div>{0.05 * cartTotal} AED</div>
                                 </div>
                                 <div className="total d-flex justify-content-between">
                                   <div>{t("Grand Total")}</div>
-                                  <div>52.500</div>
+                                  <div>{1.05 * cartTotal}</div>
                                 </div>
                               </div>
                             </div>

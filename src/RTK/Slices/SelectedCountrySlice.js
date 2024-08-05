@@ -8,6 +8,7 @@ import world from "../../assets/world.png"
 const initialstate = {
     countryImg: kuwait,
     countryName: "Kuwait",
+    countryCurrency: "KWD"
 }
 
 export const SelectedCountrySlice = createSlice({
@@ -17,6 +18,7 @@ export const SelectedCountrySlice = createSlice({
         changeCountry: (state, action) => {
             state.countryImg = action.payload.countryImg;
             state.countryName = action.payload.countryName;
+            state.countryCurrency = action.payload.countryCurrency;
         }
     } 
 })

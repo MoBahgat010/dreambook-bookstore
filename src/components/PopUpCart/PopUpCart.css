@@ -1,3 +1,6 @@
+.pop-up-cart img {
+    object-fit: contain;
+}
 .pop-up-cart {
     position: fixed;
     inset: 0;

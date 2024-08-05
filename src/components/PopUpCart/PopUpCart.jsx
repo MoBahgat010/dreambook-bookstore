@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 function PopUpCart() {
 
+    const { token } = useSelector(state => state.Authorization);
     const { CartProducts } = useSelector(state => state.Cart);
     const { currencyName } = useSelector(state => state.SelectedCurrency);
     const isSmallScreen = useMediaQuery({ query: '(max-width: 678px)' });
@@ -71,7 +72,7 @@ function PopUpCart() {
     return (
         <div ref={PopUbCart} className='pop-up-cart .pop-up-deactive'>
           <div ref={PopUpCartContainer} className="inner-container bg-white">
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr className='fw-bold'>
                   <th className='image product-text text-center' scope="col">{t("Image")}</th>
@@ -84,17 +85,17 @@ function PopUpCart() {
                 {
                   CartProducts?.map(product => {
                     return (
-                      <tr>
+                      <tr key={product.id}>
                         <th>
                           <div className="image-container">
-                            <img src={TestImage} alt="" />
+                            <img src={product.image} alt="" />
                           </div>
                         </th>
-                        <td className="product-text">Psychology of Money (Physical Book)</td>
-                        <td product-text>1</td>
+                        <td className="product-text">{product.title}</td>
+                        <td className="product-text">{product.quantity}</td>
                         <td className='text-center product-text'>
                           <p>{currencyName}</p>
-                          <p>11400</p>
+                          <p>{product.quantity * product.price}</p>
                         </td>
                       </tr>
                     );

@@ -1,0 +1,9 @@
+.loader {
+    position: fixed;
+    inset: 0;
+    background-color: white;
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

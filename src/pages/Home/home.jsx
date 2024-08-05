@@ -19,11 +19,15 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card/Card";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+
 
 function Home() {
+    
+    
 
     const swiper = useState(null);
     const { t } = useTranslation();

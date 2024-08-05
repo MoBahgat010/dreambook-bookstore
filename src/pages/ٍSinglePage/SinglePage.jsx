@@ -2,20 +2,28 @@ import "./SinglePage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../RTK/Slices/ProductCartSlice";
+import { addProduct, AddToCart, AddToCartAction, AddToCartSlice } from "../../RTK/Slices/ProductCartSlice";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function SinglePage() {
 
-    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const params  = useParams();
+    
+    const { token } = useSelector(state => state.Authorization);
+    const { countryCurrency } = useSelector(state => state.SelectCountry);
     const dispatch = useDispatch();
+    
+    const [productData, setProductData] = useState({})
 
+    
     const { t } = useTranslation();
-
+    
     const [isLiked, setIsLiked] = useState(false);
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
     const WholeHeart = useRef();
-
+    
     function setLiked() {
         if(isLiked) {
             WholeHeart.current.classList.remove("like-active");
@@ -24,36 +32,48 @@ function SinglePage() {
         }
         setIsLiked(!isLiked);
     }
-
+    
     useEffect(() => {
         setIsLiked();
     }, [])
+
+    useEffect(() => {
+        axios.get(`http://localhost:3500/api/v1/products/${params.productId}`,{
+            headers: {
+                currency:  countryCurrency
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+            setProductData(res.data.result)
+        })
+    }, [])    
 
     return (
         <section className="single-page py-5">
             <div className="container">
                 <div className="inner-container fw-bolder row">
                     <div className="image-container px-2 col-12 col-md-6">
-                        <img src={TestImage} alt="" />
+                        <img src={productData.image} alt="" />
                     </div>
                     <div className="data col-12 col-md-6">
                         <div className="upper-data">
-                            <h1>the psychology of money</h1>
-                            <span>11.000 {currencyName}</span>
+                            <h1>{productData.title}</h1>
+                            <span>{productData.price} {countryCurrency}</span>
                             <div className="review overflow-hidden position-relative mt-5">
                                 <div className="hollow-stars d-flex">
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
+                                    <i className="fa-regular fa-star"></i>
+                                    <i className="fa-regular fa-star"></i>
+                                    <i className="fa-regular fa-star"></i>
+                                    <i className="fa-regular fa-star"></i>
+                                    <i className="fa-regular fa-star"></i>
                                 </div>
                                 <div className="solid-stars d-flex">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
+                                    <i className="fa-solid fa-star"></i>
                                 </div>
                                 <p className="mt-1 mb-3">0 {t("Reviews")}</p>
                                 <div className="d-flex align-items-center">
@@ -82,18 +102,31 @@ function SinglePage() {
                                     </div>
                                     <div className="px-1">
                                         <button onClick={() => {
-                                            dispatch(addProduct(1));
+                                            console.log(quantity);
+                                            dispatch(AddToCartAction({ id: params.productId, quantity: quantity}))
+                                            let current_product = {
+                                                id: params.productId,
+                                                image: productData.image,
+                                                title: productData.title,
+                                                quantity: quantity,
+                                                price: productData.price
+                                            }
+                                            dispatch(addProduct(current_product));
                                         }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
+                                    {
+                                        productData.new &&
+                                        <p style={{color: "#8B572A"}} className="mx-2">{t("New")}</p>
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div className="lower-data mt-3">
-                            <table class="table table-striped table-bordered">
+                            <table className="table table-striped table-bordered">
                                 <tbody>
                                   <tr>
                                       <td>{t("DEPARTEMENTS")}</td>
-                                      <td>{t("Books")}</td>
+                                      <td>{t(productData.departement)}</td>
                                   </tr>
                                   <tr>
                                       <td>{t("Category")}</td>
@@ -113,15 +146,15 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td>{t("Weight")}</td>
-                                        <td>400</td>
+                                        <td>{productData.weight}</td>
                                   </tr>
                                   <tr>
                                         <td>{t('Code')}</td>
-                                        <td>1000005440</td>
+                                        <td>{params.productId}</td>
                                   </tr>
                                   <tr>
                                         <td>{t('Availability')}</td>
-                                        <td>{t("In Stock")}</td>
+                                        <td>{productData.availability ? t("In Stock") : t("Out of Stock")}</td>
                                   </tr>
                                   <tr>
                                         <td>{t("Views")}</td>
@@ -137,18 +170,18 @@ function SinglePage() {
                                 <div className="like position-relative p-2 px-3 bg-info" onClick={() => {
                                     setLiked();
                                 }}>
-                                    <i class="fa-regular fa-heart"></i>
-                                    <i ref={WholeHeart} class="fa-solid fa-heart"></i>
+                                    <i className="fa-regular fa-heart"></i>
+                                    <i ref={WholeHeart} className="fa-solid fa-heart"></i>
                                 </div>
                                 <div className="px-1 d-flex">
                                     <div className="px-1">
                                         <div className="facebook p-2 px-3 bg-info">
-                                            <i class="fa-brands fa-facebook-f"></i>
+                                            <i className="fa-brands fa-facebook-f"></i>
                                         </div>
                                     </div>
                                     <div className="px-1">
                                         <div className="facebook p-2 px-3 bg-info">
-                                            <i class="fa-brands fa-x-twitter"></i>
+                                            <i className="fa-brands fa-x-twitter"></i>
                                         </div>
                                     </div>
                                 </div>

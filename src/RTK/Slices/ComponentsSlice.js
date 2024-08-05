@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialstate = {
-    isShown: false
+    isShown: false,
 }
 
 export const ComponentsSlice = createSlice({
@@ -13,7 +13,7 @@ export const ComponentsSlice = createSlice({
         },
         hideComponents: (state) => {
             state.isShown = false;
-        }
+        },
     }
 })
 

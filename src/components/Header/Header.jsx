@@ -8,23 +8,30 @@ import World from "../../assets/world.png"
 import logo from "../../assets/logo.png"
 import { useMediaQuery } from "react-responsive";
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "../../RTK/Slices/SelectedCurrencySlice";
 import { changeCountry } from "../../RTK/Slices/SelectedCountrySlice";
 import { showComponents } from "../../RTK/Slices/ComponentsSlice";
 import i18n from "../../i18n";
 import { useTranslation } from "react-i18next";
+import { GetAllWishedProducts } from "../../RTK/Slices/ProductsWishListSlice";
 
 function Header() {
 
     const { i18n, t } = useTranslation();
 
-    const { countryImg, countryName } = useSelector(state => state.SelectCountry);
-    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);
+    // const { currencyName } = useSelector(state => state.SelectedCurrency);
+    let currencyName = countryCurrency;
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log(wishproducts);
+        dispatch(GetAllWishedProducts());
+    }, [])
 
     const countriesImages = [ 
         {
@@ -93,16 +100,16 @@ function Header() {
             if(countryName != country.countryName) {
                 return (
                     <li onClick={() => {
-                        dispatch(changeCountry({ countryImg: country.countryImg, countryName: country.countryName }));
+                        dispatch(changeCountry({ countryImg: country.countryImg, countryName: country.countryName, countryCurrency: country.currencyName }));
                     }} key={index} className="py-1 py-md-2 d-flex align-items-center justify-content-between">
                         <p className="me-2 me-md-0">{t(country.countryName)}</p>
                         <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
-                            <img src={country.countryImg} alt="bahrain" />
+                            <img src={country.countryImg} alt={t(country.countryName)} />
                         </div>
                     </li>
                 );
-            } else
-                dispatch(changeCurrency({ currencyName: country.currencyName, countryName: country.countryName }));
+            }// } else
+            //     dispatch(changeCurrency({ currencyName: country.currencyName, countryName: country.countryName }));
         })
     }
 
@@ -110,7 +117,7 @@ function Header() {
         return currencies.map((currency, index) => {
             if(currency.currencyName != currencyName)
                 return (
-                    <li onClick={() => {
+                    <li key={index} onClick={() => {
                         dispatch(changeCurrency({ currencyName: currency.currencyName, countryName: currency.countryName }));
                     }}><p className="fs-6">{currency.countryName} - {currency.currencyName}</p></li>
                 );
@@ -296,14 +303,14 @@ function Header() {
                         </div>
                     </div>
                     <div className="icons-container d-flex align-items-center justify-content-center">
-                        <div className="px-2 wishlist position-relative">
-                            <Link to={"/wishlist"} className="fa-regular fa-heart"></Link>
+                        <Link to={"/wishlist"} className="d-block px-2 wishlist position-relative">
+                            <i className="fa-regular fa-heart"></i>
                             <div className="position-absolute">{wishproducts.length}</div>
-                        </div>
+                        </Link>
                         <div onClick={() => {
                             dispatch(showComponents());
                         }} className="px-2 cart position-relative">
-                            <Link className="fa-solid fa-cart-shopping"></Link>
+                            <i className="fa-solid fa-cart-shopping"></i>
                             <div className="position-absolute">{CartProducts.length}</div>
                         </div>
                     </div>

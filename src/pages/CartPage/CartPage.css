@@ -2,9 +2,13 @@
     background-color: #F2F2F2;
 }
 
+.cart-page img {
+    object-fit: contain;
+}
+
 .cart-page table .image-container {
     border-right: 1px solid gray;
-    width: 15rem;
+    width: 8rem;
     height: 10rem;
 }
 

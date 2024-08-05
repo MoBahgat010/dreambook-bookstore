@@ -15,4 +15,5 @@ th[scope="row"],
 .product-title,
 .remove-col {
     vertical-align: middle;
+    font-size: 14px;
 }

@@ -16,10 +16,13 @@ import Home from './pages/Home/home';
 import Checkout from './pages/Checkout/Checkout';
 import About from './pages/About/about';
 import ContactUs from './pages/Contact Us/ContactUs';
+import Loader from './components/Loader/Loader';
 
 function App() {
+
   return (
     <>
+      <Loader />    
       <Header />
       <PopUpCart />
       <Routes>
@@ -29,7 +32,7 @@ function App() {
         <Route path='wishlist' element={<WishList />} />
         <Route path='cart' element={<CartPage />} />
         <Route path='login' element={<Login />} />
-        <Route path='single-page' element={<SinglePage />} />
+        <Route path='single-page/:productId' element={<SinglePage />} />
         <Route path='checkout' element={<Checkout />} />
         <Route path='about-us' element={<About />} />
         <Route path='contact-us' element={<ContactUs />} />

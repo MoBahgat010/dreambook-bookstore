@@ -15,7 +15,7 @@ function WishList() {
     return (
         <section className="wishlist pt-4 pb-2">
             <div className="container">
-                <table class="table table-striped position-relative">
+                <table className="table table-striped position-relative">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -39,16 +39,14 @@ function WishList() {
                                     <th scope="row">{index + 1}</th>
                                     <td className="d-none d-md-block">
                                         <div className="image-container">
-                                            <img src={TestImage} alt="" />
+                                            <img src={product.image} alt="" />
                                         </div>
                                     </td>
-                                    <td className="product-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime molestias,
-                                    ratione sequi ea aut odit vero architecto atque magnam deserunt illum at dicta recusandae
-                                    eum officiis quo mollitia. Autem, nostrum!</td>
+                                    <td className="product-title">{product.title}</td>
                                     <td className="remove-col">
                                         <button onClick={() => {
-                                            dispatch(removeProductFromWishList(index));
-                                        }} class="btn btn-danger">{t("Remove")}</button>
+                                            dispatch(removeProductFromWishList(product.id));
+                                        }} className="btn btn-danger">{t("Remove")}</button>
                                     </td>
                                 </tr>
                             })

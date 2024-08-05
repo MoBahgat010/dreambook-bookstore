@@ -4,20 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeProduct } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 function CartPage() {
 
-  const { CartProducts } = useSelector(state => state.Cart);
-  const { currencyName } = useSelector(state => state.SelectedCurrency);
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-  
+    const { token } = useSelector(state => state.Authorization);
+
+    const { CartProducts, cartTotal } = useSelector(state => state.Cart);
+    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     return (
         <section className="cart-page pt-5 pb-4">
             <h2 className="text-center mb-4 fs-1">{t("Shopping Cart")}</h2>
             <div className="container">
-              <table class="table table-bordered">
+              <table className="table table-bordered">
                 <thead>
                   <tr className="text-center">
                     <th className="w-50" scope="col">{t("Product")}</th>
@@ -30,26 +32,27 @@ function CartPage() {
                   {
                     CartProducts?.map(product => {
                       return (
-                        <tr>
+                        <tr key={product.id}>
                           <th>
                             <div className="d-flex align-items-center">
                                 <div className="image-container d-none d-md-block p-2">
-                                    <img src={TestImage} alt="" />
+                                    <img src={product.image} alt="" />
                                 </div>
                                 <div className="product-text px-2">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum provident nam mollitia consequuntur sapiente commodi nihil alias, veniam possimus totam!
+                                    {product.title}
                                 </div>
                             </div>
                           </th>
-                          <td className="text-center">{currencyName} 11.000</td>
-                          <td className="text-center">2</td>
-                          <td className="text-center">{currencyName} 11.000</td>
+                          <td className="text-center">{currencyName} {product.price}</td>
+                          <td className="text-center">{product.quantity}</td>
+                          <td className="text-center">{currencyName} {product.quantity * product.price}</td>
                           <td className="text-center cross"><i onClick={() => {
-                            dispatch(removeProduct(1));
+                            dispatch(removeProduct({ id: product.id, quantity: product.quantity, price:product.price }));
                           }} className="fa-solid fa-circle-xmark"></i></td>
                         </tr>
                       );
                     })
+                    
                   }
                 </tbody>
                 <caption className="text-center">
@@ -79,7 +82,7 @@ function CartPage() {
                     <div className="p-2">
                       <div className="total-amount d-flex justify-content-between">
                         <div>{t("Total Amount")}:</div>
-                        <div>{currencyName}52.50</div>
+                        <div>{currencyName} {cartTotal}</div>
                       </div>
                       <div className="discount d-flex justify-content-between">
                         <div>{t("Discount or Coupon")}</div>
@@ -87,11 +90,11 @@ function CartPage() {
                       </div>
                       <div className="shipping d-flex justify-content-between">
                         <div>{t("Shipping")}</div>
-                        <div>{currencyName}0.000</div>
+                        <div>{currencyName} {0.05 * cartTotal}</div>
                       </div>
                       <div className="total d-flex justify-content-between">
                         <div>{t("Grand Total")}</div>
-                        <div>{currencyName}52.500</div>
+                        <div>{currencyName} {0.95 * cartTotal}</div>
                       </div>
                       <Link to={"/checkout"}>{t("Checkout")}</Link>
                     </div>
