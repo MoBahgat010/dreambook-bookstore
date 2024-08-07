@@ -36,7 +36,7 @@ function WishList() {
                             </div>
                         :
                             wishproducts.map((product, index) => {
-                                return <tr key={index}>
+                                return <tr className="position-relative" key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td className="d-none d-md-block">
                                             <div className="image-container">
@@ -49,9 +49,7 @@ function WishList() {
                                                 dispatch(RemoveThenGetWishList(product._id));
                                             }} className="btn btn-danger">{t("Remove")}</button>
                                         </td>
-                                        <td>
-                                            <Link to={`/single-page/${product._id}`}></Link>
-                                        </td>
+                                        <Link to={`/single-page/${product._id}`}></Link>
                                 </tr>
                             })
                     }

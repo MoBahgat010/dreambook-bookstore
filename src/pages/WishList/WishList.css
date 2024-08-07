@@ -18,13 +18,13 @@ th[scope="row"],
     font-size: 14px;
 }
 
-.wishlist td a {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.wishlist .remove-col {
+.wishlist table tbody .remove-col {
     position: relative;
     z-index: 100;
+}
+
+.wishlist table tbody a {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
 }
