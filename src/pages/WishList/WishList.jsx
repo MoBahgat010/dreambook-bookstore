@@ -2,8 +2,9 @@ import "./WishList.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import { removeProductFromWishList, RemoveFromWishListAction, RemoveThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function WishList() {
 
@@ -35,19 +36,22 @@ function WishList() {
                             </div>
                         :
                             wishproducts.map((product, index) => {
-                                return <tr>
-                                    <th scope="row">{index + 1}</th>
-                                    <td className="d-none d-md-block">
-                                        <div className="image-container">
-                                            <img src={product.image} alt="" />
-                                        </div>
-                                    </td>
-                                    <td className="product-title">{product.title}</td>
-                                    <td className="remove-col">
-                                        <button onClick={() => {
-                                            dispatch(removeProductFromWishList(product.id));
-                                        }} className="btn btn-danger">{t("Remove")}</button>
-                                    </td>
+                                return <tr key={index}>
+                                        <th scope="row">{index + 1}</th>
+                                        <td className="d-none d-md-block">
+                                            <div className="image-container">
+                                                <img src={product.image} alt="" />
+                                            </div>
+                                        </td>
+                                        <td className="product-title">{product.title}</td>
+                                        <td className="remove-col">
+                                            <button onClick={() => {
+                                                dispatch(RemoveThenGetWishList(product._id));
+                                            }} className="btn btn-danger">{t("Remove")}</button>
+                                        </td>
+                                        <td>
+                                            <Link to={`/single-page/${product._id}`}></Link>
+                                        </td>
                                 </tr>
                             })
                     }

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 const initialstate = {
     CartProducts: [],
@@ -11,18 +10,14 @@ const initialstate = {
 export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry; 
-
-    const response = await axios.post(
-      'http://localhost:3500/api/v1/carts',
-      {
+    const response = await axios.post('http://localhost:3500/api/v1/carts', {
         'product': id,
-        'quantity': 0
-      },
-      {
+        // 'quantity': quantity
+      }, {
         headers: {
           'token': token,
           'currency': countryCurrency,
-          'Content-Type': 'application/json'
+        //   'Content-Type': 'application/json'
         }
       }
     );

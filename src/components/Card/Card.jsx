@@ -3,7 +3,7 @@ import TestImage from "../../assets/TestImage.jpg"
 import "./Card.css"
 import { useDispatch, useSelector } from "react-redux";
 import ShoppingCart from "../../assets/shopping-cart.png"
-import { addProductToWishList, AddToWishListAction } from "../../RTK/Slices/ProductsWishListSlice";
+import { addProductToWishList, AddThenGetWishList, AddToWishListAction } from "../../RTK/Slices/ProductsWishListSlice";
 import { addProduct, AddToCartAction } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -46,12 +46,7 @@ function Card(props) {
                         <button onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
-                            let current_product = {
-                                id: props.id,
-                                image: props.image,
-                                title: props.title
-                            }
-                            dispatch(AddToWishListAction(current_product));
+                            dispatch(AddThenGetWishList(props.id));
                         }} className="btn btn-primary">
                             <i className="fa-regular fa-heart"></i>
                         </button>

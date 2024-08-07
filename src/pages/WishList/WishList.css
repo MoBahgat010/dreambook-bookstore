@@ -17,3 +17,14 @@ th[scope="row"],
     vertical-align: middle;
     font-size: 14px;
 }
+
+.wishlist td a {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.wishlist .remove-col {
+    position: relative;
+    z-index: 100;
+}
