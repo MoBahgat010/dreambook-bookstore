@@ -85,13 +85,13 @@ function PopUpCart() {
                 {
                   CartProducts?.map(product => {
                     return (
-                      <tr key={product.id}>
+                      <tr key={product.product._id}>
                         <th>
                           <div className="image-container">
-                            <img src={product.image} alt="" />
+                            <img src={product.product.image} alt="" />
                           </div>
                         </th>
-                        <td className="product-text">{product.title}</td>
+                        <td className="product-text">{product.product.title}</td>
                         <td className="product-text">{product.quantity}</td>
                         <td className='text-center product-text'>
                           <p>{currencyName}</p>

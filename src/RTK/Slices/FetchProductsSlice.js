@@ -6,10 +6,12 @@ const initialState = {
     ProductsLoader: false
 }
 
-export const FetchProducts = createAsyncThunk("FetchProductsSlice/FetchProducts", async () => {
+export const FetchProducts = createAsyncThunk("FetchProductsSlice/FetchProducts", async (_,{ getState }) => {
+    const { countryCurrency } = getState().SelectCountry;
+    // console.log("here in fetch products:::", countryCurrency);
     const response = await axios.get("http://localhost:3500/api/v1/products", {
         headers: {
-            currency: "KWD"
+            currency: countryCurrency
         }
     })
     return response;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css"
 import bahrain from "../../assets/bahrain.png"
 import emirates from "../../assets/emirates.png"
@@ -10,18 +10,47 @@ import { useMediaQuery } from "react-responsive";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeCurrency } from "../../RTK/Slices/SelectedCurrencySlice";
-import { changeCountry } from "../../RTK/Slices/SelectedCountrySlice";
-import { showComponents } from "../../RTK/Slices/ComponentsSlice";
+// import { changeCurrency } from "../../RTK/Slices/SelectedCurrencySlice";
+import { ChangeCountry, ChangeCurrency, changeCurrency } from "../../RTK/Slices/SelectedCountrySlice";
+import { hideSearchComponent, showComponents, showSearchComponent } from "../../RTK/Slices/ComponentsSlice";
 import i18n from "../../i18n";
 import { useTranslation } from "react-i18next";
 import { GetAllWishedProducts } from "../../RTK/Slices/ProductsWishListSlice";
+import axios from "axios";
+import Search from "../Search/Search";
+import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
 
 function Header() {
 
     const { i18n, t } = useTranslation();
 
+    // const { token } = useSelector(state => state.Authorization);
+
+    // async function createCategory(english, arabic) {        
+    //     const response = await axios.post(
+    //         'http://localhost:3500/api/v1/categories',
+    //         {   
+    //           'englishname': english,
+    //           'arabicname': arabic
+    //         },
+    //         {
+    //           headers: {
+    //             'token': token,
+    //             'Content-Type': 'application/json'
+    //           }
+    //         }
+    //     );
+    // }
+
+    // useEffect(() => {
+    //     let userToken;
+    //     axios.post("http://localhost:3500/api/v1/users")
+    //     .then(res => console.log(res))
+    //     createCategory("Books", "الكتب");
+    // }, [])
+
     const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);
+    // const { logged } = useSelector(state => state.Authorization);
     // const { currencyName } = useSelector(state => state.SelectedCurrency);
     let currencyName = countryCurrency;
     const { wishproducts } = useSelector(state => state.WishList);
@@ -31,6 +60,7 @@ function Header() {
     useEffect(() => {
         console.log(wishproducts);
         dispatch(GetAllWishedProducts());
+        dispatch(GetAllCartProducts());
     }, [])
 
     const countriesImages = [ 
@@ -90,17 +120,21 @@ function Header() {
     const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
     const [isMenuBarOpen, setIsMenuBarOpen] = useState(false);
     const [lastOpenedSubDropDown, setLastOpenedSubDropDown] = useState(0);
+    const [searchBarStatus, setSearchBarStatus] = useState(false);
+    const [searchBarValue, setSearchBarValue] = useState("");
+    const [headerHeight, setHeaderHeight] = useState(0);
 
     const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
 
     const subDropDowns = useRef();
+    const headerComponenet = useRef();
 
     function renderCountries() {
         return countriesImages.map((country, index) => {
             if(countryName != country.countryName) {
                 return (
                     <li onClick={() => {
-                        dispatch(changeCountry({ countryImg: country.countryImg, countryName: country.countryName, countryCurrency: country.currencyName }));
+                        dispatch(ChangeCountry({ countryImg: country.countryImg, countryName: country.countryName, countryCurrency: country.currencyName }));
                     }} key={index} className="py-1 py-md-2 d-flex align-items-center justify-content-between">
                         <p className="me-2 me-md-0">{t(country.countryName)}</p>
                         <div className="image-container ms-0 ms-md-2 d-flex align-items-center">
@@ -118,7 +152,7 @@ function Header() {
             if(currency.currencyName != currencyName)
                 return (
                     <li key={index} onClick={() => {
-                        dispatch(changeCurrency({ currencyName: currency.currencyName, countryName: currency.countryName }));
+                        dispatch(ChangeCurrency(currency.currencyName));
                     }}><p className="fs-6">{currency.countryName} - {currency.currencyName}</p></li>
                 );
         })
@@ -139,20 +173,16 @@ function Header() {
 
     function ShowSubDropDowns(order) {
         gsap.to(`nav.lower-one .container .has-dropdown:nth-child(${order}) ul`, {
-            height: "11rem",
             duration: 0.1,
-            overflowY: "auto"
-            // padding: "0.5rem"
+            gridTemplateRows: "1fr"
         })
         setLastOpenedSubDropDown(order);
     }
     
     function CloseSubDropDowns(order) {
         gsap.to(`nav.lower-one .container .has-dropdown:nth-child(${order}) ul`, {
-            height: "0",
             duration: 0.1,
-            overflowY: "hidden"
-            // padding: "0"
+            gridTemplateRows: "0fr"
         })
         setLastOpenedSubDropDown(0);
     }
@@ -168,7 +198,7 @@ function Header() {
     }
 
     function ShowMenuBar() {
-        gsap.to("nav.lower-one", {
+        gsap.to("nav.lower-one > .container", {
            padding: "auto" 
         });
         gsap.to("nav.lower-one .container", {
@@ -176,13 +206,14 @@ function Header() {
             padding: "0.5rem"
         });
         setIsMenuBarOpen(true);
+        CloseSearchBar();
     }
 
     function CloseMenuBar() {
-        gsap.to("nav.lower-one", {
+        gsap.to("nav.lower-one > .container", {
             padding: "0" 
          });
-         gsap.to("nav.lower-one .container", {
+         gsap.to("nav.lower-one > .container", {
              height: "0",
              padding: "0"
          });
@@ -197,6 +228,8 @@ function Header() {
             borderWidth: "2px"
         })
         setIsSearchBarOpen(true);
+        dispatch(showSearchComponent());
+        CloseMenuBar();
     }
     
     function CloseSearchBar() {
@@ -207,43 +240,60 @@ function Header() {
             borderWidth: "0"
         })
         setIsSearchBarOpen(false);
+        dispatch(hideSearchComponent());
     }
 
+    useEffect(() => {
+        setHeaderHeight(headerComponenet.current.getBoundingClientRect().height);
+    }, [])
+
     return (
-        <header>
+        <header ref={headerComponenet}>
             <nav className="upper-one navbar navbar-expand">
               <div className="container">
                 <div className="collapse navbar-collapse flex-column flex-md-row d-flex justify-content-center justify-content-md-between align-items-center" id="navbarSupportedContent">
                   <ul className="navbar-nav">
                     <li className="nav-item d-flex align-items-center terms pe-1 p-lg-3">
-                      <Link className="active terms-link text-white" aria-current="page" href="#">{t('Terms and Conditions')}</Link>
+                      <Link onClick={() => {
+                        dispatch(hideSearchComponent());
+                      }} className="active terms-link text-white" aria-current="page" href="#">{t('Terms and Conditions')}</Link>
                     </li>
                     <li className="nav-item social-media-li">
                         <div className="w-100 h-100 social-media d-flex align-items-center">
                             <div>
-                                <Link className="d-block" to={"https://api.whatsapp.com/send/?phone=96551455511&text&type=phone_number&app_absent=0"}>
+                                <Link onClick={() => {
+                                    dispatch(hideSearchComponent());
+                                }} className="d-block" to={"https://api.whatsapp.com/send/?phone=96551455511&text&type=phone_number&app_absent=0"}>
                                     <i className="fa-brands fa-whatsapp"></i>
                                 </Link>
                             </div>
                             <div>
-                                <Link>
+                                <Link onClick={() => {
+                                    dispatch(hideSearchComponent());
+                                }}>
                                     <i className="fa-brands fa-facebook-f"></i>
                                 </Link>
                             </div>
                             <div>
-                                <Link>
+                                <Link onClick={() => {
+                                    dispatch(hideSearchComponent());
+                                }}>
                                     <i className="fa-brands fa-x-twitter"></i>
                                 </Link>
                             </div>
                             <div>
-                                <Link className="d-block" to={"https://www.instagram.com/dreambookq8/"}>
+                                <Link onClick={() => {
+                                    dispatch(hideSearchComponent());
+                                }} className="d-block" to={"https://www.instagram.com/dreambookq8/"}>
                                     <i className="fa-brands fa-instagram"></i>
                                 </Link>
                             </div>
                         </div>
                     </li>
                     <li className="email">
-                        <Link className="link-li text-light d-flex align-items-center w-100 h-100">
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent());
+                        }} className="link-li text-light d-flex align-items-center w-100 h-100">
                             <div>
                                 <i className="fa-regular fa-envelope"></i>
                             </div>
@@ -267,7 +317,9 @@ function Header() {
                         }} className="mb-0">{i18n.language === 'en' ? 'EN' : 'عربي'}</button>
                     </li>
                     <li className="login p-2 d-flex align-items-center">
-                        <Link to={"login"} className="link-li">{t('Login')}</Link>
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent());
+                        }} to={"login"} className="link-li">{t('Login')}</Link>
                     </li>
                     <li className="current-country position-relative ps-1 p-lg-2 d-flex align-items-center">
                         <div className="w-75 d-flex align-items-center">
@@ -295,7 +347,11 @@ function Header() {
                         }}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input type="text" placeholder={t("Search")} />
+                        <input onFocus={() => {
+                            dispatch(showSearchComponent());
+                        }} onChange={(e) => {                            
+                            setSearchBarValue(e.target.value);
+                        }} type="text" placeholder={t("Search")} />
                         <div className="menu-container px-2 d-block d-md-none" onClick={() => {
                                 ManipulateMenuBar();
                             }}>
@@ -303,7 +359,9 @@ function Header() {
                         </div>
                     </div>
                     <div className="icons-container d-flex align-items-center justify-content-center">
-                        <Link to={"/wishlist"} className="d-block px-2 wishlist position-relative">
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent());
+                        }} to={"/wishlist"} className="d-block px-2 wishlist position-relative">
                             <i className="fa-regular fa-heart"></i>
                             <div className="position-absolute">{wishproducts.length}</div>
                         </Link>
@@ -316,91 +374,126 @@ function Header() {
                     </div>
                 </div>
             </nav>
-            <nav className="lower-one navbar navbar-expand">
+            <nav className="lower-one navbar navbar-expand position-relative">
                 <div className="container fw--md-bold d-flex flex-md-row flex-column justify-content-md-evenly align-items-start align-items-md-center">
                     <div className="mb-2 mb-md-0">
-                        <Link to={"home"}>{t('Home')}</Link>
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent());
+                        }} to={"home"}>{t('Home')}</Link>
                     </div>
                     <div className="has-dropdown mb-2 mb-md-0 position-relative px-1" onClick={() => {
                         ManipulateSubDropDowns(2);
                     }}>
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <Link to={"/shop-page"} className="mb-0 mx-2">{t('Books')}</Link>
+                            <Link onClick={() => {
+                                dispatch(hideSearchComponent());
+                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>Oliver Twist</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>A Tale Of Two Cities</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>Robinson Crusoe</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>David Copperfield</p>
-                                </Link> 
-                            </li>
+                            <div>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>Oliver Twist</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>A Tale Of Two Cities</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>Robinson Crusoe</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>David Copperfield</p>
+                                    </Link> 
+                                </li>
+                            </div>
                         </ul>
                     </div>
                     <div onClick={() => {
                         ManipulateSubDropDowns(3);
                     }} className="has-dropdown mb-2 mb-md-0 px-1">
                         <div className="w-100 h-100 d-flex align-items-center">
-                            <Link to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
+                            <Link onClick={() => {
+                                dispatch(hideSearchComponent());
+                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>Oliver Twist</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>A Tale Of Two Cities</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>Robinson Crusoe</p>
-                                </Link> 
-                            </li>
-                            <li className="py-2">
-                                <Link to={"/shop-page"} className="link-tap">
-                                    <p>David Copperfield</p>
-                                </Link> 
-                            </li>
+                            <div>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>Oliver Twist</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>A Tale Of Two Cities</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>Robinson Crusoe</p>
+                                    </Link> 
+                                </li>
+                                <li className="py-2">
+                                    <Link onClick={() => {
+                                        dispatch(hideSearchComponent());
+                                    }} to={"/shop-page"} className="link-tap">
+                                        <p>David Copperfield</p>
+                                    </Link> 
+                                </li>
+                            </div>
                         </ul>
                     </div>
                     <div className="mb-2 mb-md-0 px-1">
                         <p className="mb-0">{t('Offers and discounts')}</p>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent())
+                        }} to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent())
+                        }} to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
-                        <Link to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
+                        <Link onClick={() => {
+                            dispatch(hideSearchComponent())
+                        }} to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
-                    <Link to={"/about-us"} className="mb-2 mb-md-0 px-1">
+                    <Link onClick={() => {
+                        dispatch(hideSearchComponent())
+                    }} to={"/about-us"} className="mb-2 mb-md-0 px-1">
                         <p className="mb-0">{t("About Us")}</p>
                     </Link>
                     <Link to={"/contact-us"}><p className="mb-0">{t('Contact Us')}</p></Link>
                 </div>
+                <Search searchText={searchBarValue} header_height={headerHeight  } />
             </nav>
         </header>
     );

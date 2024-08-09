@@ -27,6 +27,7 @@ function Loader() {
             const tl = gsap.timeline();
             tl
                 .to(".loader",{
+                    delay: 0.8,
                     duration: 0.75,
                     opacity: 0,
                 })

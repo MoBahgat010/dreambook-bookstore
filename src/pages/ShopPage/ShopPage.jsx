@@ -57,6 +57,15 @@ function ShopPage () {
                             );
                         })
                     }
+                    {
+                        FetchedProducts?.map((product, index) => {
+                            return (
+                                <div key={product.id + `${index}`} className="col-lg-4 p-2 col-md-6 col-12">
+                                    <Card key={product._id} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                </div>
+                            );
+                        })
+                    }
                 </div>
             </div>
         </div>

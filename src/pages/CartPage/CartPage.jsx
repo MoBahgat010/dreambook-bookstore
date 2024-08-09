@@ -1,7 +1,7 @@
 import "./CartPage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useDispatch, useSelector } from "react-redux";
-import { removeProduct } from "../../RTK/Slices/ProductCartSlice";
+import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -11,7 +11,8 @@ function CartPage() {
     const { token } = useSelector(state => state.Authorization);
 
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
-    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    // const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const { countryCurrency } = useSelector(state => state.SelectCountry);
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
@@ -32,22 +33,22 @@ function CartPage() {
                   {
                     CartProducts?.map(product => {
                       return (
-                        <tr key={product.id}>
+                        <tr key={product.product._id}>
                           <th>
                             <div className="d-flex align-items-center">
                                 <div className="image-container d-none d-md-block p-2">
-                                    <img src={product.image} alt="" />
+                                    <img src={product.product.image} alt="" />
                                 </div>
                                 <div className="product-text px-2">
-                                    {product.title}
+                                    {product.product.title}
                                 </div>
                             </div>
                           </th>
-                          <td className="text-center">{currencyName} {product.price}</td>
+                          <td className="text-center">{countryCurrency} {product.price}</td>
                           <td className="text-center">{product.quantity}</td>
-                          <td className="text-center">{currencyName} {product.quantity * product.price}</td>
+                          <td className="text-center">{countryCurrency} {product.quantity * product.price}</td>
                           <td className="text-center cross"><i onClick={() => {
-                            dispatch(removeProduct({ id: product.id, quantity: product.quantity, price:product.price }));
+                            dispatch(RemoveThenGetCartProducts(product._id));
                           }} className="fa-solid fa-circle-xmark"></i></td>
                         </tr>
                       );
@@ -82,19 +83,19 @@ function CartPage() {
                     <div className="p-2">
                       <div className="total-amount d-flex justify-content-between">
                         <div>{t("Total Amount")}:</div>
-                        <div>{currencyName} {cartTotal}</div>
+                        <div>{countryCurrency} {cartTotal}</div>
                       </div>
                       <div className="discount d-flex justify-content-between">
                         <div>{t("Discount or Coupon")}</div>
-                        <div>{currencyName}0.000</div>
+                        <div>{countryCurrency}0.000</div>
                       </div>
                       <div className="shipping d-flex justify-content-between">
                         <div>{t("Shipping")}</div>
-                        <div>{currencyName} {0.05 * cartTotal}</div>
+                        <div>{countryCurrency} {0.05 * cartTotal}</div>
                       </div>
                       <div className="total d-flex justify-content-between">
                         <div>{t("Grand Total")}</div>
-                        <div>{currencyName} {0.95 * cartTotal}</div>
+                        <div>{countryCurrency} {0.95 * cartTotal}</div>
                       </div>
                       <Link to={"/checkout"}>{t("Checkout")}</Link>
                     </div>

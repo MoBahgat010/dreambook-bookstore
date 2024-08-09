@@ -1,0 +1,120 @@
+.search-part {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 46px);
+    background-color: #8B572A;
+    overflow: auto;
+    z-index: 999;
+}
+
+.search-part * {
+    cursor: default !important;
+}
+
+.search-part .d-flex p {
+    font-size: 14px;
+}
+
+.search-part .d-flex button {
+    padding: 0.3rem 1rem;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid white;
+    color: #8B572A;
+    background-color: white;
+    border-radius: 5rem;
+    transition: 0.2s;
+    cursor: pointer !important;
+}
+
+.search-part .d-flex button:hover {
+    background-color: #8B572A;
+    color: white;
+    transition: 0.2s;
+}
+
+.search-part img {
+    object-fit: contain;
+}
+
+.search-part table .image-container {
+    border-right: 1px solid gray;
+    width: 8rem;
+    height: 10rem;
+}
+
+.search-part table {
+    vertical-align: middle;
+}
+
+table tbody {
+    font-size: 8px;
+}
+
+.search-part table td {
+    font-size: 10px;
+}
+
+.search-part table .cross i {
+    cursor: pointer;
+}
+
+.search-part table caption button {
+    background-color: #8B572A;
+    border: none;
+    outline: none;
+    color: white;
+    transition: 300ms;
+    border: 2px solid #8B572A;
+}
+
+.search-part table caption button:hover {
+    background-color: white;
+    color: #8B572A;
+    transition: 300ms;
+    border: 2px solid #8B572A;
+}
+
+.search-part table caption {
+    width: 100%;
+    color: #8B572A;
+    border-right: 1px solid #DEE2E6;
+    border-top: 1px solid #DEE2E6;
+    border-bottom: 1px solid #DEE2E6;
+}
+
+.search-part table .no-items {
+    background-color: #fff;
+}
+
+.search-part table tr {
+    position: relative;
+    z-index: 100;
+}
+
+.search-part table tr a {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer !important;
+}
+
+@media (min-width: 576px) {
+    
+}
+
+@media (min-width: 768px) {
+    .search-part {
+        top: 100%;
+        border-top: 1px solid rgb(55, 142, 95);
+
+    }
+    .search-part table td {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    
+}

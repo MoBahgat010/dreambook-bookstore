@@ -3,8 +3,8 @@ import TestImage from "../../assets/TestImage.jpg"
 import "./Card.css"
 import { useDispatch, useSelector } from "react-redux";
 import ShoppingCart from "../../assets/shopping-cart.png"
-import { addProductToWishList, AddThenGetWishList, AddToWishListAction } from "../../RTK/Slices/ProductsWishListSlice";
-import { addProduct, AddToCartAction } from "../../RTK/Slices/ProductCartSlice";
+import { AddThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import { AddThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -31,15 +31,7 @@ function Card(props) {
                         <button onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
-                            dispatch(AddToCartAction({ id: props.id, quantity: 1}))
-                            let current_product = {
-                                id: props.id,
-                                image: props.image,
-                                title: props.title,
-                                quantity: 1,
-                                price: props.price
-                            }
-                            dispatch(addProduct(current_product));
+                            dispatch(AddThenGetCartProducts({ id: props.id, quantity: 1}))
                         }} className="btn btn-primary"><p>{t("Add to Cart")}</p></button>
                     </div>
                     <div className="button like-button px-sm-2 px-1">

@@ -70,7 +70,7 @@ export const ProductsWishListSlice = createSlice({
                 state.WishListLoader = true;
             })
             .addCase(AddToWishListAction.fulfilled, (state = initialstate, action) => {
-                state.WishListLoader = false;                
+                state.WishListLoader = false;
                 // ProductsWishListSlice.caseReducers.addProductToWishList(state, action); //case reducer contains all the action types for the regular reducer 
             })
             .addCase(AddToWishListAction.rejected, (state = initialstate) => {

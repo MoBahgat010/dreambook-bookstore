@@ -17,7 +17,6 @@ function SinglePage() {
     
     const [productData, setProductData] = useState({})
 
-    
     const { t } = useTranslation();
     
     const [isLiked, setIsLiked] = useState(false);
@@ -47,7 +46,8 @@ function SinglePage() {
             console.log(res.data);
             setProductData(res.data.result)
         })
-    }, [])    
+    }, [countryCurrency, params])  
+
 
     return (
         <section className="single-page py-5">

@@ -2,7 +2,6 @@ header {
     z-index: 100;
 }
 
-
 nav.upper-one {
     background-color: #8B572A;
     direction: ltr;
@@ -388,7 +387,7 @@ nav.lower-one {
     padding: 0;
 }
 
-nav.lower-one .container {
+nav.lower-one > .container {
     color: rgb(255, 255, 255);
     height: 0;
     padding: 0;
@@ -404,15 +403,17 @@ nav.lower-one .container .has-dropdown {
 }
 
 nav.lower-one .container .has-dropdown ul {
-    transition: 300ms;
+    display: grid;
+    grid-template-rows: 0fr;
     width: 100%;
-    overflow: hidden;
     top: 130%;
     left: 0;
-    height: 0;
     z-index: 100;
     background-color: #8B572A;
-    transition: 300ms;
+}
+
+nav.lower-one .container .has-dropdown ul > div {
+    overflow: hidden;
 }
 
 /* nav.lower-one .container .has-dropdown:hover ul {
@@ -421,7 +422,7 @@ nav.lower-one .container .has-dropdown ul {
     transition: 300ms;
 } */
 
-nav.lower-one .container .has-dropdown ul li {
+nav.lower-one .container .has-dropdown ul li:not(:last-child) {
     border-bottom: 1px solid white;
 }
 
@@ -449,10 +450,10 @@ nav.lower-one .container .has-dropdown ul li:hover p {
     .nav.upper-one {
         font-size: 12px;
     }
-    nav.lower-one .container .has-dropdown ul {
+    /* nav.lower-one .container .has-dropdown ul {
         height: 0;
         transition: 450ms;  
-    }
+    } */
     /* nav.lower-one .container .has-dropdown:hover ul {
         height: 12rem;
         transition: 450ms;
@@ -533,19 +534,24 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         width: fit-content;
     }
     nav.lower-one .container .has-dropdown ul {
+        display: block;
         position: absolute;
         top: 130%;
         visibility: hidden;
         opacity: 0;
-        height: 11rem;
+        height: fit-content;
         overflow-y: auto;
+
+        width: 12rem;
+        max-height: 20rem;
     }
     nav.lower-one .container .has-dropdown:hover ul {
         top: 100%;
         opacity: 1;
         visibility: visible;
-        height: 11rem;
+        /* height: fit-content; */
         transition: 300ms;
+
     }
     nav.lower-one {
         /* position: static; */
@@ -560,10 +566,6 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         padding: 0.5rem 0;
         height: auto;
         overflow: visible;
-    }
-    nav.lower-one .container .has-dropdown ul {
-        width: 12rem;
-        max-height: 20rem;
     }
     nav.lower-one .container {
         font-size: 10px;

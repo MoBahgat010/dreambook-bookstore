@@ -9,10 +9,10 @@ export const SelectedCurrencySlice = createSlice({
     name: "selectedCurrency",
     initialState: initalstate,
     reducers: {
-        changeCurrency: (state, action) => {
-            state.currencyName = action.payload.currencyName;
-            state.countryName = action.payload.countryName;
-        }
+        // changeCurrency: (state, action) => {
+        //     state.currencyName = action.payload.currencyName;
+        //     state.countryName = action.payload.countryName;
+        // }
     }
 })
 
