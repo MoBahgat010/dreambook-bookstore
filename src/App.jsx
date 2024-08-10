@@ -50,7 +50,7 @@ function App() {
 
   return (
     <>
-      <Loader />    
+      {/* <Loader />     */}
       <Header />
       <PopUpCart />
       <Routes>
