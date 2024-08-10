@@ -42,7 +42,7 @@ function Search(props) {
 
     useEffect(() => {  
       // console.log(props.searchText != "" ? props.searchText : null);    
-      axios.get('http://localhost:3500/api/v1/products/', {
+      axios.get('https://dreambook-bookstore.vercel.app/api/v1/products/', {
         params: {
           'keyword': props.searchText != "" ? props.searchText : -1
         },

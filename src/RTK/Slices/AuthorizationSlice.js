@@ -19,7 +19,7 @@ export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/regist
     const { countryCurrency } = getState().SelectCountry;
     console.log(countryCurrency);
     const response = await axios.post(
-        'http://localhost:3500/api/v1/auth/signup',
+        'https://dreambook-bookstore.vercel.app/api/v1/auth/signup',
         {
             'email': email,
             'name': name,
@@ -40,7 +40,7 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
-            'http://localhost:3500/api/v1/auth/signin',
+            'https://dreambook-bookstore.vercel.app/api/v1/auth/signin',
             {
                 'email': email,
                 'password': password
