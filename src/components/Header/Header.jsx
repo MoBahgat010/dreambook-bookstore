@@ -29,7 +29,7 @@ function Header() {
 
     // async function createCategory(english, arabic) {        
     //     const response = await axios.post(
-    //         'https://dreambook-bookstore.vercel.app/api/v1/categories',
+    //         'http://localhost:3500/api/v1/categories',
     //         {   
     //           'englishname': english,
     //           'arabicname': arabic
@@ -45,7 +45,7 @@ function Header() {
 
     // useEffect(() => {
     //     let userToken;
-    //     axios.post("https://dreambook-bookstore.vercel.app/api/v1/users")
+    //     axios.post("http://localhost:3500/api/v1/users")
     //     .then(res => console.log(res))
     //     createCategory("Books", "الكتب");
     // }, [])
