@@ -368,7 +368,7 @@ function Header() {
                             dispatch(hideSearchComponent());
                         }} to={"/wishlist"} className="d-block px-2 wishlist position-relative">
                             <i className="fa-regular fa-heart"></i>
-                            <div className="position-absolute">{wishproducts.length == undefined ? 0 : wishproducts.length}</div>
+                            <div className="position-absolute">{wishproducts?.length == undefined ? 0 : wishproducts.length}</div>
                         </Link>
                         <div onClick={() => {
                             dispatch(showComponents());
