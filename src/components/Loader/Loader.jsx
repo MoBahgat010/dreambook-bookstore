@@ -35,9 +35,9 @@ function Loader() {
                 .to(".loader",{
                     visibility: "hidden",
                 })
-            gsap.set("body", {
-                overflow: "visible"
-            })
+            // gsap.set("body", {
+            //     overflow: "visible"
+            // })
         }
     }, [Cartloader, ProductsLoader, WishListLoader])
 
