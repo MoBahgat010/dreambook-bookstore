@@ -21,6 +21,7 @@ function Search(props) {
     
     useEffect(() => {
       const ScrollY = window.scrollY;
+      console.log(searchComponent);
       if(searchComponent) {
         gsap.to(".search-part", {
           duration: 0.2,

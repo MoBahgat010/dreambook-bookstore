@@ -13,8 +13,6 @@ export const ComponentsSlice = createSlice({
             state.isShown = true;
         },
         hideComponents: (state) => {
-            console.log("From hiding");
-            
             state.isShown = false;
         },
         showSearchComponent: (state) => {
@@ -22,6 +20,7 @@ export const ComponentsSlice = createSlice({
             state.searchComponent = true;
         },
         hideSearchComponent: (state) => {
+            console.log("From hiding");
             // console.log("hideSearchComponent");
             state.searchComponent = false;
         }

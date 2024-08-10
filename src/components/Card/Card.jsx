@@ -24,9 +24,7 @@ function Card(props) {
     }
     
     useEffect(() => {
-        let flag = false;
-        console.log(wishproducts);
-        
+        let flag = false;        
         for(let item of wishproducts)
             if(item._id === props.id) {
                 flag = true;
