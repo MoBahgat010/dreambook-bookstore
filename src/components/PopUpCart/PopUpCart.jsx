@@ -12,6 +12,14 @@ function PopUpCart() {
 
     const { token } = useSelector(state => state.Authorization);
     const { CartProducts } = useSelector(state => state.Cart);
+
+    useEffect(() => {
+      console.log(CartProducts);
+    }, [CartProducts])
+    // useEffect(() => {
+    //   console.log(CartProducts);
+    // }, [CartProducts]) 
+    
     const { currencyName } = useSelector(state => state.SelectedCurrency);
     const isSmallScreen = useMediaQuery({ query: '(max-width: 678px)' });
     const { t } = useTranslation();
@@ -84,6 +92,7 @@ function PopUpCart() {
               <tbody>
                 {
                   CartProducts?.map(product => {
+                    // console.log(product);
                     return (
                       <tr key={product.product._id}>
                         <th>
@@ -103,7 +112,7 @@ function PopUpCart() {
                 }
               </tbody>
               {
-                !CartProducts.length && 
+                !(CartProducts? CartProducts.length : 0) && 
                   <caption>
                     <div className="w-100 px-2">
                       <p className="no-items w-100 text-center text-white no-items py-2 rounded">{t("no items")}</p>

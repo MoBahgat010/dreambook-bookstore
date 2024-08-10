@@ -9,3 +9,10 @@ form input[type="password"] {
 .login .container .state p .active {
     border-bottom: 3px solid blue;
 }
+.note-message {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.6rem 0;
+    background-color: yellow;
+}

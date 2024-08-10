@@ -1,16 +1,29 @@
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./Login.css"
 import { useTranslation } from "react-i18next";
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginAuthorization, RegisterAuthorization } from "../../RTK/Slices/AuthorizationSlice";
-import axios from "axios";
 
 function Login() {
 
+    const { LoginAfterRegister, message } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
+    // const location = useLocation();
+    // console.log(location);
+    
+    // let show;
+    
+    // useEffect(() => {
+    //     console.log(location);
+    //     show = location.state;
+    //     console.log(show);
+    // }, [show])
 
     const { t } = useTranslation();
+
+    const LoginTab = useRef();
+
     const Login_Email = useRef();
     const Login_Password = useRef();
     const Register_FullName = useRef();
@@ -36,12 +49,23 @@ function Login() {
         e.target.reset();
     }
 
+    useEffect(() => {
+        console.log("LoginAfterRegister ", LoginAfterRegister);
+        if(LoginAfterRegister) {
+            LoginTab.current.click();
+        }
+    }, [LoginAfterRegister])
+
     return (
         <section className="login pt-5">
             <div className="container">
+                {
+                    message != "" &&
+                    <p className="note-message">incorrect email or password</p>
+                }
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                   <li className="nav-item" role="presentation">
-                    <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{t("Login")}</button>
+                    <button ref={LoginTab} className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{t("Login")}</button>
                   </li>
                   <li className="nav-item" role="presentation">
                     <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{t("Register")}</button>
@@ -55,18 +79,6 @@ function Login() {
                         <div className="w-100 mb-2">
                             <label htmlFor="exampleFormControlInput5" className="ms-2 form-label">{t("Email")}</label>
                             <input ref={Login_Email} type="email" className="form-control" id="exampleFormControlInput5" placeholder={t("Email")} />
-                        </div>
-                        <div className="d-flex align-items-end">
-                            <div className="pe-2 pb-0 w-50">
-                                <label htmlFor="exampleFormControlInput1" className="ms-2 form-label">{t("Code")}</label>
-                                <select id="exampleFormControlInput1" defaultValue={"code"} className="form-select" aria-label="Default select example">
-                                    <option>{t("Code")}</option>
-                                </select>
-                            </div>
-                            <div className="w-50">
-                              <label htmlFor="exampleFormControlInput2" className="ms-2 form-label">{t("Mobile")}</label>
-                              <input type="email" className="form-control" id="exampleFormControlInput2" placeholder={t("Mobile")} />
-                            </div>
                         </div>
                         <div className="w-100 mt-2">
                             <input ref={Login_Password} className="w-100 py-2 px-2 rounded" type="password" placeholder={t("Password")}/>
@@ -87,18 +99,6 @@ function Login() {
                     }} id="register" className="data py-4 px-4">
                         <input ref={Register_FullName} className="form-control mb-2" type="text" placeholder={t("Full Name")} aria-label="default input example" />
                         <input ref={Register_Email} className="form-control mb-2" type="text" placeholder={t("Email")} aria-label="default input example" />
-                        <div className="d-flex gap-1 mb-2 align-items-end">
-                            <div className="pe-2 pb-0 w-50">
-                                <label htmlFor="exampleFormControlInput3" className="ms-2 form-label">{t("Code")}</label>
-                                <select id="exampleFormControlInput3" defaultValue={"code"} className="form-select" aria-label="Default select example">
-                                    <option>{t("Code")}</option>
-                                </select>
-                            </div>
-                            <div className="w-50">
-                              <label htmlFor="exampleFormControlInput4" className="ms-2 form-label">{t("Mobile")}</label>
-                              <input type="text" className="form-control" id="exampleFormControlInput4" placeholder={t("Mobile")} />
-                            </div>
-                        </div>
                         <input ref={Register_Password} className="form-control mb-2" type="password" placeholder={t("Password")} aria-label="default input example" />
                         <input ref={Register_Re_Password} className="form-control mb-4" type="password" placeholder={t("Re-Password")} aria-label="default input example" />
                         <button type="submit" className="btn btn-primary">{t("Register")}</button>

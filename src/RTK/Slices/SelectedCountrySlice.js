@@ -11,7 +11,7 @@ import { GetAllCartProducts } from "./ProductCartSlice";
 const initialstate = {
     countryImg: kuwait,
     countryName: "Kuwait",
-    countryCurrency: localStorage.getItem("currency") == null ? "KWD" : localStorage.getItem("currency")
+    countryCurrency: localStorage.getItem("currency") == null || localStorage.getItem("currency") ? "KWD" : localStorage.getItem("currency")
 }
 
 export const ChangeCountry = createAsyncThunk("SelectedCountrySlice/ChangeCountry", async (data, { dispatch, getState }) => {

@@ -11,10 +11,11 @@ function Loader() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // console.log("//////////////////////////////////////");
         // console.log("Cartloader", Cartloader);
         // console.log("ProductsLoader", ProductsLoader);
         // console.log("WishListLoader", WishListLoader);
-        
+        // console.log(Cartloader || ProductsLoader || WishListLoader);
         if (Cartloader || ProductsLoader || WishListLoader) {
             gsap.set("body", {
                 overflow: "hidden"
@@ -28,7 +29,7 @@ function Loader() {
             tl
                 .to(".loader",{
                     delay: 0.8,
-                    duration: 0.75,
+                    duration: 0.4,
                     opacity: 0,
                 })
                 .to(".loader",{

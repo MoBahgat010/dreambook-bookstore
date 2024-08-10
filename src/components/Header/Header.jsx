@@ -19,6 +19,7 @@ import { GetAllWishedProducts } from "../../RTK/Slices/ProductsWishListSlice";
 import axios from "axios";
 import Search from "../Search/Search";
 import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
+import { RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
 
 function Header() {
 
@@ -55,13 +56,14 @@ function Header() {
     let currencyName = countryCurrency;
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
+    const { RegenerateData, RedirectToLogin } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(wishproducts);
+        // console.log(wishproducts);
         dispatch(GetAllWishedProducts());
         dispatch(GetAllCartProducts());
-    }, [])
+    }, [RegenerateData])
 
     const countriesImages = [ 
         {
@@ -246,6 +248,7 @@ function Header() {
     useEffect(() => {
         setHeaderHeight(headerComponenet.current.getBoundingClientRect().height);
     }, [])
+    const data = { id: 1, name: 'Example' };
 
     return (
         <header ref={headerComponenet}>
@@ -318,6 +321,8 @@ function Header() {
                     </li>
                     <li className="login p-2 d-flex align-items-center">
                         <Link onClick={() => {
+                            // dispatch(RedirectToLoginAction(true));
+                            // dispatch(RedirectExecutionAction(true));
                             dispatch(hideSearchComponent());
                         }} to={"login"} className="link-li">{t('Login')}</Link>
                     </li>
@@ -363,13 +368,13 @@ function Header() {
                             dispatch(hideSearchComponent());
                         }} to={"/wishlist"} className="d-block px-2 wishlist position-relative">
                             <i className="fa-regular fa-heart"></i>
-                            <div className="position-absolute">{wishproducts.length}</div>
+                            <div className="position-absolute">{wishproducts.length == undefined ? 0 : wishproducts.length}</div>
                         </Link>
                         <div onClick={() => {
                             dispatch(showComponents());
                         }} className="px-2 cart position-relative">
                             <i className="fa-solid fa-cart-shopping"></i>
-                            <div className="position-absolute">{CartProducts.length}</div>
+                            <div className="position-absolute">{CartProducts ? CartProducts.length : 0}</div>
                         </div>
                     </div>
                 </div>

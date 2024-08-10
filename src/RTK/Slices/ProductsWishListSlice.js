@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RedirectExecutionAction, RedirectToLoginAction } from "./AuthorizationSlice";
 
 const initialstate = {
     wishproducts: [],
@@ -23,14 +24,19 @@ export const AddToWishListAction = createAsyncThunk("ProductsWishListSlice/addTo
 })
 
 export const AddThenGetWishList = createAsyncThunk("ProductsWishListSlice/addThenGetWishList", async (wished_product_id, { dispatch, getState }) => {
-    await dispatch(AddToWishListAction(wished_product_id));
-    return await dispatch(GetAllWishedProducts());
+    const { RedirectToLogin } = getState().Authorization;    
+    if(RedirectToLogin) {
+        dispatch(RedirectExecutionAction(true));
+    } else {
+        await dispatch(AddToWishListAction(wished_product_id));
+        return await dispatch(GetAllWishedProducts());
+    }
 })
 
 export const RemoveFromWishListAction = createAsyncThunk("ProductsWishListSlice/removeToWishList", async (wished_product_id, { dispatch, getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
-    console.log(wished_product_id);
+    // console.log(wished_product_id);
     const response = await axios.delete('http://localhost:3500/api/v1/wishlist', {
         headers: {
           'token': token,
@@ -48,17 +54,26 @@ export const RemoveThenGetWishList = createAsyncThunk("ProductsWishListSlice/rem
     return await dispatch(GetAllWishedProducts());
 })
 
-export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getAllWishedProducts", async (_, { getState }) => {
+export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getAllWishedProducts", async (_, { dispatch, getState, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    const response = await axios.get('http://localhost:3500/api/v1/wishlist', {
-        headers: {
-          'token': token,
-          'currency': countryCurrency
-        }
-    });
-    console.log(response.data.result);
-    return response.data.result;
+    console.log(token);
+    console.log(countryCurrency);
+    try {
+        const response = await axios.get('http://localhost:3500/api/v1/wishlist', {
+            headers: {
+              'token': token,
+              'currency': countryCurrency
+            }
+        });
+        // console.log(response);
+        dispatch(RedirectToLoginAction(false));
+        return response.data.result;
+    }
+    catch(error) {
+        dispatch(RedirectToLoginAction(true));
+        return rejectWithValue(error);
+    }
 })
 
 export const ProductsWishListSlice = createSlice({
@@ -80,10 +95,13 @@ export const ProductsWishListSlice = createSlice({
                 state.WishListLoader = true;
             })
             .addCase(GetAllWishedProducts.fulfilled, (state = initialstate, action) => {
+                console.log(action.payload);
+                
                 state.WishListLoader = false;
                 state.wishproducts = action.payload;
             })
             .addCase(GetAllWishedProducts.rejected, (state = initialstate) => {
+                console.log("Hey I need authentication");
                 state.WishListLoader = false;
             })
             .addCase(RemoveFromWishListAction.pending, (state = initialstate, action) => {

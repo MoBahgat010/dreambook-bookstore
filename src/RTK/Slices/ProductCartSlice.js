@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { RedirectExecutionAction, RedirectToLoginAction } from "./AuthorizationSlice";
 
 const initialstate = {
     CartProducts: [],
@@ -8,9 +8,11 @@ const initialstate = {
     cartTotal: 0
 }
 
-export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { getState }) => {
+export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { dispatch, getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry; 
+    console.log(token," ",countryCurrency);
+    
     const response = await axios.post('http://localhost:3500/api/v1/carts', {
         'product': id,
         'quantity': quantity
@@ -27,8 +29,7 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
 export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart", async (id, { getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    console.log(id);
-    
+    // console.log(id);
     const response = await axios.delete(`http://localhost:3500/api/v1/carts/${id}`, {
         headers: {
           'token': token,
@@ -40,26 +41,37 @@ export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart"
 })
 
 export const AddThenGetCartProducts = createAsyncThunk("ProductCartSlice/addThenGetCartProducts", async ({ id, quantity }, { dispatch, getState }) => {
-    await dispatch(AddToCartAction({ id, quantity }));
-    await dispatch(GetAllCartProducts());
+    const { RedirectToLogin } = getState().Authorization;    
+    // console.log(RedirectToLogin);
+    if(RedirectToLogin) {
+        dispatch(RedirectExecutionAction(true));
+    } else {
+        await dispatch(AddToCartAction({ id, quantity }));
+        return await dispatch(GetAllCartProducts());
+    }
 })
 
 export const RemoveThenGetCartProducts = createAsyncThunk("ProductCartSlice/removeThenGetCartProducts", async (id, { dispatch, getState }) => {
     await dispatch(RemoveFromCart(id));
-    await dispatch(GetAllCartProducts());
+    return await dispatch(GetAllCartProducts());
 })
 
-export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartProducts", async (_, { getState }) => {
+export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartProducts", async (_, { getState, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    const response = await axios.get('http://localhost:3500/api/v1/carts/66aba74fb6d50900ca642d3f', {
-        headers: {
-          'token': token,
-          'currency': countryCurrency
-        }
-    })
-    console.log(response.data.cart);
-    return response.data.cart;
+    try {
+        const response = await axios.get('http://localhost:3500/api/v1/carts/66aba74fb6d50900ca642d3f', {
+            headers: {
+              'token': token,
+              'currency': countryCurrency
+            }
+        })
+        // console.log(response.data);
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
 })
 
 export const ProductCartSlice = createSlice({
@@ -99,19 +111,30 @@ export const ProductCartSlice = createSlice({
             .addCase(AddToCartAction.rejected, (state = initialstate) => {
                 state.Cartloader = false;
             })
+            .addCase(RemoveFromCart.pending, (state) => {
+                state.Cartloader = true;
+            })
+            .addCase(RemoveFromCart.fulfilled, (state) => {
+                state.Cartloader = false;
+            })
+            .addCase(RemoveFromCart.rejected, (state) => {
+                state.Cartloader = false;
+            })
             .addCase(GetAllCartProducts.pending, (state = initialstate) => {
                 state.Cartloader = true;
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
-                console.log(action.payload);
+                // console.log(action.payload);
                 state.cartTotal = action.payload.totalPrice;
-                state.CartProducts = action.payload.cartItems;
+                state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;
             })
             .addCase(GetAllCartProducts.rejected, (state = initialstate, action) => {                
                 state.Cartloader = false;
-                // action.payload == 404 &&
-                //     <Navigate to={"login"} />
+                state.CartProducts = [];
+                state.cartTotal = 0;
+                if(action.payload.response.data.err !== "Cart not found")
+                    localStorage.removeItem("token");
             })
 }) 
 

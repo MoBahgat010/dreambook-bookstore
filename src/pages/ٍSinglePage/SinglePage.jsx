@@ -2,50 +2,52 @@ import "./SinglePage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, AddToCart, AddToCartAction, AddToCartSlice } from "../../RTK/Slices/ProductCartSlice";
+import { AddThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice"
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { FetchCertainProduct } from "../../RTK/Slices/FetchProductsSlice";
+import { AddThenGetWishList, RemoveThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
 
 function SinglePage() {
 
     const params  = useParams();
     
-    const { token } = useSelector(state => state.Authorization);
+    const { wishproducts } = useSelector(state => state.WishList);
+    // const { token } = useSelector(state => state.Authorization);
     const { countryCurrency } = useSelector(state => state.SelectCountry);
     const dispatch = useDispatch();
     
-    const [productData, setProductData] = useState({})
+    const { certainProduct } = useSelector(state => state.ShopPage);
+    // const [productData, setProductData] = useState({})
 
     const { t } = useTranslation();
     
-    const [isLiked, setIsLiked] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const WholeHeart = useRef();
-    
-    function setLiked() {
-        if(isLiked) {
-            WholeHeart.current.classList.remove("like-active");
-        } else {
-            WholeHeart.current.classList.add("like-active");
-        }
-        setIsLiked(!isLiked);
+
+    function handleSettingLiked() {
+        if(WholeHeart.current.classList.contains("like-active"))
+            dispatch(RemoveThenGetWishList(params.productId));
+        else
+            dispatch(AddThenGetWishList(params.productId));
     }
     
     useEffect(() => {
-        setIsLiked();
-    }, [])
+        let flag = false;
+        for(let item of wishproducts)
+            if(item._id === params.productId) {
+                flag = true;
+                break;
+            }
+        if(flag) {
+            WholeHeart.current.classList.add("like-active");
+        } else {
+            WholeHeart.current.classList.remove("like-active");
+        }
+    }, [wishproducts])
 
     useEffect(() => {
-        axios.get(`http://localhost:3500/api/v1/products/${params.productId}`,{
-            headers: {
-                currency:  countryCurrency
-            }
-        })
-        .then(res => {
-            console.log(res.data);
-            setProductData(res.data.result)
-        })
+        dispatch(FetchCertainProduct(params.productId));
     }, [countryCurrency, params])  
 
 
@@ -54,12 +56,12 @@ function SinglePage() {
             <div className="container">
                 <div className="inner-container fw-bolder row">
                     <div className="image-container px-2 col-12 col-md-6">
-                        <img src={productData.image} alt="" />
+                        <img src={certainProduct.image} alt="" />
                     </div>
                     <div className="data col-12 col-md-6">
                         <div className="upper-data">
-                            <h1>{productData.title}</h1>
-                            <span>{productData.price} {countryCurrency}</span>
+                            <h1>{certainProduct.title}</h1>
+                            <span>{certainProduct.price} {countryCurrency}</span>
                             <div className="review overflow-hidden position-relative mt-5">
                                 <div className="hollow-stars d-flex">
                                     <i className="fa-regular fa-star"></i>
@@ -102,20 +104,20 @@ function SinglePage() {
                                     </div>
                                     <div className="px-1">
                                         <button onClick={() => {
-                                            console.log(quantity);
-                                            dispatch(AddToCartAction({ id: params.productId, quantity: quantity}))
+                                            // console.log(quantity);
+                                            dispatch(AddThenGetCartProducts({ id: params.productId, quantity: quantity }))
                                             let current_product = {
                                                 id: params.productId,
-                                                image: productData.image,
-                                                title: productData.title,
+                                                image: certainProduct.image,
+                                                title: certainProduct.title,
                                                 quantity: quantity,
-                                                price: productData.price
+                                                price: certainProduct.price
                                             }
-                                            dispatch(addProduct(current_product));
+                                            // dispatch(addProduct(current_product));
                                         }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
                                     {
-                                        productData.new &&
+                                        certainProduct.new &&
                                         <p style={{color: "#8B572A"}} className="mx-2">{t("New")}</p>
                                     }
                                 </div>
@@ -126,7 +128,7 @@ function SinglePage() {
                                 <tbody>
                                   <tr>
                                       <td>{t("DEPARTEMENTS")}</td>
-                                      <td>{t(productData.departement)}</td>
+                                      <td>{t(certainProduct.departement)}</td>
                                   </tr>
                                   <tr>
                                       <td>{t("Category")}</td>
@@ -146,7 +148,7 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td>{t("Weight")}</td>
-                                        <td>{productData.weight}</td>
+                                        <td>{certainProduct.weight}</td>
                                   </tr>
                                   <tr>
                                         <td>{t('Code')}</td>
@@ -154,7 +156,7 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td>{t('Availability')}</td>
-                                        <td>{productData.availability ? t("In Stock") : t("Out of Stock")}</td>
+                                        <td>{certainProduct.availability ? t("In Stock") : t("Out of Stock")}</td>
                                   </tr>
                                   <tr>
                                         <td>{t("Views")}</td>
@@ -168,7 +170,7 @@ function SinglePage() {
                             </table>
                             <div className="more-options d-flex justify-content-between">
                                 <div className="like position-relative p-2 px-3 bg-info" onClick={() => {
-                                    setLiked();
+                                    handleSettingLiked();
                                 }}>
                                     <i className="fa-regular fa-heart"></i>
                                     <i ref={WholeHeart} className="fa-solid fa-heart"></i>

@@ -41,7 +41,7 @@ function Search(props) {
     }, [searchComponent])
 
     useEffect(() => {  
-      console.log(props.searchText != "" ? props.searchText : null);    
+      // console.log(props.searchText != "" ? props.searchText : null);    
       axios.get('http://localhost:3500/api/v1/products/', {
         params: {
           'keyword': props.searchText != "" ? props.searchText : -1
@@ -51,10 +51,10 @@ function Search(props) {
         }
       })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setSearchResults(response.data.result);
       })
-      console.log(searchResults.length);
+      // console.log(searchResults.length);
     }, [props.searchText])
 
     return (

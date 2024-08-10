@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "./../node_modules/bootstrap/dist/js/bootstrap.bundle"
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import SelectCountry from './pages/SelectCountry/SelectCountry';
@@ -17,8 +17,36 @@ import Checkout from './pages/Checkout/Checkout';
 import About from './pages/About/about';
 import ContactUs from './pages/Contact Us/ContactUs';
 import Loader from './components/Loader/Loader';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RedirectExecutionAction } from './RTK/Slices/AuthorizationSlice';
 
 function App() {
+
+  const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // console.log("Hey Redux");
+    // console.log(RedirectToLogin);
+    // console.log(location.pathname);
+    console.log(RedirectToLogin);
+    console.log(RedirectExecution);
+    if (RedirectToLogin) {
+        if(RedirectExecution) {
+          navigate("login");
+          dispatch(RedirectExecutionAction(false));
+        }
+        else if(location.pathname == "/login")  
+          navigate("/");
+        else
+          <Outlet />
+    }
+    else if(location.pathname == "/login")  
+      navigate("/");
+  }, [RedirectToLogin, RedirectExecution, aidRedirection])
 
   return (
     <>

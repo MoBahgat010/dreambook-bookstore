@@ -11,6 +11,9 @@ function CartPage() {
     const { token } = useSelector(state => state.Authorization);
 
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
+    // useEffect(() => {
+    //   console.log(CartProducts);
+    // }, [CartProducts])
     // const { currencyName } = useSelector(state => state.SelectedCurrency);
     const { countryCurrency } = useSelector(state => state.SelectCountry);
     const dispatch = useDispatch();
