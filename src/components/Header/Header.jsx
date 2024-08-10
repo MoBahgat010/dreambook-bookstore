@@ -394,7 +394,8 @@ function Header() {
                         <div className="w-100 h-100 d-flex align-items-center">
                             <Link onClick={(e) => {
                                 e.stopPropagation();
-                                CloseMenuBar();
+                                isSmallScreen &&
+                                    CloseMenuBar();
                                 dispatch(hideSearchComponent());
                             }} to={"/shop-page"} className="mb-0 mx-2">{t('Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
@@ -507,7 +508,7 @@ function Header() {
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
                             isSmallScreen &&
-                            CloseMenuBar();
+                                CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
