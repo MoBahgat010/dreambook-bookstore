@@ -11,7 +11,7 @@ export const AddToWishListAction = createAsyncThunk("ProductsWishListSlice/addTo
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
     const response = await axios.post(
-        `https://dreambook-bookstore.vercel.app/api/v1/wishlist/${wished_product_id}`,
+        `http://localhost:3500/api/v1/wishlist/${wished_product_id}`,
         '',
         {
           headers: {
@@ -37,7 +37,7 @@ export const RemoveFromWishListAction = createAsyncThunk("ProductsWishListSlice/
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
     // console.log(wished_product_id);
-    const response = await axios.delete('https://dreambook-bookstore.vercel.app/api/v1/wishlist', {
+    const response = await axios.delete('http://localhost:3500/api/v1/wishlist', {
         headers: {
           'token': token,
           'currency': countryCurrency,
@@ -60,7 +60,7 @@ export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getA
     console.log(token);
     console.log(countryCurrency);
     try {
-        const response = await axios.get('https://dreambook-bookstore.vercel.app/api/v1/wishlist', {
+        const response = await axios.get('http://localhost:3500/api/v1/wishlist', {
             headers: {
               'token': token,
               'currency': countryCurrency

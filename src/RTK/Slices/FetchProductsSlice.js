@@ -10,7 +10,7 @@ const initialState = {
 export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts", async (_,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     // console.log("here in fetch products:::", countryCurrency);
-    const response = await axios.get("https://dreambook-bookstore.vercel.app/api/v1/products", {
+    const response = await axios.get("http://localhost:3500/api/v1/products", {
         headers: {
             currency: countryCurrency
         }
@@ -21,7 +21,7 @@ export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts"
 export const FetchCertainProduct = createAsyncThunk("FetchProductsSlice/fetchCertainProducts", async (id,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     // console.log("here in fetch products:::", countryCurrency);
-    const response = await axios.get(`https://dreambook-bookstore.vercel.app/api/v1/products/${id}`,{
+    const response = await axios.get(`http://localhost:3500/api/v1/products/${id}`,{
         headers: {
             currency:  countryCurrency
         }
