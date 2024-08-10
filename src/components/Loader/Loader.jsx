@@ -17,9 +17,9 @@ function Loader() {
         // console.log("WishListLoader", WishListLoader);
         // console.log(Cartloader || ProductsLoader || WishListLoader);
         if (Cartloader || ProductsLoader || WishListLoader) {
-            // gsap.set("body", {
-            //     overflow: "hidden"
-            // })
+            gsap.set("body", {
+                overflow: "hidden"
+            })
             gsap.set(".loader",{
                 opacity: 1,
                 visibility: "visible",
@@ -35,9 +35,9 @@ function Loader() {
                 .to(".loader",{
                     visibility: "hidden",
                 })
-            // gsap.set("body", {
-            //     overflow: "visible"
-            // })
+                .set("body", {
+                    overflow: "visible"
+                })
         }
     }, [Cartloader, ProductsLoader, WishListLoader])
 
