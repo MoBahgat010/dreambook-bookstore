@@ -384,6 +384,7 @@ function Header() {
                     <div className="mb-2 mb-md-0">
                         <Link onClick={() => {
                             dispatch(hideSearchComponent());
+                            isSmallScreen &&
                             CloseMenuBar();
                         }} to={"home"}>{t('Home')}</Link>
                     </div>
@@ -403,7 +404,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Oliver Twist</p>
                                     </Link> 
@@ -411,7 +413,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>A Tale Of Two Cities</p>
                                     </Link> 
@@ -419,7 +422,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Robinson Crusoe</p>
                                     </Link> 
@@ -427,7 +431,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>David Copperfield</p>
                                     </Link> 
@@ -441,7 +446,8 @@ function Header() {
                         <div className="w-100 h-100 d-flex align-items-center">
                             <Link onClick={() => {
                                 dispatch(hideSearchComponent());
-                                CloseMenuBar();
+                                isSmallScreen &&
+                            CloseMenuBar();
                             }} to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
@@ -450,7 +456,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Oliver Twist</p>
                                     </Link> 
@@ -458,7 +465,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>A Tale Of Two Cities</p>
                                     </Link> 
@@ -466,7 +474,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Robinson Crusoe</p>
                                     </Link> 
@@ -474,7 +483,8 @@ function Header() {
                                 <li className="py-2">
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
-                                        CloseMenuBar();
+                                        isSmallScreen &&
+                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>David Copperfield</p>
                                     </Link> 
@@ -488,6 +498,7 @@ function Header() {
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
+                            isSmallScreen &&
                             CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
@@ -495,6 +506,7 @@ function Header() {
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
+                            isSmallScreen &&
                             CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
@@ -502,13 +514,15 @@ function Header() {
                     <div className="mb-2 mb-md-0 px-1 d-flex justify-content-center align-items-center">
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
+                            isSmallScreen &&
                             CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
                     <Link onClick={() => {
                         dispatch(hideSearchComponent())
-                        CloseMenuBar();
+                        isSmallScreen &&
+                            CloseMenuBar();
                     }} to={"/about-us"} className="mb-2 mb-md-0 px-1">
                         <p className="mb-0">{t("About Us")}</p>
                     </Link>
