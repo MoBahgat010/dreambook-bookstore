@@ -13,7 +13,7 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
     const { countryCurrency } = getState().SelectCountry; 
     console.log(token," ",countryCurrency);
     
-    const response = await axios.post('http://localhost:3500/api/v1/carts', {
+    const response = await axios.post('https://dreambook-bookstore.vercel.app/api/v1/carts', {
         'product': id,
         'quantity': quantity
       }, {
@@ -30,7 +30,7 @@ export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart"
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     // console.log(id);
-    const response = await axios.delete(`http://localhost:3500/api/v1/carts/${id}`, {
+    const response = await axios.delete(`https://dreambook-bookstore.vercel.app/api/v1/carts/${id}`, {
         headers: {
           'token': token,
           'currency': countryCurrency,
@@ -60,7 +60,7 @@ export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartP
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get('http://localhost:3500/api/v1/carts/66aba74fb6d50900ca642d3f', {
+        const response = await axios.get('https://dreambook-bookstore.vercel.app/api/v1/carts/66aba74fb6d50900ca642d3f', {
             headers: {
               'token': token,
               'currency': countryCurrency
