@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { useDispatch } from "react-redux";
 // import { HideLoader, ShowLoader } from "./ComponentsSlice";
 
 
@@ -8,12 +7,38 @@ const initialState = {
     token: localStorage.getItem("token") == null ? "" : localStorage.getItem("token"),
     loader: false,
     RedirectToLogin: false,
-    RedirectExecution: false,
+    // RedirectExecution: false,
     RegenerateData: true,
     LoginAfterRegister: false,
-    aidRedirection: false,
-    message: ""
+    // LoginAfterRegisterExecution: false,
+    // aidRedirection: false,
+    message: "",
+    NavigateTo: "",
+    StartNavigation: ""
 }
+
+export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ getState, dispatch, rejectWithValue }) => {
+    const { token } = getState().Authorization;
+    console.log(token);
+    const { countryCurrency } = getState().SelectCountry;
+    try {
+        const response = await axios.post(
+            'http://localhost:3500/api/v1/auth/logout',
+            '',
+            {
+              headers: {
+                'token': token,
+                'currency': countryCurrency
+              }
+            }
+        );
+        dispatch(NavigateToAction(""));
+        dispatch(StartNavigation());
+    }
+    catch(error) {
+        rejectWithValue(error);
+    }
+})
 
 export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/register", async ({ name, email, password }, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
@@ -31,12 +56,12 @@ export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/regist
                 'Content-Type': 'application/json'
           }
         }
-      );
+    );
     console.log(response.data);
     return response;
 })
 
-export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", async ({ email, password }, { getState, rejectWithValue }) => {
+export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", async ({ email, password }, { getState, dispatch, rejectWithValue }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
@@ -52,10 +77,33 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
                 }
             }
         );
+        // console.log("Helllllo")
+        // dispatch(RedirectExecutionAction(false));
+        dispatch(NavigateToAction(""));
+        dispatch(StartNavigation());
         return response.data.token;  
     }
     catch(error) {
         return rejectWithValue(error);
+    }
+})
+
+export const ForgotPassword = createAsyncThunk("AuthorizationSlice/forgotPassword", async (email) => {
+    try {
+        const response = await axios.patch(
+            'http://localhost:3500/api/v1/auth/forgetpassword',
+            {
+              'email': email
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+        );
+    }
+    catch(error) {
+
     }
 })
 
@@ -73,7 +121,19 @@ export const AuthorizationSlice = createSlice({
         },
         AidRedirectionAction(state = initialState, action) {
             state.aidRedirection = action.payload;
-        }
+        },
+        NavigateToAction(state, action) {
+            state.NavigateTo = action.payload;
+        },
+        StartNavigation(state) {
+            state.StartNavigation += "1";
+        },
+        // LoginAfterRegisterExecutionAction(state) {
+        //     state.LoginAfterRegisterExecution = !state.LoginAfterRegisterExecution;
+        // },
+        // LoginAfterRegisterAction(state) {
+        //     state.LoginAfterRegister = true;
+        // }
     },
     extraReducers: builder => {
         builder
@@ -84,7 +144,7 @@ export const AuthorizationSlice = createSlice({
                 state.loader = false;
                 // state.RedirectToLogin = false;
                 // state.RedirectExecution = false;
-                state.LoginAfterRegister = true;
+                state.LoginAfterRegister = !state.LoginAfterRegister;
             })
             .addCase(LoginAuthorization.pending, (state = initialState) => {
                 state.loader = true;
@@ -95,6 +155,8 @@ export const AuthorizationSlice = createSlice({
                 state.token = action.payload;
                 console.log("token ", state.token);
                 localStorage.setItem("token", state.token);
+                console.log("Auth")
+                console.log("state.RedirectToLogin ", state.RedirectToLogin);
                 state.RedirectToLogin = false;
                 state.RedirectExecution = false;
                 state.aidRedirection = !state.aidRedirection;
@@ -104,8 +166,32 @@ export const AuthorizationSlice = createSlice({
                 state.loader = false;
                 state.message = action.payload.response.data.err;
             })
+            .addCase(LogOut.pending, (state, action) => {
+                state.loader = true;
+            })
+            .addCase(LogOut.fulfilled, (state, action) => {
+                state.loader = false;
+                state.token = null;
+                state.RedirectToLogin = true;
+                state.RedirectExecution = false;
+                localStorage.removeItem("token");
+                state.aidRedirection = !state.aidRedirection;
+                state.RegenerateData = !state.RegenerateData;
+            })
+            .addCase(LogOut.rejected, (state, action) => {
+                state.loader = false;
+            })
+            .addCase(ForgotPassword.pending, (state) => {
+                state.loader = true;
+            })
+            .addCase(ForgotPassword.fulfilled, (state) => {
+                state.loader = false;
+            })
+            .addCase(ForgotPassword.rejected, (state) => {
+                state.loader = false;
+            })
     }
 })
 
-export const { RedirectToLoginAction, RedirectExecutionAction } = AuthorizationSlice.actions;
+export const { RedirectToLoginAction, RedirectExecutionAction, AidRedirectionAction, NavigateToAction, StartNavigation } = AuthorizationSlice.actions;
 export default AuthorizationSlice.reducer;

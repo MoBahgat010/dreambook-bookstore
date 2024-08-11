@@ -15,6 +15,7 @@ export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts"
             currency: countryCurrency
         }
     })
+    // console.log(response);
     return response;
 })
 

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
@@ -9,6 +9,7 @@ function Login() {
 
     const { LoginAfterRegister, message } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     // const location = useLocation();
     // console.log(location);
     
@@ -51,9 +52,9 @@ function Login() {
 
     useEffect(() => {
         console.log("LoginAfterRegister ", LoginAfterRegister);
-        if(LoginAfterRegister) {
+        // if(LoginAfterRegister) {
             LoginTab.current.click();
-        }
+        // }
     }, [LoginAfterRegister])
 
     return (
@@ -87,9 +88,9 @@ function Login() {
                             <div className="px-2">
                                 <button type="submit" className="btn btn-primary">{t("Login")}</button>
                             </div>
-                            <div className="px-2">
-                                <button type="button" className="btn"><p className="fw-bold">{t("Forgot Password")}</p></button>
-                            </div>
+                            <Link to={'target-email'} className="d-block px-2">
+                                <p className="fw-bold">{t("Forgot Password")}</p>
+                            </Link>
                         </div>
                     </form>
                   </div>

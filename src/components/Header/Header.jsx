@@ -19,7 +19,7 @@ import { GetAllWishedProducts } from "../../RTK/Slices/ProductsWishListSlice";
 import axios from "axios";
 import Search from "../Search/Search";
 import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
-import { RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
+import { LogOut, RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
 
 function Header() {
 
@@ -320,11 +320,18 @@ function Header() {
                         }} className="mb-0">{i18n.language === 'en' ? 'EN' : 'عربي'}</button>
                     </li>
                     <li className="login p-2 d-flex align-items-center">
-                        <Link onClick={() => {
-                            // dispatch(RedirectToLoginAction(true));
-                            // dispatch(RedirectExecutionAction(true));
-                            dispatch(hideSearchComponent());
-                        }} to={"login"} className="link-li">{t('Login')}</Link>
+                        {
+                            RedirectToLogin ?
+                                <Link onClick={() => {
+                                    // dispatch(RedirectToLoginAction(true));
+                                    // dispatch(RedirectExecutionAction(true));
+                                    dispatch(hideSearchComponent());
+                                }} to={"login"} className="link-li">{t('Login')}</Link>
+                            :
+                                <button onClick={() => {
+                                    dispatch(LogOut());
+                                }}>Logout</button>
+                        }
                     </li>
                     <li className="current-country position-relative ps-1 p-lg-2 d-flex align-items-center">
                         <div className="w-75 d-flex align-items-center">
@@ -406,7 +413,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Oliver Twist</p>
                                     </Link> 
@@ -415,7 +422,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>A Tale Of Two Cities</p>
                                     </Link> 
@@ -424,7 +431,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Robinson Crusoe</p>
                                     </Link> 
@@ -433,7 +440,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>David Copperfield</p>
                                     </Link> 
@@ -448,7 +455,7 @@ function Header() {
                             <Link onClick={() => {
                                 dispatch(hideSearchComponent());
                                 isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                             }} to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
@@ -458,7 +465,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Oliver Twist</p>
                                     </Link> 
@@ -467,7 +474,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>A Tale Of Two Cities</p>
                                     </Link> 
@@ -476,7 +483,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>Robinson Crusoe</p>
                                     </Link> 
@@ -485,7 +492,7 @@ function Header() {
                                     <Link onClick={() => {
                                         dispatch(hideSearchComponent());
                                         isSmallScreen &&
-                            CloseMenuBar();
+                                            CloseMenuBar();
                                     }} to={"/shop-page"} className="link-tap">
                                         <p>David Copperfield</p>
                                     </Link> 
@@ -500,7 +507,7 @@ function Header() {
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
                             isSmallScreen &&
-                            CloseMenuBar();
+                                CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>
@@ -516,7 +523,7 @@ function Header() {
                         <Link onClick={() => {
                             dispatch(hideSearchComponent())
                             isSmallScreen &&
-                            CloseMenuBar();
+                                CloseMenuBar();
                         }} to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
                         <i className="fa-solid fa-caret-down"></i>
                     </div>

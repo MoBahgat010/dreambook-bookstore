@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RedirectExecutionAction, RedirectToLoginAction } from "./AuthorizationSlice";
+import { AidRedirectionAction, NavigateToAction, RedirectExecutionAction, RedirectToLoginAction, StartNavigation } from "./AuthorizationSlice";
 
 const initialstate = {
     CartProducts: [],
@@ -41,10 +41,13 @@ export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart"
 })
 
 export const AddThenGetCartProducts = createAsyncThunk("ProductCartSlice/addThenGetCartProducts", async ({ id, quantity }, { dispatch, getState }) => {
-    const { RedirectToLogin } = getState().Authorization;    
+    const { RedirectToLogin, aidRedirection } = getState().Authorization;    
     // console.log(RedirectToLogin);
     if(RedirectToLogin) {
-        dispatch(RedirectExecutionAction(true));
+        dispatch(NavigateToAction("login"));
+        dispatch(StartNavigation());
+        // dispatch(RedirectExecutionAction(true));
+        // dispatch(AidRedirectionAction(!aidRedirection));
     } else {
         await dispatch(AddToCartAction({ id, quantity }));
         return await dispatch(GetAllCartProducts());
@@ -56,20 +59,24 @@ export const RemoveThenGetCartProducts = createAsyncThunk("ProductCartSlice/remo
     return await dispatch(GetAllCartProducts());
 })
 
-export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartProducts", async (_, { getState, rejectWithValue }) => {
+export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartProducts", async (_, { getState, dispatch, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get('http://localhost:3500/api/v1/carts/66aba74fb6d50900ca642d3f', {
+        const response = await axios.get('http://localhost:3500/api/v1/carts', {
             headers: {
               'token': token,
               'currency': countryCurrency
             }
         })
-        // console.log(response.data);
+        console.log(response.data);
         return response.data;
     }
     catch (error) {
+        if(error.response.data.err !== "Cart not found") {
+            dispatch(RedirectToLoginAction(true));
+            // dispatch(RedirectExecutionAction(false));
+        }
         return rejectWithValue(error);
     }
 })
@@ -126,10 +133,11 @@ export const ProductCartSlice = createSlice({
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 console.log(action.payload);
                 state.cartTotal = action.payload.totalPrice;
-                state.CartProducts = action.payload.cartItems;
+                state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;
             })
-            .addCase(GetAllCartProducts.rejected, (state = initialstate, action) => {                
+            .addCase(GetAllCartProducts.rejected, (state = initialstate, action) => {  
+                // console.log(action.payload.response.data.err);
                 state.Cartloader = false;
                 state.CartProducts = [];
                 state.cartTotal = 0;

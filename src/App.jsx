@@ -17,36 +17,44 @@ import Checkout from './pages/Checkout/Checkout';
 import About from './pages/About/about';
 import ContactUs from './pages/Contact Us/ContactUs';
 import Loader from './components/Loader/Loader';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RedirectExecutionAction } from './RTK/Slices/AuthorizationSlice';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import TargetEmail from './pages/ForgotPassword/TargetEmail';
 
 function App() {
 
-  const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const { RedirectToLogin, StartNavigation, NavigateTo } = useSelector(state => state.Authorization);
+  // const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
+  // const dispatch = useDispatch();
+  // const location = useLocation();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-    // console.log("Hey Redux");
-    // console.log(RedirectToLogin);
-    // console.log(location.pathname);
-    console.log(RedirectToLogin);
-    console.log(RedirectExecution);
-    if (RedirectToLogin) {
-        if(RedirectExecution) {
-          navigate("login");
-          dispatch(RedirectExecutionAction(false));
-        }
-        else if(location.pathname == "/login")  
-          navigate("/");
-        else
-          <Outlet />
-    }
-    else if(location.pathname == "/login")  
-      navigate("/");
-  }, [RedirectToLogin, RedirectExecution, aidRedirection])
+    StartNavigation != "" && navigate(NavigateTo);
+  }, [StartNavigation])
+  
+  // useEffect(() => {
+  //   if(RedirectToLogin) {
+  //     if(RedirectExecution) {
+  //       navigate("login");
+  //     }
+  //     else {
+  //       navigate("/");
+  //     }
+  //   }
+  //   else if(location.pathname == "/login")
+  //     navigate("/");
+  //   else
+  //     <Outlet />
+  // }, [RedirectToLogin, aidRedirection])
+
+  // useEffect(() => {
+  //   console.log("RedirectExecution ", RedirectExecution);
+  //   console.log("RedirectToLogin ", RedirectToLogin);
+  //   console.log("////////////////////////////////////////////////")
+  // }, [RedirectExecution, RedirectToLogin])
 
   return (
     <>
@@ -64,6 +72,8 @@ function App() {
         <Route path='checkout' element={<Checkout />} />
         <Route path='about-us' element={<About />} />
         <Route path='contact-us' element={<ContactUs />} />
+        <Route path='login/forgot-password/:tempToken' element={<ForgotPassword />} />
+        <Route path='login/target-email' element={<TargetEmail />} />
       </Routes>
       <Footer />
     </>

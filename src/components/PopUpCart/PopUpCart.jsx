@@ -12,10 +12,7 @@ function PopUpCart() {
 
     const { token } = useSelector(state => state.Authorization);
     const { CartProducts } = useSelector(state => state.Cart);
-
-    useEffect(() => {
-      console.log(CartProducts);
-    }, [CartProducts])
+    
     // useEffect(() => {
     //   console.log(CartProducts);
     // }, [CartProducts]) 

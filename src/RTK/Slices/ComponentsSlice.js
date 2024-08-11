@@ -20,7 +20,7 @@ export const ComponentsSlice = createSlice({
             state.searchComponent = true;
         },
         hideSearchComponent: (state) => {
-            console.log("From hiding");
+            // console.log("From hiding");
             // console.log("hideSearchComponent");
             state.searchComponent = false;
         }

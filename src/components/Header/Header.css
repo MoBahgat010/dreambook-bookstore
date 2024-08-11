@@ -230,6 +230,14 @@ nav.upper-one .collapse ul li.login .link-li {
     font-size: 12px;
 }
 
+nav.upper-one .collapse ul li.login button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 0;
+}
+
 nav.upper-one .collapse ul li.current-country {
     position: relative;
     cursor: pointer;
