@@ -33,10 +33,15 @@ function Login() {
     const Register_Re_Password = useRef();
 
     function Register(e) {
-        dispatch(RegisterAuthorization({ name: Register_FullName.current.value, 
-            email: Register_Email.current.value,
-            password: Register_Password.current.value,
-        }))
+        if(Register_Re_Password.current.value === Register_Password.current.value) {
+            dispatch(RegisterAuthorization({ name: Register_FullName.current.value, 
+                email: Register_Email.current.value,
+                password: Register_Password.current.value,
+            }))
+        }
+        else {
+            dispatch(setMessage('Password does not match'));
+        }
         e.preventDefault();
         e.target.reset();
     }
