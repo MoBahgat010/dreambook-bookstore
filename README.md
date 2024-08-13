@@ -6,10 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+# Make React App
+
+write npx-create-react-app DreamBookStore in terminal
+
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3500](http://localhost:3500) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
@@ -68,3 +72,21 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Login Logic
+
+[RedirectToLogin] is a variable which determines whether the user has to login or not, and it is in the redux files (AuthorizationSlice).
+it is set to [true] if wishlist or cart response has error which indicates that the user has to login except for error 404
+[RegenerateData], [LoginAfterRegister] are used to trigger [useEffect] only
+
+# Filter Logic 
+
+Filtering departements, categories, authors, and publications is done in the [ShopPage.jsx], while 
+Filtering departements, categories for navbar is done in the [Header.jsx].
+NavBar filtering is done for only the Books and Stationary departements.
+
+# Note
+
+any variable which starts with [aid] is used to trigger [useEffect] only
+
+
