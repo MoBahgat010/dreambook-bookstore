@@ -20,6 +20,7 @@ import axios from "axios";
 import Search from "../Search/Search";
 import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { LogOut, RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
+import { FetchProducts, setBaseFilter } from "../../RTK/Slices/FetchProductsSlice";
 
 function Header() {
 
@@ -51,13 +52,45 @@ function Header() {
     // }, [])
 
     const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);
+    const { FetchedProducts } = useSelector(state => state.ShopPage);
     // const { logged } = useSelector(state => state.Authorization);
     // const { currencyName } = useSelector(state => state.SelectedCurrency);
-    let currencyName = countryCurrency;
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
     const { RegenerateData, RedirectToLogin } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
+    const [booksDepartement, setBooksDepartement] = useState([]);
+    const [staionaryDepartement, setStaionaryDepartement] = useState([]);
+    const [booksDepartementCategories, setBooksDepartementCategories] = useState([]);
+    const [stationaryDepartementCategories, setStationaryDepartementCategories] = useState([]);
+    let currencyName = countryCurrency;
+
+    useEffect(() => {
+        let BooksDepartement = [];
+        let StationaryDepartement = [];
+        let StationaryDepartementCategories = [];
+        let BooksDepartementCategories = [];
+        FetchedProducts.forEach(product => {
+            if(product.departement === "Books") {
+                BooksDepartement.push(product);
+                if(!BooksDepartementCategories.includes(product.category.englishname))
+                    BooksDepartementCategories.push(product.category.englishname);
+            }
+            else if(product.departement === "Stationary") {
+                StationaryDepartement.push(product);
+                if(!StationaryDepartementCategories.includes(product.category.englishname))
+                    StationaryDepartementCategories.push(product.category.englishname);
+            }
+        });
+        setBooksDepartement(BooksDepartement);
+        setBooksDepartementCategories(BooksDepartementCategories);
+        setStaionaryDepartement(StationaryDepartement);
+        setStationaryDepartementCategories(StationaryDepartementCategories);
+    }, [FetchedProducts])
+
+    useEffect(() => {
+        dispatch(FetchProducts());
+    }, [])
 
     useEffect(() => {
         // console.log(wishproducts);
@@ -248,7 +281,7 @@ function Header() {
     useEffect(() => {
         setHeaderHeight(headerComponenet.current.getBoundingClientRect().height);
     }, [])
-    const data = { id: 1, name: 'Example' };
+    // const data = { id: 1, name: 'Example' };
 
     return (
         <header ref={headerComponenet}>
@@ -404,47 +437,26 @@ function Header() {
                                 isSmallScreen &&
                                     CloseMenuBar();
                                 dispatch(hideSearchComponent());
-                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Books')}</Link>
+                            }} to={"/shop-page"} state={{data: "Books"}} className="mb-0 mx-2">{t('Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
                             <div>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>Oliver Twist</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>A Tale Of Two Cities</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>Robinson Crusoe</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>David Copperfield</p>
-                                    </Link> 
-                                </li>
+                                {
+                                    booksDepartementCategories.map(categoryName => {
+                                        return (
+                                            <li key={categoryName} className="py-2">
+                                                <Link onClick={() => {
+                                                    dispatch(hideSearchComponent());
+                                                    isSmallScreen &&
+                                                        CloseMenuBar();
+                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
+                                                    <p>{categoryName}</p>
+                                                </Link> 
+                                            </li>
+                                        );
+                                    })
+                                }
                             </div>
                         </ul>
                     </div>
@@ -455,48 +467,27 @@ function Header() {
                             <Link onClick={() => {
                                 dispatch(hideSearchComponent());
                                 isSmallScreen &&
-                                            CloseMenuBar();
-                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Staionary')}</Link>
+                                    CloseMenuBar();
+                            }} to={"/shop-page"} state={{data: "Stationary"}} className="mb-0 mx-2">{t('Stationary')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="pt-md-2 px-md-2 m-0">
                             <div>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>Oliver Twist</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>A Tale Of Two Cities</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>Robinson Crusoe</p>
-                                    </Link> 
-                                </li>
-                                <li className="py-2">
-                                    <Link onClick={() => {
-                                        dispatch(hideSearchComponent());
-                                        isSmallScreen &&
-                                            CloseMenuBar();
-                                    }} to={"/shop-page"} className="link-tap">
-                                        <p>David Copperfield</p>
-                                    </Link> 
-                                </li>
+                                {
+                                    stationaryDepartementCategories.map(categoryName => {
+                                        return (
+                                            <li className="py-2">
+                                                <Link onClick={() => {
+                                                    dispatch(hideSearchComponent());
+                                                    isSmallScreen &&
+                                                        CloseMenuBar();
+                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
+                                                    <p>{categoryName}</p>
+                                                </Link> 
+                                            </li>
+                                        );
+                                    })
+                                }
                             </div>
                         </ul>
                     </div>

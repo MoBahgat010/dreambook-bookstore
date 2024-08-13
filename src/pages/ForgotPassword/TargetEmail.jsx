@@ -12,9 +12,10 @@ function TargetEmail() {
     return (
         <section className="pt-5">
             <div className="container">
-                <form onSubmit={() => {
+                <form onSubmit={(e) => {
                     dispatch(ForgotPassword(emial.current.value));
-                    navigate('/login/forgot-password');
+                    e.preventDefault();
+                    e.target.reset();
                 }} action="">
                     <div class="mb-3">
                       <label htmlFor="exampleFormControlInput1" className="form-label">Enter Your Emial</label>

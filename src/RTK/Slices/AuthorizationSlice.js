@@ -40,25 +40,30 @@ export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ g
     }
 })
 
-export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/register", async ({ name, email, password }, { getState }) => {
+export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/register", async ({ name, email, password }, { getState, rejectWithValue }) => {
     const { countryCurrency } = getState().SelectCountry;
     console.log(countryCurrency);
-    const response = await axios.post(
-        'http://localhost:3500/api/v1/auth/signup',
-        {
-            'email': email,
-            'name': name,
-            'password': password,
-        },
-        {
-            headers: {
-                "currency": countryCurrency,
-                'Content-Type': 'application/json'
-          }
-        }
-    );
-    console.log(response.data);
-    return response;
+    try {
+        const response = await axios.post(
+            'http://localhost:3500/api/v1/auth/signup',
+            {
+                'email': email,
+                'name': name,
+                'password': password,
+            },
+            {
+                headers: {
+                    "currency": countryCurrency,
+                    'Content-Type': 'application/json'
+              }
+            }
+        );
+        console.log(response.data);
+        return response;
+    }
+    catch(error) {
+        return rejectWithValue(error);
+    }
 })
 
 export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", async ({ email, password }, { getState, dispatch, rejectWithValue }) => {
@@ -107,6 +112,31 @@ export const ForgotPassword = createAsyncThunk("AuthorizationSlice/forgotPasswor
     }
 })
 
+export const ResetPasswrod = createAsyncThunk("AuthorizationSlice/resetPasswrod", async ({new_password, temp_token}, { getState, dispatch, rejectWithValue }) => {
+    try {
+        const response = await axios.patch(
+            'http://localhost:3500/api/v1/auth/resetpassword/',
+            {
+              'password': new_password
+            },
+            {
+              params: {
+                'token': temp_token
+              },
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+        );
+        dispatch(NavigateToAction("login"));
+        dispatch(StartNavigation());
+        return(response);
+    }
+    catch (error) {
+        return rejectWithValue(error);
+    }
+})
+
 export const AuthorizationSlice = createSlice({
     name: "AuthorizationSlice",
     initialState,
@@ -116,8 +146,11 @@ export const AuthorizationSlice = createSlice({
             // console.log(action.payload);
             state.RedirectToLogin = action.payload;
         },
-        RedirectExecutionAction(state = initialState, action) {
-            state.RedirectExecution = action.payload;
+        // RedirectExecutionAction(state = initialState, action) {
+        //     state.RedirectExecution = action.payload;
+        // },
+        setMessage(state, action) {
+            state.message = action.payload;
         },
         AidRedirectionAction(state = initialState, action) {
             state.aidRedirection = action.payload;
@@ -146,6 +179,10 @@ export const AuthorizationSlice = createSlice({
                 // state.RedirectExecution = false;
                 state.LoginAfterRegister = !state.LoginAfterRegister;
             })
+            .addCase(RegisterAuthorization.rejected, (state, action) => {
+                state.loader = false;
+                state.message = action.payload.response.data.err;
+            })
             .addCase(LoginAuthorization.pending, (state = initialState) => {
                 state.loader = true;
             })
@@ -161,6 +198,7 @@ export const AuthorizationSlice = createSlice({
                 state.RedirectExecution = false;
                 state.aidRedirection = !state.aidRedirection;
                 state.RegenerateData = !state.RegenerateData;
+                state.message = "";
             })
             .addCase(LoginAuthorization.rejected, (state = initialState, action) => {
                 state.loader = false;
@@ -190,8 +228,19 @@ export const AuthorizationSlice = createSlice({
             .addCase(ForgotPassword.rejected, (state) => {
                 state.loader = false;
             })
+            .addCase(ResetPasswrod.pending, (state) => {
+                state.loader = true;
+            })
+            .addCase(ResetPasswrod.fulfilled, (state, action) => {
+                state.message = action.payload.data.message;
+                state.loader = false;
+            })
+            .addCase(ResetPasswrod.rejected, (state, action) => {
+                console.log(action.payload);
+                state.loader = false;
+            })
     }
 })
 
-export const { RedirectToLoginAction, RedirectExecutionAction, AidRedirectionAction, NavigateToAction, StartNavigation } = AuthorizationSlice.actions;
+export const { RedirectToLoginAction, AidRedirectionAction, NavigateToAction, StartNavigation, setMessage } = AuthorizationSlice.actions;
 export default AuthorizationSlice.reducer;

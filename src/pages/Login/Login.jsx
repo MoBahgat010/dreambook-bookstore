@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css"
 import { useTranslation } from "react-i18next";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginAuthorization, RegisterAuthorization } from "../../RTK/Slices/AuthorizationSlice";
+import { LoginAuthorization, RegisterAuthorization, setMessage } from "../../RTK/Slices/AuthorizationSlice";
 
 function Login() {
 
@@ -62,14 +62,14 @@ function Login() {
             <div className="container">
                 {
                     message != "" &&
-                    <p className="note-message">incorrect email or password</p>
+                    <p className="note-message">{message}</p>
                 }
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                   <li className="nav-item" role="presentation">
-                    <button ref={LoginTab} className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{t("Login")}</button>
+                    <button onClick={() => dispatch(setMessage(""))} ref={LoginTab} className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">{t("Login")}</button>
                   </li>
                   <li className="nav-item" role="presentation">
-                    <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{t("Register")}</button>
+                    <button onClick={() => dispatch(setMessage(""))} className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{t("Register")}</button>
                   </li>
                 </ul>
                 <div className="tab-content" id="myTabContent">
