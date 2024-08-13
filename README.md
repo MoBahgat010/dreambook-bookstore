@@ -91,6 +91,7 @@ NavBar filtering is done for only the Books and Stationary departements.
 
 # Note
 
-any variable which starts with [aid] is used to trigger [useEffect] only
+Any variable which starts with [aid] is used to trigger [useEffect] only.
+Any comment was for debugging and has no use.
 
 
