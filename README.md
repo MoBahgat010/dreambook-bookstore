@@ -12,7 +12,7 @@ write npx-create-react-app DreamBookStore in terminal
 
 # Node Modules Not Found
 
-write npm i in the terminal to install the node modules
+write (npm i) in the terminal to install the node modules
 
 ### `npm start`
 
