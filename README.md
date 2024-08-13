@@ -10,6 +10,10 @@ In the project directory, you can run:
 
 write npx-create-react-app DreamBookStore in terminal
 
+# Node Modules Not Found
+
+write npm i in the terminal to install the node modules
+
 ### `npm start`
 
 Runs the app in the development mode.\
