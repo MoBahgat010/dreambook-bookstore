@@ -10,6 +10,10 @@ In the project directory, you can run:
 
 write npx-create-react-app DreamBookStore in terminal
 
+# Node Modules Not Found
+
+write (npm i) in the terminal to install the node modules
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -87,6 +91,8 @@ NavBar filtering is done for only the Books and Stationary departements.
 
 # Note
 
-any variable which starts with [aid] is used to trigger [useEffect] only
+Any variable which starts with [aid] is used to trigger [useEffect] only.
+Any comment was for debugging and has no use.
+All API links are in the RTK folder in addition to the search endpoint in the Search.jsx
 
 
