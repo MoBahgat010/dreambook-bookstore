@@ -94,5 +94,7 @@
     "Password": "كلمة المرور",
     "Re-Password": "اعادة كلمة المرور",
     "Forgot Password": "نسيت كلمة المرور",
-    "New": "مضاف حديثا"
+    "New": "مضاف حديثا",
+    "Insufficient product quantity": "لا يوجد كمية متاحة",
+    "Add Quantity": "اضف كمية"
 }

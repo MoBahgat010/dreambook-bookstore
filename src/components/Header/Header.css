@@ -3,7 +3,7 @@ header {
 }
 
 nav.upper-one {
-    background-color: #8B572A;
+    background-color: #054871;
     direction: ltr;
 }
 
@@ -153,7 +153,7 @@ nav.upper-one .collapse ul li.currency .currency-dropdown {
     left: 50%;
     transform: translateX(-40%);
     width: 6rem;
-    background-color: #8B572A;
+    background-color: #054871;
     visibility: hidden;
     opacity: 0;
     transition: 500ms;
@@ -260,7 +260,7 @@ nav.upper-one .collapse ul li.current-country .country-dropdown {
     top: 150%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #8B572A;
+    background-color: #054871;
     list-style: none;
     padding: 0.1rem 1rem;
     visibility: hidden;
@@ -292,7 +292,7 @@ nav.upper-one .collapse ul li.current-country p {
 }
 
 nav.middle-one {
-    border-bottom: 1px solid brown;
+    border-bottom: 1px solid #054871;
 }
 
 nav.middle-one .container .logo-container {
@@ -328,7 +328,7 @@ nav.middle-one .container .icons-container > a > div {
     width: 0.8rem;
     height: 0.8rem;
     border-radius: 50%;
-    background-color: #c17c40;
+    background-color: #054871;
     display: flex;
     justify-content: center;
     align-self: center;
@@ -339,7 +339,7 @@ nav.middle-one .container .icons-container > a > div {
 nav.middle-one .container .icons-container > a i,
 nav.middle-one .container .icons-container > div i {
     transform: scale(1);
-    color: #8B572A;
+    color: #054871;
 }
 
 nav.middle-one .container .search-bar {
@@ -355,20 +355,21 @@ nav.middle-one .container .search-bar {
 nav.middle-one .container .search-bar > div.icon-container {
     height: 100%;
     padding: 0.65rem 0.7rem;
-    border-left: 2px solid #8B572A;
-    border-top: 2px solid #8B572A;
-    border-bottom: 2px solid #8B572A;
-    background-color: #8B572A;
+    border-left: 2px solid #054871;
+    border-top: 2px solid #054871;
+    border-bottom: 2px solid #054871;
+    background-color: #054871;
     cursor: pointer;
+    color: black;
 }
 
 nav.middle-one .container .search-bar > div.icon-container i {
-    color: white;
+    color: black;
 }
 
 nav.middle-one .container .search-bar input {
     width: 100%;
-    color: #8B572A;
+    color: #054871;
     outline: none;
     position: absolute;
     top: 100%;
@@ -377,7 +378,7 @@ nav.middle-one .container .search-bar input {
     height: 0;
     padding: 0;
     z-index: 100;
-    border: 0px solid #8B572A;
+    border: 0px solid #054871;
 }
 
 nav.middle-one .container .search-bar .menu-container {
@@ -385,18 +386,18 @@ nav.middle-one .container .search-bar .menu-container {
 }
 
 nav.lower-one {
-    position: relative;
-    background-color: #8B572A;
+    position: sticky;
+    top: 0;
+    background-color: #054871;
+    color: white;
     z-index: 150;
-    /* left: 0; */
     display: flex;
     flex-direction: column;
-    /* right: 0; */
     padding: 0;
 }
 
 nav.lower-one > .container {
-    color: rgb(255, 255, 255);
+    /* color: rgb(255, 255, 255); */
     height: 0;
     padding: 0;
     overflow: hidden;
@@ -404,6 +405,7 @@ nav.lower-one > .container {
 
 nav.lower-one .container > div {
     cursor: pointer;
+    padding: 0.5rem 0;
 }
 
 nav.lower-one .container .has-dropdown {
@@ -416,8 +418,9 @@ nav.lower-one .container .has-dropdown ul {
     width: 100%;
     top: 130%;
     left: 0;
-    z-index: 100;
-    background-color: #8B572A;
+    z-index: 200;
+    background-color: #054871;
+    color: white;
 }
 
 nav.lower-one .container .has-dropdown ul > div {
@@ -549,9 +552,9 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         opacity: 0;
         height: fit-content;
         overflow-y: auto;
-
         width: 12rem;
         max-height: 20rem;
+        transition: 300ms;
     }
     nav.lower-one .container .has-dropdown:hover ul {
         top: 100%;
@@ -567,10 +570,10 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         /* position: -webkit-sticky; */
         top: 0;
         z-index: 100;
-        background-color: #8B572A;
+        /* background-color: #054871; */
     }
     nav.lower-one .container {
-        background-color: #8B572A;
+        /* background-color: #054871; */
         padding: 0.5rem 0;
         height: auto;
         overflow: visible;
@@ -601,10 +604,10 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         position: static;
         height: 3rem;
         padding: 0.5rem;
-        border: 2px solid #8B572A;
+        border: 2px solid #054871;
     }
     nav.middle-one .container .search-bar input::placeholder {
-        color: #8B572A;
+        color: #054871;
     }
     nav.middle-one .container .icons-container > a i {
         transform: scale(1.3);

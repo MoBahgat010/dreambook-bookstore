@@ -17,23 +17,34 @@ import Checkout from './pages/Checkout/Checkout';
 import About from './pages/About/about';
 import ContactUs from './pages/Contact Us/ContactUs';
 import Loader from './components/Loader/Loader';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RedirectExecutionAction } from './RTK/Slices/AuthorizationSlice';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import TargetEmail from './pages/ForgotPassword/TargetEmail';
+import toast from 'react-hot-toast';
+import PopUpProduct from './components/PopUpProduct/PopUpProduct';
 
 function App() {
 
-  const { RedirectToLogin, StartNavigation, NavigateTo } = useSelector(state => state.Authorization);
+  const { StartNavigation, NavigateTo } = useSelector(state => state.Authorization);
+  const { InsuffecientProductQuantity } = useSelector(state => state.Cart);
   // const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
   // const dispatch = useDispatch();
   // const location = useLocation();
   const navigate = useNavigate();
+  const firstUpdate = useRef(false);
 
   useEffect(() => {
     StartNavigation != "" && navigate(NavigateTo);
   }, [StartNavigation])
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      toast.error("Insufficient product quantity.");
+    }
+    firstUpdate.current = true;
+  }, [InsuffecientProductQuantity])
   
   // useEffect(() => {
   //   if(RedirectToLogin) {
@@ -61,6 +72,7 @@ function App() {
       <Loader />    
       <Header />
       <PopUpCart />
+      <PopUpProduct />
       <Routes>
         <Route path='/' element={<SelectCountry />} />
         <Route path='home' element={<Home />} />

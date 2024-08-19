@@ -1,112 +1,147 @@
 import "./CartPage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useDispatch, useSelector } from "react-redux";
-import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
+import { RemoveThenGetCartProducts, UpdateQuantityThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 function CartPage() {
 
-    const { token } = useSelector(state => state.Authorization);
+  const { FetchedProducts } = useSelector(state => state.ShopPage);
+  const { CartProducts, cartTotal } = useSelector(state => state.Cart);
+  const { countryCurrency } = useSelector(state => state.SelectCountry);
+  const [updatedQuantity, setUpdatedQuantity] = useState([]);
+  const [productsAvailableQuantities, setProductsAvailableQuantities] = useState([]);
+  useEffect(() => {
+    let temp_array = [];
+    let temp_array_qua = [];
+    let temp_array_ids = [];
+    temp_array_ids = CartProducts.map((product, index) => {
+      temp_array[index] = product.quantity;
+    })
+    FetchedProducts.forEach((product, index) => {
+      if (temp_array_ids.includes(product.id))
+        temp_array_qua[index] = product.quantity;
+    })
+    setUpdatedQuantity(temp_array);
+    setProductsAvailableQuantities(temp_array_qua);
+  }, [CartProducts])
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
-    const { CartProducts, cartTotal } = useSelector(state => state.Cart);
-    // useEffect(() => {
-    //   console.log(CartProducts);
-    // }, [CartProducts])
-    // const { currencyName } = useSelector(state => state.SelectedCurrency);
-    const { countryCurrency } = useSelector(state => state.SelectCountry);
-    const dispatch = useDispatch();
-    const { t } = useTranslation();
-
-    return (
-        <section className="cart-page pt-5 pb-4">
-            <h2 className="text-center mb-4 fs-1">{t("Shopping Cart")}</h2>
-            <div className="container">
-              <table className="table table-bordered">
-                <thead>
-                  <tr className="text-center">
-                    <th className="w-50" scope="col">{t("Product")}</th>
-                    <th scope="col">{t("Price")}</th>
-                    <th scope="col">{t("Quantity")}</th>
-                    <th scope="col">{t("Total")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    CartProducts?.map(product => {
-                      return (
-                        <tr key={product.product._id}>
-                          <th>
-                            <div className="d-flex align-items-center">
-                                <div className="image-container d-none d-md-block p-2">
-                                    <img src={product.product.image} alt="" />
-                                </div>
-                                <div className="product-text px-2">
-                                    {product.product.title}
-                                </div>
-                            </div>
-                          </th>
-                          <td className="text-center">{countryCurrency} {product.price}</td>
-                          <td className="text-center">{product.quantity}</td>
-                          <td className="text-center">{countryCurrency} {product.quantity * product.price}</td>
-                          <td className="text-center cross"><i onClick={() => {
-                            dispatch(RemoveThenGetCartProducts(product._id));
-                          }} className="fa-solid fa-circle-xmark"></i></td>
-                        </tr>
-                      );
-                    })
-                    
-                  }
-                </tbody>
-                <caption className="text-center">
-                  {
-                    CartProducts.length ?
-                    <button type="button" className="btn w-25">{t("Update")}</button>
-                    :
-                    <div className="w-100 px-2">
-                      <p className="w-100 text-center text-white no-items py-2 rounded">{t("no items")}</p>
-                    </div>
-                  }
-                </caption>
-              </table>
-              <div className="inner-container row">
-                <div className="col-12 col-md-6">
-                  <div className="coupon">
-                    <p>{t("Coupon")}</p>
-                    <div className="p-2">
-                      <input type="text" placeholder={t("Coupon")} />
-                      <button>{t("Apply")}</button>
-                    </div>
+  return (
+      <section className="cart-page pt-5 pb-4">
+          <h2 className="text-center mb-4 fs-1">{t("Shopping Cart")}</h2>
+          <div className="container">
+            <table className="table table-bordered">
+              <thead>
+                <tr className="text-center">
+                  <th className="w-50" scope="col">{t("Product")}</th>
+                  <th scope="col">{t("Price")}</th>
+                  <th scope="col">{t("Quantity")}</th>
+                  <th scope="col">{t("Total")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  CartProducts?.map((product, index) => {
+                    console.log(product);
+                    return (
+                      <tr key={product.product._id}>
+                        <th>
+                          <div className="d-flex align-items-center">
+                              <div className="image-container d-none d-md-block p-2">
+                                  <img src={product.product.image} alt="" />
+                              </div>
+                              <div className="product-text px-2">
+                                  {product.product.title}
+                              </div>
+                          </div>
+                        </th>
+                        <td className="text-center">{countryCurrency} {product.priceExchanged}</td>
+                        <td className="text-center">
+                          <div className="d-flex justify-content-center align-items-center">
+                            <button onClick={() => {
+                              let temp_array = [...updatedQuantity];
+                              temp_array[index] > 0 &&
+                                temp_array[index]--;
+                              setUpdatedQuantity(temp_array);
+                            }} className="text-white position-relative mb-1 px-1 rounded-pill"><p className="position-absolute">-</p></button>
+                            <p className="mx-2">{updatedQuantity[index]}</p>
+                            <button onClick={() => {
+                              let temp_array = [...updatedQuantity];
+                              productsAvailableQuantities[index] > updatedQuantity[index] &&
+                                temp_array[index]++;
+                              setUpdatedQuantity(temp_array);
+                            }} className="text-white position-relative px-1 mb-1 rounded-pill"><p className="position-absolute">+</p></button>
+                          </div>
+                          {
+                            product.quantity !== updatedQuantity[index] &&
+                              <button onClick={() => {
+                                updatedQuantity[index] ?
+                                  dispatch(UpdateQuantityThenGetCartProducts({id: product.product._id, quantity: updatedQuantity[index]}))
+                                :
+                                  dispatch(RemoveThenGetCartProducts(product._id));
+                              }}>Save</button>
+                          }
+                        </td>
+                        <td className="text-center">{countryCurrency} {product.quantity * product.priceExchanged}</td>
+                        <td className="text-center cross"><i onClick={() => {
+                          dispatch(RemoveThenGetCartProducts(product._id));
+                        }} className="fa-solid fa-circle-xmark"></i></td>
+                      </tr>
+                    );
+                  })
+                  
+                }
+              </tbody>
+              {
+                !CartProducts.length &&
+                  <caption className="text-center">
+                      <div className="w-100 px-2">
+                        <p className="w-100 text-center text-white no-items py-2 rounded">{t("no items")}</p>
+                      </div>
+                  </caption>
+              }
+            </table>
+            <div className="inner-container row">
+              <div className="col-12 col-md-6">
+                <div className="coupon">
+                  <p>{t("Coupon")}</p>
+                  <div className="p-2">
+                    <input type="text" placeholder={t("Coupon")} />
+                    <button>{t("Apply")}</button>
                   </div>
                 </div>
-                <div className="col-12 col-md-6">
-                  <div className="cart-total">
-                    <p>{t("Cart Total")}</p>
-                    <div className="p-2">
-                      <div className="total-amount d-flex justify-content-between">
-                        <div>{t("Total Amount")}:</div>
-                        <div>{countryCurrency} {cartTotal}</div>
-                      </div>
-                      <div className="discount d-flex justify-content-between">
-                        <div>{t("Discount or Coupon")}</div>
-                        <div>{countryCurrency}0.000</div>
-                      </div>
-                      <div className="shipping d-flex justify-content-between">
-                        <div>{t("Shipping")}</div>
-                        <div>{countryCurrency} {0.05 * cartTotal}</div>
-                      </div>
-                      <div className="total d-flex justify-content-between">
-                        <div>{t("Grand Total")}</div>
-                        <div>{countryCurrency} {0.95 * cartTotal}</div>
-                      </div>
-                      <Link to={"/checkout"}>{t("Checkout")}</Link>
+              </div>
+              <div className="col-12 col-md-6">
+                <div className="cart-total">
+                  <p>{t("Cart Total")}</p>
+                  <div className="p-2">
+                    <div className="total-amount d-flex justify-content-between">
+                      <div>{t("Total Amount")}:</div>
+                      <div>{countryCurrency} {cartTotal}</div>
                     </div>
+                    <div className="discount d-flex justify-content-between">
+                      <div>{t("Discount or Coupon")}</div>
+                      <div>{countryCurrency} 0.000</div>
+                    </div>
+                    <div className="shipping d-flex justify-content-between">
+                      <div>{t("Shipping")}</div>
+                      <div>{countryCurrency} {(0.05 * cartTotal).toFixed(2)}</div>
+                    </div>
+                    <div className="total d-flex justify-content-between">
+                      <div>{t("Grand Total")}</div>
+                      <div>{countryCurrency} {(1.05 * cartTotal).toFixed(2)}</div>
+                    </div>
+                    <Link to={"/checkout"}>{t("Checkout")}</Link>
                   </div>
                 </div>
               </div>
             </div>
-        </section>
+          </div>
+      </section>
     )
 }
 

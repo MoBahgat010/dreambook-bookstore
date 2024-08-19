@@ -63,37 +63,7 @@ function SinglePage() {
                             <h1>{certainProduct.title}</h1>
                             <span>{certainProduct.price} {countryCurrency}</span>
                             <div className="review overflow-hidden position-relative mt-5">
-                                <div className="hollow-stars d-flex">
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                    <i className="fa-regular fa-star"></i>
-                                </div>
-                                <div className="solid-stars d-flex">
-                                    <i className="fa-solid fa-star"></i>
-                                    <i className="fa-solid fa-star"></i>
-                                    <i className="fa-solid fa-star"></i>
-                                    <i className="fa-solid fa-star"></i>
-                                    <i className="fa-solid fa-star"></i>
-                                </div>
-                                <p className="mt-1 mb-3">0 {t("Reviews")}</p>
-                                <div className="d-flex align-items-center">
-                                    <div className="px-1">
-                                        <select className="form-select" aria-label="Default select example">
-                                            <option value="1">1</option>
-                                            <option value="1.5">1.5</option>
-                                            <option value="2">2</option>
-                                            <option value="2.5">2.4</option>
-                                            <option value="3">3</option>
-                                            <option value="3.5">3.5</option>
-                                            <option value="4">4</option>
-                                            <option value="4.5">4.5</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <button type="button" className="btn btn-secondary">{t("Add Review")}</button>
-                                </div>
+                                <p>{t("Add Quantity")}</p>
                                 <div className="select-quantity mt-2 d-flex align-items-center">
                                     <div className="d-flex pe-1">
                                         <button onClick={() => {
@@ -118,13 +88,13 @@ function SinglePage() {
                                     </div>
                                     {
                                         certainProduct.new &&
-                                        <p style={{color: "#8B572A"}} className="mx-2">{t("New")}</p>
+                                        <p style={{color: "#054871"}} className="mx-2">{t("New")}</p>
                                     }
                                 </div>
                             </div>
                         </div>
-                        <div className="lower-data mt-3">
-                            <table className="table table-striped table-bordered">
+                        <div className="lower-data d-flex flex-column mt-3">
+                            <table className="table table-striped flex-grow-1 table-bordered">
                                 <tbody>
                                   <tr>
                                       <td>{t("DEPARTEMENTS")}</td>
@@ -175,14 +145,14 @@ function SinglePage() {
                                     <i className="fa-regular fa-heart"></i>
                                     <i ref={WholeHeart} className="fa-solid fa-heart"></i>
                                 </div>
-                                <div className="px-1 d-flex">
-                                    <div className="px-1">
-                                        <div className="facebook p-2 px-3 bg-info">
+                                <div className="d-flex">
+                                    <div className="facebook">
+                                        <div className="p-2 px-3 bg-info">
                                             <i className="fa-brands fa-facebook-f"></i>
                                         </div>
                                     </div>
-                                    <div className="px-1">
-                                        <div className="facebook p-2 px-3 bg-info">
+                                    <div className="x">
+                                        <div className="p-2 px-3 bg-info">
                                             <i className="fa-brands fa-x-twitter"></i>
                                         </div>
                                     </div>

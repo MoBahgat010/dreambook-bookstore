@@ -1,29 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AidRedirectionAction, NavigateToAction, RedirectExecutionAction, RedirectToLoginAction, StartNavigation } from "./AuthorizationSlice";
+import { ErrorIcon } from "react-hot-toast";
 
 const initialstate = {
     CartProducts: [],
     Cartloader: false,
-    cartTotal: 0
+    cartTotal: 0,
+    InsuffecientProductQuantity: false
 }
 
-export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { dispatch, getState }) => {
+export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { dispatch, getState, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry; 
-    console.log(token," ",countryCurrency);
-    
-    const response = await axios.post('http://localhost:3500/api/v1/carts', {
-        'product': id,
-        'quantity': quantity
-      }, {
-        headers: {
-          'token': token,
-          'currency': countryCurrency,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    try {
+        const response = await axios.post('http://localhost:3500/api/v1/carts', {
+            'product': id,
+            'quantity': quantity
+          }, {
+            headers: {
+              'token': token,
+              'currency': countryCurrency,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+    }
+    catch(error) {
+        return rejectWithValue(error.response.data.err);
+    }
 })
 
 export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart", async (id, { getState }) => {
@@ -56,6 +61,36 @@ export const AddThenGetCartProducts = createAsyncThunk("ProductCartSlice/addThen
 
 export const RemoveThenGetCartProducts = createAsyncThunk("ProductCartSlice/removeThenGetCartProducts", async (id, { dispatch, getState }) => {
     await dispatch(RemoveFromCart(id));
+    return await dispatch(GetAllCartProducts());
+})
+
+export const UpdateQuantity = createAsyncThunk("ProductCartSlice/updateCartProducts", async ({id, quantity},{ getState, rejectWithValue }) => {
+    const { token } = getState().Authorization;
+    const { countryCurrency } = getState().SelectCountry;
+    try {
+        const response = await axios.put(
+            `http://localhost:3500/api/v1/carts/${id}`,
+            {
+              'quantity': quantity
+            },
+            {
+              headers: {
+                'token': token,
+                'currency': countryCurrency,
+                'Content-Type': 'application/json'
+              }
+            }
+        );
+        return response;
+    }
+    catch(error) {
+        return rejectWithValue(error.response.data.err);
+    }
+})
+
+export const UpdateQuantityThenGetCartProducts = createAsyncThunk("ProductCartSlice/updateQuantityThenGetCartProducts", async (updatedData, { dispatch }) => {
+    await dispatch(UpdateQuantity(updatedData));
+    console.log("Heeeer")
     return await dispatch(GetAllCartProducts());
 })
 
@@ -109,13 +144,15 @@ export const ProductCartSlice = createSlice({
     },
     extraReducers: builder =>
         builder
-            .addCase(AddToCartAction.pending, (state = initialstate) => {
+            .addCase(AddToCartAction.pending, (state) => {
                 state.Cartloader = true;
             })
-            .addCase(AddToCartAction.fulfilled, (state = initialstate) => {
+            .addCase(AddToCartAction.fulfilled, (state) => {
                 state.Cartloader = false;
             })
-            .addCase(AddToCartAction.rejected, (state = initialstate) => {
+            .addCase(AddToCartAction.rejected, (state, action) => {
+                if(action.payload === "Insufficient product quantity")
+                    state.InsuffecientProductQuantity = !state.InsuffecientProductQuantity;
                 state.Cartloader = false;
             })
             .addCase(RemoveFromCart.pending, (state) => {
@@ -132,7 +169,7 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 console.log(action.payload);
-                state.cartTotal = action.payload.totalPrice;
+                state.cartTotal = action.payload.cart.totalPrice.toFixed(2);
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;
             })
@@ -143,6 +180,17 @@ export const ProductCartSlice = createSlice({
                 state.cartTotal = 0;
                 if(action.payload.response.data.err !== "Cart not found")
                     localStorage.removeItem("token");
+            })
+            .addCase(UpdateQuantity.pending, (state) => {
+                state.Cartloader = true;
+            })
+            .addCase(UpdateQuantity.fulfilled, (state) => {
+                state.Cartloader = false;
+            })
+            .addCase(UpdateQuantity.rejected, (state, action) => {  
+                if(action.payload === "Insufficient product quantity")
+                    state.InsuffecientProductQuantity = !state.InsuffecientProductQuantity;
+                state.Cartloader = false;
             })
 }) 
 

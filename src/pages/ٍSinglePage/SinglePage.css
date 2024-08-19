@@ -23,7 +23,7 @@
 }
 
 .single-page .container .inner-container .upper-data div button {
-    background-color: #8B572A;
+    background-color: #054871;
     border: none;
 }
 
@@ -66,10 +66,17 @@
     font-size: 14px;
     vertical-align: middle;
 }
+.single-page .container .inner-container .lower-data .more-options .d-flex .facebook {
+    margin-inline-end: 0.25rem;
+}
+.single-page .container .inner-container .lower-data .more-options .d-flex .x {
+    margin-inline-start: 0.25rem;
+}
 
 .like-active {
     opacity: 1 !important;
 }
+
 @media (min-width: 768px) {
     .single-page .container .inner-container .lower-data table td {
         font-size: 13px;

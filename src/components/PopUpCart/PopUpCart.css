@@ -38,7 +38,17 @@
 }
 
 .pop-up-cart .no-items {
-    background-color: #8B572A;
+    background-color: #054871;
+}
+
+.pop-up-cart button {
+    background-color: #313B5D;
+    border: #313B5D;
+}
+
+.pop-up-cart button:hover {
+    background-color: #313B5D;
+    border: #313B5D;
 }
 
 @media (min-width: 576px) {

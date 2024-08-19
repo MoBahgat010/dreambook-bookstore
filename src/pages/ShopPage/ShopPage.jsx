@@ -31,6 +31,7 @@ function ShopPage () {
         let Publications = [];
         let Authors = [];
         FetchedProducts.forEach(product => {
+            console.log(FetchedProducts);
             if(!Departements.includes(product.departement))
                 Departements.push(product.departement);
             if(!Categories.includes(product.category.englishname))

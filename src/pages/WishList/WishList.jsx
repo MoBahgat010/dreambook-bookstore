@@ -19,7 +19,7 @@ function WishList() {
                 <table className="table table-striped position-relative">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
+                    <th className="text-center" scope="col">#</th>
                     {
                         !isSmallScreen &&
                         <th scope="col product-image">{t("Product Image")}</th>
@@ -37,7 +37,7 @@ function WishList() {
                         :
                             wishproducts.map((product, index) => {
                                 return <tr className="position-relative" key={index}>
-                                        <th scope="row">{index + 1}</th>
+                                        <th className="text-center" scope="row">{index + 1}</th>
                                         <td className="d-none d-md-block">
                                             <div className="image-container">
                                                 <img src={product.image} alt="" />

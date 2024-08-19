@@ -22,7 +22,7 @@ p {
     width: 100%;
     padding: 0.5rem;
     border-radius: 2rem;
-    background-color: #8B572A;
+    background-color: #054871;
     outline: none;
     border: none;
     color: white;
@@ -32,11 +32,11 @@ p {
     text-align: center;
 }
 .upper-footer .container p {
-    color: #8B572A;
+    color: #054871;
     font-weight: 600;
 }
 .upper-footer .container .social-media {
-    color: #8B572A;
+    color: #054871;
     padding: 2rem 0;
 }
 .upper-footer .container .social-media > div {
@@ -56,7 +56,7 @@ p {
     transition: 300ms;
 }
 .middle-footer {
-    background-color: #8B572A;
+    background-color: #054871;
 }
 
 @media (min-width: 576px) {

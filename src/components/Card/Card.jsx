@@ -50,19 +50,19 @@ function Card(props) {
                 <h5 className="card-title text-center">{props.title}</h5>
                 <p className="card-text">{props.price} {countryCurrency}</p>
                 <div className="options mt-3 d-flex justify-content-center align-items-center">
-                    <div className="button add-button">
+                    <div className="button rounded add-button">
                         <button onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
                             dispatch(AddThenGetCartProducts({ id: props.id, quantity: 1}))
-                        }} className="btn btn-primary"><p>{t("Add to Cart")}</p></button>
+                        }} className="btn text-white rounded"><p>{t("Add to Cart")}</p></button>
                     </div>
-                    <div className="button like-button px-sm-2 px-1">
+                    <div className="button rounded flex-grow-1 like-button px-sm-2 px-1">
                         <button onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
                             handleSettingLiked();
-                        }} className="btn btn-primary">
+                        }} className="btn text-white rounded">
                             <i className="fa-regular fa-heart"></i>
                             <i ref={WholeHeart} className="fa-solid fa-heart"></i>
                         </button>

@@ -29,19 +29,19 @@ table tbody {
 }
 
 .cart-page table caption button {
-    background-color: #8B572A;
+    background-color: #054871;
     border: none;
     outline: none;
     color: white;
     transition: 300ms;
-    border: 2px solid #8B572A;
+    border: 2px solid #054871;
 }
 
 .cart-page table caption button:hover {
     background-color: white;
-    color: #8B572A;
+    color: #054871;
     transition: 300ms;
-    border: 2px solid #8B572A;
+    border: 2px solid #054871;
 }
 
 .cart-page table caption {
@@ -52,7 +52,7 @@ table tbody {
 }
 
 .cart-page table .no-items {
-    background-color: #8B572A;
+    background-color: #054871;
 }
 
 .cart-page .inner-container .coupon,
@@ -86,15 +86,15 @@ table tbody {
     border: none;
     text-align: center;
     color: white;
-    background-color: #8B572A;
-    border: 2px solid #8B572A;
+    background-color: #054871;
+    border: 2px solid #054871;
     transition: 300ms;
 }
 
 .cart-page .inner-container .coupon button:hover,
 .cart-page .inner-container .cart-total a:hover {
     background-color: transparent;
-    color: #8B572A;
+    color: #054871;
     transition: 300ms;
 }
 
@@ -106,11 +106,33 @@ table tbody {
 }
 
 .step-one {
-    background-color: #8B572A;
+    background-color: #054871;
 }
 
 .cart-page table td {
     font-size: 10px;
+}
+
+.cart-page table td .d-flex button {
+    width: 1.1rem;
+    height: 1.1rem;
+    background-color: #054871;
+    border: none;
+}
+
+.cart-page table td .d-flex button p {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -56%);
+}
+
+.cart-page table td button {
+    background-color: #054871;
+    border: none;
+    color: white;
+    border-radius: 5rem;
+    padding: 0 1.2rem;
+    margin-top: 0.5rem;
 }
 
 @media (min-width: 576px) {

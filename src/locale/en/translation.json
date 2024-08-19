@@ -91,5 +91,7 @@
     "Password": "Password",
     "Re-Password": "Re-Password",
     "Forgot Password": "Forgot Password",
-    "New": "New"
+    "New": "New",
+    "Insufficient product quantity": "Insufficient product quantity",
+    "Add Quantity": "Add Quantity"
 }
