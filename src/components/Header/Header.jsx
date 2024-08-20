@@ -463,16 +463,16 @@ function Header() {
                             </div>
                         </ul>
                     </div>
-                    <div className="mb-md-0 px-1">
+                    <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block mb-md-0 px-1">
                         <p className="mb-0">{t('Offers and discounts')}</p>
-                    </div>
-                    <div className="has-dropdown  mb-md-0 px-1 d-flex justify-content-center align-items-center" onClick={() => ManipulateSubDropDowns(5)}>
+                    </Link>
+                    <div className="has-dropdown mb-md-0 px-1 d-flex justify-content-center align-items-center" onClick={() => ManipulateSubDropDowns(5)}>
                         <div className="w-100 h-100 d-flex align-items-center">
                             <Link onClick={() => {
                                 dispatch(hideSearchComponent())
                                 isSmallScreen &&
                                     CloseMenuBar();
-                            }} to={"/shop-page"} className="mb-0 mx-2">{t('English Books')}</Link>
+                            }} to={"/shop-page"} state={{data: "English Books"}} className="mb-0 mx-2">{t('English Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="px-md-2 m-0">
@@ -494,7 +494,7 @@ function Header() {
                                 dispatch(hideSearchComponent())
                                 isSmallScreen &&
                                     CloseMenuBar();
-                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Kids Books')}</Link>
+                            }} to={"/shop-page"} state={{data: "Kids Books"}} className="mb-0 mx-2">{t('Kids Books')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="px-md-2 m-0">
@@ -516,7 +516,7 @@ function Header() {
                                 dispatch(hideSearchComponent())
                                 isSmallScreen &&
                                     CloseMenuBar();
-                            }} to={"/shop-page"} className="mb-0 mx-2">{t('Learning Languages')}</Link>
+                            }} to={"/shop-page"} state={{data: "Learning Languages"}} className="mb-0 mx-2">{t('Learning Languages')}</Link>
                             <i className="fa-solid fa-caret-down"></i>
                         </div>
                         <ul ref={subDropDowns} className="px-md-2 m-0">

@@ -50,19 +50,19 @@
 }
 
 .checkout table caption button {
-    background-color: #054871;
+    background-color: #916741;
     border: none;
     outline: none;
     color: white;
     transition: 300ms;
-    border: 2px solid #054871;
+    border: 2px solid #916741;
 }
 
 .checkout table caption button:hover {
     background-color: white;
-    color: #054871;
+    color: #916741;
     transition: 300ms;
-    border: 2px solid #054871;
+    border: 2px solid #916741;
 }
 
 .checkout table caption {
@@ -73,7 +73,7 @@
 }
 
 .checkout table .no-items {
-    background-color: #054871;
+    background-color: #916741;
 }
 
 .checkout .inner-container .cart-total {
@@ -102,9 +102,9 @@
 
 .checkout .container .payement-button button {
     width: fit-content;
-    background-color: #054871;
+    background-color: #916741;
     color: white;
-    border: 2px solid #054871;
+    border: 2px solid #916741;
     padding: 0.5rem 0.5rem;
     font-size: 10px;
     border-radius: 5rem;
@@ -113,7 +113,7 @@
 
 .checkout .container .payement-button button:hover {
     background-color: white;
-    color: #054871;
+    color: #916741;
     transition: 300ms;
 }
 

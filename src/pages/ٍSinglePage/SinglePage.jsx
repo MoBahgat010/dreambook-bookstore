@@ -50,6 +50,9 @@ function SinglePage() {
         dispatch(FetchCertainProduct(params.productId));
     }, [countryCurrency, params])  
 
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, [params])
 
     return (
         <section className="single-page py-5">
@@ -88,7 +91,7 @@ function SinglePage() {
                                     </div>
                                     {
                                         certainProduct.new &&
-                                        <p style={{color: "#054871"}} className="mx-2">{t("New")}</p>
+                                        <p style={{color: "#916741"}} className="mx-2">{t("New")}</p>
                                     }
                                 </div>
                             </div>

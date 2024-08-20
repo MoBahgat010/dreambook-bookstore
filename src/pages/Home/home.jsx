@@ -19,19 +19,65 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import i18next from "i18next";
 
 
 function Home() {
     
-    
-
+    const { FetchedProducts } = useSelector(state => state.ShopPage);
+    const [newProducts, setNewProducts] = useState([]);
+    const [categoriesProducts, setCategoriesProducts] = useState([]);
     const swiper = useState(null);
     const { t } = useTranslation();
 
+    useEffect(() => {
+        const currentLanguage = i18next.language
+        let NewProducts = [];
+        let Categories = [];
+        let CategoriesProducts = [];
+        let CategoriesMap = new Map();
+        NewProducts = FetchedProducts.filter(product => product.new);
+        if(currentLanguage === 'en') {
+            FetchedProducts.forEach(product => {
+                if(!Categories.includes(product.category.englishname))
+                    Categories.push(product.category.englishname);
+            });
+            CategoriesProducts = FetchedProducts.filter(product => Categories.includes(product.category.englishname));
+            FetchedProducts.forEach(product => {
+                if(!CategoriesMap.get(product.category.englishname))
+                    CategoriesMap.set(product.category.englishname, []);
+                CategoriesMap.get(product.category.englishname).push(product);
+            })
+        }
+        else if (currentLanguage === 'ar') {
+            FetchedProducts.forEach(product => {
+                if(!Categories.includes(product.category.arabicname))
+                    Categories.push(product.category.arabicname);
+            });    
+            CategoriesProducts = FetchedProducts.filter(product => Categories.includes(product.category.englishname));
+            FetchedProducts.forEach(product => {
+                if(!CategoriesMap.get(product.category.arabicname))
+                    CategoriesMap.set(product.category.arabicname, []);
+                CategoriesMap.get(product.category.arabicname).push(product);
+            })
+        }
+        CategoriesMap = Array.from(CategoriesMap); 
+        CategoriesMap.map(([x,y]) => {
+            console.log(x); 
+            console.log(y); 
+        });
+        NewProducts = NewProducts.slice(0,12);
+        setNewProducts(NewProducts);
+        setCategoriesProducts(CategoriesMap);
+    }, [FetchedProducts, i18next.language])
+
+    useEffect(() => {
+        console.log(categoriesProducts);
+    }, [categoriesProducts])
     return (
         <section className="home">
             <div className="upper">
@@ -107,7 +153,7 @@ function Home() {
                             className="mySwiper"
                         >
                             <SwiperSlide>
-                                <Link to={"/shop-page"} className="d-block bg-white text-center rounded py-3">
+                                <Link to={"/shop-page"} state={{data: "Kids Books"}} className="d-block bg-white text-center rounded py-3">
                                     <div className="image-container">
                                         <img src={KidsBooks} alt="KidsBooks" />
                                     </div>
@@ -115,23 +161,23 @@ function Home() {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link to={"/shop-page"} className="d-block bg-white text-center rounded py-3">
+                                <Link to={"/shop-page"} state={{data: "Stationary"}} className="d-block bg-white text-center rounded py-3">
                                     <div className="image-container">
-                                        <img src={Stationary} alt="KidsBooks" />
+                                        <img src={Stationary} alt="Stationary" />
                                     </div>
                                     <p className="fw-bolder">{t("Staionary")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link to={"/shop-page"} className="d-block bg-white text-center rounded py-3">
+                                <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block bg-white text-center rounded py-3">
                                     <div className="image-container">
-                                        <img src={Offers} alt="KidsBooks" />
+                                        <img src={Offers} alt="Offers and Discounts" />
                                     </div>
                                     <p className="fw-bolder">{t("Offers and discounts")}</p>
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link to={"/shop-page"} className="d-block bg-white text-center rounded py-3">
+                                <Link to={"/shop-page"} state={{data: "Learning Languages"}} className="d-block bg-white text-center rounded py-3">
                                     <div className="image-container">
                                         <img src={LearningLanguages} alt="KidsBooks" />
                                     </div>
@@ -139,7 +185,7 @@ function Home() {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link to={"/shop-page"} className="d-block bg-white text-center rounded py-3">
+                                <Link to={"/shop-page"} state={{data: "English Books"}} className="d-block bg-white text-center rounded py-3">
                                     <div className="image-container">
                                         <img src={EnglishBooks} alt="KidsBooks" />
                                     </div>
@@ -148,66 +194,123 @@ function Home() {
                             </SwiperSlide>
                         </Swiper>
                     </div>
-                    <div className="non-categories mb-5">
-                        <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
-                            <div className="text d-flex align-items-center">
-                                <h3 className="mx-2">{t("New Arrivals")}</h3>
-                                <Link className="ms-3">{t("See More")}</Link>
-                            </div>
-                            <div className="d-flex">
-                                <div className="p-md-2 p-1">
-                                    <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
-                                        <i className="text-white fa-solid fa-chevron-left"></i>
+                    <div className="non-categories">
+                        <div className="new-arrivals">
+                            <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
+                                <div className="text d-flex align-items-center">
+                                    <h3 className="mx-2">{t("New Arrivals")}</h3>
+                                    <Link className="ms-3">{t("See More")}</Link>
+                                </div>
+                                <div className="d-flex">
+                                    <div className="p-md-2 p-1">
+                                        <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
+                                            <i className="text-white fa-solid fa-chevron-left"></i>
+                                        </div>
+                                    </div>
+                                    <div className="p-md-2 p-1">
+                                        <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
+                                            <i className="text-white fa-solid fa-chevron-right"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="p-md-2 p-1">
-                                    <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
-                                        <i className="text-white fa-solid fa-chevron-right"></i>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                        <Swiper
-                            modules={[Autoplay, Pagination, Navigation]}
-                            navigation={{
-                                nextEl: '.swiper-button-next1',
-                                prevEl: '.swiper-button-prev1',
-                            }}
-                            breakpoints={{
-                                0:{
-                                    slidesPerView: 1,
-                                },
-                                350: {
-                                    slidesPerView: 2,
-                                },
-                                768: {
-                                    slidesPerView: 3,
-                                },
-                                994: {
-                                    slidesPerView: 4,
+                            <Swiper
+                                modules={[Autoplay, Pagination, Navigation]}
+                                navigation={{
+                                    nextEl: '.swiper-button-next1',
+                                    prevEl: '.swiper-button-prev1',
+                                }}
+                                breakpoints={{
+                                    0:{
+                                        slidesPerView: 1,
+                                    },
+                                    350: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                    994: {
+                                        slidesPerView: 4,
+                                    }
+                                }}
+                                spaceBetween={"10px"}
+                                slidesPerView={4}
+                                loop= {true}
+                                className="mySwiper"
+                            >
+                                {
+                                    newProducts.map((product, index) => {
+                                        return (
+                                            <SwiperSlide key={product._id + `${index}`}>
+                                                <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                            </SwiperSlide>
+                                        );
+                                    })
                                 }
-                            }}
-                            spaceBetween={"10px"}
-                            slidesPerView={4}
-                            loop= {true}
-                            className="mySwiper"
-                        >
-                            <SwiperSlide>
-                                <Card />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Card />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Card />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Card />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Card />
-                            </SwiperSlide>
-                        </Swiper>
+                            </Swiper>
+                        </div>
+                        {
+                            categoriesProducts.map(([category, categoryProducts]) => {
+                                return (
+                                    <div className={category}>
+                                        <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
+                                            <div className="text d-flex align-items-center">
+                                                <h3 className="mx-2 text-capitalize">{category}</h3>
+                                                <Link className="ms-3">{t("See More")}</Link>
+                                            </div>
+                                            <div className="d-flex">
+                                                <div className="p-md-2 p-1">
+                                                    <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
+                                                        <i className="text-white fa-solid fa-chevron-left"></i>
+                                                    </div>
+                                                </div>
+                                                <div className="p-md-2 p-1">
+                                                    <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
+                                                        <i className="text-white fa-solid fa-chevron-right"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <Swiper
+                                            modules={[Autoplay, Pagination, Navigation]}
+                                            navigation={{
+                                                nextEl: '.swiper-button-next1',
+                                                prevEl: '.swiper-button-prev1',
+                                            }}
+                                            breakpoints={{
+                                                0:{
+                                                    slidesPerView: 1,
+                                                },
+                                                350: {
+                                                    slidesPerView: 2,
+                                                },
+                                                768: {
+                                                    slidesPerView: 3,
+                                                },
+                                                994: {
+                                                    slidesPerView: 4,
+                                                }
+                                            }}
+                                            spaceBetween={"10px"}
+                                            slidesPerView={4}
+                                            loop= {true}
+                                            className="mySwiper"
+                                        >
+                                            {
+                                                categoryProducts.map((product, index) => {
+                                                    return (
+                                                        <SwiperSlide key={product._id + `${index}`}>
+                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+                                        </Swiper>
+                                    </div>
+                                );
+                            })
+                        }
                     </div>
                 </div>
             </div>

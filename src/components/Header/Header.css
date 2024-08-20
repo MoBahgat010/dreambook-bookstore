@@ -3,7 +3,7 @@ header {
 }
 
 nav.upper-one {
-    background-color: #054871;
+    background-color: #916741;
     direction: ltr;
 }
 
@@ -153,7 +153,7 @@ nav.upper-one .collapse ul li.currency .currency-dropdown {
     left: 50%;
     transform: translateX(-40%);
     width: 6rem;
-    background-color: #054871;
+    background-color: #916741;
     visibility: hidden;
     opacity: 0;
     transition: 500ms;
@@ -260,7 +260,7 @@ nav.upper-one .collapse ul li.current-country .country-dropdown {
     top: 150%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #054871;
+    background-color: #916741;
     list-style: none;
     padding: 0.1rem 1rem;
     visibility: hidden;
@@ -292,7 +292,7 @@ nav.upper-one .collapse ul li.current-country p {
 }
 
 nav.middle-one {
-    border-bottom: 1px solid #054871;
+    border-bottom: 1px solid #916741;
 }
 
 nav.middle-one .container .logo-container {
@@ -328,7 +328,7 @@ nav.middle-one .container .icons-container > a > div {
     width: 0.8rem;
     height: 0.8rem;
     border-radius: 50%;
-    background-color: #054871;
+    background-color: #916741;
     display: flex;
     justify-content: center;
     align-self: center;
@@ -339,7 +339,7 @@ nav.middle-one .container .icons-container > a > div {
 nav.middle-one .container .icons-container > a i,
 nav.middle-one .container .icons-container > div i {
     transform: scale(1);
-    color: #054871;
+    color: #916741;
 }
 
 nav.middle-one .container .search-bar {
@@ -355,10 +355,10 @@ nav.middle-one .container .search-bar {
 nav.middle-one .container .search-bar > div.icon-container {
     height: 100%;
     padding: 0.65rem 0.7rem;
-    border-left: 2px solid #054871;
-    border-top: 2px solid #054871;
-    border-bottom: 2px solid #054871;
-    background-color: #054871;
+    border-left: 2px solid #916741;
+    border-top: 2px solid #916741;
+    border-bottom: 2px solid #916741;
+    background-color: #916741;
     cursor: pointer;
     color: black;
 }
@@ -369,7 +369,7 @@ nav.middle-one .container .search-bar > div.icon-container i {
 
 nav.middle-one .container .search-bar input {
     width: 100%;
-    color: #054871;
+    color: #916741;
     outline: none;
     position: absolute;
     top: 100%;
@@ -378,7 +378,7 @@ nav.middle-one .container .search-bar input {
     height: 0;
     padding: 0;
     z-index: 100;
-    border: 0px solid #054871;
+    border: 0px solid #916741;
 }
 
 nav.middle-one .container .search-bar .menu-container {
@@ -388,7 +388,7 @@ nav.middle-one .container .search-bar .menu-container {
 nav.lower-one {
     position: sticky;
     top: 0;
-    background-color: #054871;
+    background-color: #916741;
     color: white;
     z-index: 150;
     display: flex;
@@ -419,7 +419,7 @@ nav.lower-one .container .has-dropdown ul {
     top: 130%;
     left: 0;
     z-index: 200;
-    background-color: #054871;
+    background-color: #916741;
     color: white;
 }
 
@@ -570,10 +570,10 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         /* position: -webkit-sticky; */
         top: 0;
         z-index: 100;
-        /* background-color: #054871; */
+        /* background-color: #916741; */
     }
     nav.lower-one .container {
-        /* background-color: #054871; */
+        /* background-color: #916741; */
         padding: 0.5rem 0;
         height: auto;
         overflow: visible;
@@ -604,10 +604,10 @@ nav.lower-one .container .has-dropdown ul li:hover p {
         position: static;
         height: 3rem;
         padding: 0.5rem;
-        border: 2px solid #054871;
+        border: 2px solid #916741;
     }
     nav.middle-one .container .search-bar input::placeholder {
-        color: #054871;
+        color: #916741;
     }
     nav.middle-one .container .icons-container > a i {
         transform: scale(1.3);

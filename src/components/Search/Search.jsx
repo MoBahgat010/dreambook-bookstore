@@ -5,7 +5,6 @@ import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/Produ
 import gsap from "gsap";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "../Card/Card"
 import { hideSearchComponent } from "../../RTK/Slices/ComponentsSlice";
 import { Link } from "react-router-dom";
 
@@ -112,15 +111,6 @@ function Search(props) {
                     }
                   </table>
                 }
-                  {/* {
-                      searchResults?.map((product, index) => {
-                          return (
-                              <div key={product.id + `${index}`} className="col-lg-2 p-2 col-md-4 col-6 ">
-                                  <Card key={product._id} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
-                              </div>
-                          );
-                      })
-                  } */}
               </div>
             </div>
         </div>

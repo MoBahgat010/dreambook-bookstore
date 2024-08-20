@@ -43,12 +43,24 @@ function Card(props) {
                 props.newBadge &&
                 <div className="new-badge d-flex justify-content-center align-items-center position-absolute">New</div>
             }
+            {
+                Boolean(props.discount) &&
+                <div className="discount-badge d-flex justify-content-center align-items-center position-absolute">{props.discount}% Off</div>
+            }
             <div className="image-container w-100">
                 <img src={props.image} className="" alt="" />
             </div>
             <div className="card-body text-center">
                 <h5 className="card-title text-center">{props.title}</h5>
-                <p className="card-text">{props.price} {countryCurrency}</p>
+                {
+                    Boolean(props.discount) ?
+                        <div className="d-flex gap-2">
+                            <p className="card-text old-price">{props.price} {countryCurrency}</p>
+                            <p className="card-text">{props.price * ((100 - props.discount) / 100.0)} {countryCurrency}</p>
+                        </div>
+                    :
+                        <p className="card-text">{props.price} {countryCurrency}</p>
+                }
                 <div className="options mt-3 d-flex justify-content-center align-items-center">
                     <div className="button rounded add-button">
                         <button onClick={(e) => {

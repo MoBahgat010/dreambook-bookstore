@@ -73,6 +73,10 @@
     text-decoration: underline;
 }
 
+.home .home-body .container > div:not(.categories) > div:not(:last-child) {
+    margin-bottom: 2.5rem;
+}
+
 .home .home-body .container .swiper-slide > a p {
     font-size: 10px;
 }

@@ -22,7 +22,7 @@ function SelectCountry() {
                 <div className="inner-container row justify-content-center">
                     <div className="sau px-2di-arabia col-md-6 col-12 col-lg-3 flex-column d-flex justify-content-center align-items-center">
                         <Link to={"/home"} onClick={() => {
-                            dispatch(changeCountry({ countryImg: saudiarabia, countryName:"Saudi Arabia" }));
+                            dispatch(changeCountry({ countryImg: saudiarabia, countryName:"Saudi Arabia", countryCurrency:"SAR" }));
                         }} className="w-75 h-75 flex-column d-flex justify-content-center align-items-center">
                             <img src={saudiarabia} alt="" />
                             <p className="mt-2">{t("Saudi Arabia")}</p>
@@ -30,7 +30,7 @@ function SelectCountry() {
                     </div>
                     <div className="Kuw px-2ait col-md-6 col-12 col-lg-3 flex-column d-flex justify-content-center align-items-center">
                         <Link to={"/home"} onClick={() => {
-                            dispatch(changeCountry({ countryImg: kuwait, countryName:"Kuwait" }));
+                            dispatch(changeCountry({ countryImg: kuwait, countryName:"Kuwait", countryCurrency:"KWD" }));
                         }} className="w-75 h-75 flex-column d-flex justify-content-center align-items-center">
                             <img src={kuwait} alt="" />
                             <p className="mt-2">{t("Kuwait")}</p>
@@ -38,7 +38,7 @@ function SelectCountry() {
                     </div>
                     <div className="UAE px-2 col-md-6 col-12 col-lg-3 flex-column d-flex justify-content-center align-items-center">
                         <Link to={"/home"} onClick={() => {
-                            dispatch(changeCountry({ countryImg: emirates, countryName:"UAE" }));
+                            dispatch(changeCountry({ countryImg: emirates, countryName:"UAE", countryCurrency:"AED" }));
                         }} className="w-75 h-75 flex-column d-flex justify-content-center align-items-center">
                             <img src={emirates} alt="" />
                             <p className="mt-2">{t("United Arab Emirates")}</p>
@@ -46,7 +46,7 @@ function SelectCountry() {
                     </div>
                     <div className="Bah px-2rain col-md-6 col-12 col-lg-3 d-flex flex-column justify-content-center align-items-center">
                         <Link to={"/home"} onClick={() => {
-                            dispatch(changeCountry({ countryImg: bahrain, countryName:"Bahrain" }));
+                            dispatch(changeCountry({ countryImg: bahrain, countryName:"Bahrain", countryCurrency:"BHD" }));
                         }} className="w-75 h-75 d-flex flex-column justify-content-center align-items-center">
                             <img src={bahrain} alt="" />
                             <p className="mt-2">{t("Bahrain")}</p>

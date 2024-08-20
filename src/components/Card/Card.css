@@ -35,6 +35,16 @@ p {
     width: 100%;
     height: 5%;
     transform: rotateZ(-45deg);
+    background-color: green;
+    color: white;
+}
+
+.card .discount-badge {
+    top: 4%;
+    left: 36%;
+    width: 100%;
+    height: 5%;
+    transform: rotateZ(45deg);
     background-color: yellow;
 }
 
@@ -57,6 +67,11 @@ p {
     transform: scale(0.8);
 }
 
+.card .card-body .old-price {
+    text-decoration: line-through;
+    color: red;
+}
+
 .card .card-body .options .like-button:hover i.fa-solid {
     opacity: 1;
     transition: 300ms;
@@ -72,7 +87,7 @@ p {
 }
 
 .card .button.add-button {
-    background-color: #054871;
+    background-color: #916741;
 }
 
 .card .button.like-button {
@@ -80,7 +95,7 @@ p {
 }
 
 .card .button.add-button:hover {
-    background-color: #054871 !important;
+    background-color: #916741 !important;
 }
 
 .card .button.like-button:hover {

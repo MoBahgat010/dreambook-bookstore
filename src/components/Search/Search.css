@@ -3,7 +3,7 @@
     left: 0;
     right: 0;
     top: calc(100% + 46px);
-    background-color: #054871;
+    background-color: #916741;
     overflow: auto;
 }
 
@@ -20,7 +20,7 @@
     font-size: 14px;
     font-weight: 500;
     border: 1px solid white;
-    color: #054871;
+    color: #916741;
     background-color: white;
     border-radius: 5rem;
     transition: 0.2s;
@@ -28,7 +28,7 @@
 }
 
 .search-part .d-flex button:hover {
-    background-color: #054871;
+    background-color: #916741;
     color: white;
     transition: 0.2s;
 }
@@ -60,24 +60,24 @@ table tbody {
 }
 
 .search-part table caption button {
-    background-color: #054871;
+    background-color: #916741;
     border: none;
     outline: none;
     color: white;
     transition: 300ms;
-    border: 2px solid #054871;
+    border: 2px solid #916741;
 }
 
 .search-part table caption button:hover {
     background-color: white;
-    color: #054871;
+    color: #916741;
     transition: 300ms;
-    border: 2px solid #054871;
+    border: 2px solid #916741;
 }
 
 .search-part table caption {
     width: 100%;
-    color: #054871;
+    color: #916741;
     border-right: 1px solid #DEE2E6;
     border-top: 1px solid #DEE2E6;
     border-bottom: 1px solid #DEE2E6;
@@ -106,7 +106,7 @@ table tbody {
 @media (min-width: 768px) {
     .search-part {
         top: 100%;
-        border-top: 1px solid #054871;
+        border-top: 1px solid #916741;
 
     }
     .search-part table td {

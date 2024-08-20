@@ -38,7 +38,7 @@ function PopUpProduct() {
         })
     }
 
-    // setTimeout(ShowPopUp, 2000);
+    // setInterval(ShowPopUp, 5000);
     
     const { t } = useTranslation();
 
