@@ -140,7 +140,7 @@ export const ProductCartSlice = createSlice({
         },
         GetCartProducts: (state = initialstate, action) => {
             state.CartProducts = action.payload;
-        }
+        },
     },
     extraReducers: builder =>
         builder
@@ -188,8 +188,8 @@ export const ProductCartSlice = createSlice({
                 state.Cartloader = false;
             })
             .addCase(UpdateQuantity.rejected, (state, action) => {  
-                if(action.payload === "Insufficient product quantity")
-                    state.InsuffecientProductQuantity = !state.InsuffecientProductQuantity;
+                // if(action.payload === "Insufficient product quantity")
+                //     state.InsuffecientProductQuantity = !state.InsuffecientProductQuantity;
                 state.Cartloader = false;
             })
 }) 

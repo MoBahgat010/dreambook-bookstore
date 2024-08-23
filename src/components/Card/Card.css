@@ -45,7 +45,7 @@ p {
     width: 100%;
     height: 5%;
     transform: rotateZ(45deg);
-    background-color: yellow;
+    background-color: #F9A800;
 }
 
 .card .card-body {
@@ -87,7 +87,7 @@ p {
 }
 
 .card .button.add-button {
-    background-color: #916741;
+    background-color: #054872;
 }
 
 .card .button.like-button {

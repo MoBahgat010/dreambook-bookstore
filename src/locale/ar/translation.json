@@ -96,5 +96,8 @@
     "Forgot Password": "نسيت كلمة المرور",
     "New": "مضاف حديثا",
     "Insufficient product quantity": "لا يوجد كمية متاحة",
-    "Add Quantity": "اضف كمية"
+    "Add Quantity": "اضف كمية",
+    "Email Saved": "تم تسجيل البريد الاكتروني",
+    "Email already exists": "البريد الإلكتروني موجود بالفعل",
+    "Save": "سجل"
 }

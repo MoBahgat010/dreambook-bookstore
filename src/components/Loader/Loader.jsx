@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Loader.css"
 import { useEffect } from "react";
 import gsap from "gsap";
+import { resetEmail } from "../../RTK/Slices/NewsEmailSlice";
 
 function Loader() {
 
@@ -11,11 +12,6 @@ function Loader() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("//////////////////////////////////////");
-        // console.log("Cartloader", Cartloader);
-        // console.log("ProductsLoader", ProductsLoader);
-        // console.log("WishListLoader", WishListLoader);
-        // console.log(Cartloader || ProductsLoader || WishListLoader);
         if (Cartloader || ProductsLoader || WishListLoader) {
             gsap.set("body", {
                 overflow: "hidden"
@@ -39,6 +35,7 @@ function Loader() {
                     overflow: "visible"
                 })
         }
+        dispatch(resetEmail());
     }, [Cartloader, ProductsLoader, WishListLoader])
 
     // useEffect(() => {

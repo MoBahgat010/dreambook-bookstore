@@ -1,9 +1,6 @@
 .pop-up-product {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    inset: 0;
     opacity: 0;
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.518);
@@ -15,7 +12,7 @@
 
 .pop-up-product .inner-container {
     position: absolute;
-    top: -50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;

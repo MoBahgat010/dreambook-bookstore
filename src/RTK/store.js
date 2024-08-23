@@ -6,6 +6,7 @@ import ProductCartSlice from "./Slices/ProductCartSlice"
 import ComponentsSlice from "./Slices/ComponentsSlice"
 import AuthorizationSlice from "./Slices/AuthorizationSlice";
 import FetchProductsSlice from "./Slices/FetchProductsSlice";
+import NewsEmailSlice from "./Slices/NewsEmailSlice";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         Cart: ProductCartSlice,
         Components: ComponentsSlice,
         Authorization: AuthorizationSlice,
-        ShopPage: FetchProductsSlice
+        ShopPage: FetchProductsSlice,
+        NewsEmail: NewsEmailSlice
     }
 })

@@ -2,11 +2,12 @@ import "./SinglePage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AddThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice"
+import { AddThenGetCartProducts, TriggerInsuffecientProductQuantity } from "../../RTK/Slices/ProductCartSlice"
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { FetchCertainProduct } from "../../RTK/Slices/FetchProductsSlice";
 import { AddThenGetWishList, RemoveThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import toast from "react-hot-toast";
 
 function SinglePage() {
 
@@ -64,7 +65,15 @@ function SinglePage() {
                     <div className="data col-12 col-md-6">
                         <div className="upper-data">
                             <h1>{certainProduct.title}</h1>
-                            <span>{certainProduct.price} {countryCurrency}</span>
+                            {
+                                Boolean(certainProduct.discount) ?
+                                    <div className="d-flex gap-2">
+                                        <span>{(100 - certainProduct.discount) / 100.0 * certainProduct.price} {countryCurrency}</span>
+                                        <span className="old-price">{certainProduct.price} {countryCurrency}</span>
+                                    </div>
+                                :
+                                    <span>{certainProduct.price} {countryCurrency}</span>
+                            }
                             <div className="review overflow-hidden position-relative mt-5">
                                 <p>{t("Add Quantity")}</p>
                                 <div className="select-quantity mt-2 d-flex align-items-center">
@@ -73,7 +82,12 @@ function SinglePage() {
                                             quantity && setQuantity(quantity - 1);
                                         }} className="text-white fs-3 py-1 px-3">-</button>
                                         <div className="p-2 d-flex bg-light-subtle align-items-center">{quantity}</div>
-                                        <button onClick={() => setQuantity(quantity + 1)} className="text-white fs-3 py-1 px-3">+</button>
+                                        <button onClick={() => {
+                                            quantity != certainProduct.quantity ?
+                                                setQuantity(quantity + 1)
+                                            :
+                                                toast.error("Insufficient product quantity.")
+                                        }} className="text-white fs-3 py-1 px-3">+</button>
                                     </div>
                                     <div className="px-1">
                                         <button onClick={() => {
@@ -89,6 +103,10 @@ function SinglePage() {
                                             // dispatch(addProduct(current_product));
                                         }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
+                                    {
+                                        certainProduct.quantity < 10 &&
+                                            <p className="alert p-0 m-0 ms-2 text-danger">{certainProduct.quantity} item{certainProduct.quantity != 1 && <span>s</span>} available</p>
+                                    }
                                     {
                                         certainProduct.new &&
                                         <p style={{color: "#916741"}} className="mx-2">{t("New")}</p>

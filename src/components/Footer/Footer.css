@@ -18,7 +18,7 @@ p {
     width: 12rem;
 }
 
-.upper-footer .container input {
+.upper-footer .container form input {
     width: 100%;
     padding: 0.5rem;
     border-radius: 2rem;
@@ -27,10 +27,20 @@ p {
     border: none;
     color: white;
 }
-.upper-footer .container input::placeholder {
+.upper-footer .container form input::placeholder {
     color: white;
     text-align: center;
 }
+
+.upper-footer .container form button {
+    border-radius: 10rem;
+    background-color: #916741;
+    border: #916741;
+    color: white;
+    padding: 0.5rem 5rem;
+    margin-top: 0.5rem;
+}
+
 .upper-footer .container p {
     color: #916741;
     font-weight: 600;

@@ -1,10 +1,13 @@
-.single-page img {
-    /* object-fit: contain; */
-}
 .single-page .container .inner-container .data {
     display: flex;
     flex-direction: column;
 }
+
+.single-page .container .inner-container .data .upper-data .old-price {
+    text-decoration: line-through;
+    color: red;
+}
+
 .single-page .container .inner-container .data .upper-data {
     padding-bottom: 1rem;
     border-bottom: 1px solid gray;

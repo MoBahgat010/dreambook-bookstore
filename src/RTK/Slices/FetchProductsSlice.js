@@ -36,17 +36,21 @@ export const FetchProductsSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(FetchProducts.pending, (state = initialState) => {
+                console.log("I am here now")
                 state.ProductsLoader = true;
             })
             .addCase(FetchProducts.fulfilled, (state = initialState, action) => {
+                console.log("I am here now")
                 // console.log("I've finished");
                 state.FetchedProducts = action.payload.data.result
                 state.ProductsLoader = false;
             })
             .addCase(FetchCertainProduct.pending, (state = initialState) => {
+                console.log("I am here now")
                 state.ProductsLoader = true;
             })
             .addCase(FetchCertainProduct.fulfilled, (state = initialState, action) => {
+                console.log("I am here now")
                 // console.log("I've finished");
                 state.certainProduct = action.payload;
                 state.ProductsLoader = false;

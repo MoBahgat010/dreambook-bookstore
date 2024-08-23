@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 
 function PopUpCart() {
 
-    const { token } = useSelector(state => state.Authorization);
     const { CartProducts } = useSelector(state => state.Cart);
     
     const { currencyName } = useSelector(state => state.SelectedCurrency);

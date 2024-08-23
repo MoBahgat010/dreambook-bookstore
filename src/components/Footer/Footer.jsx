@@ -4,10 +4,26 @@ import AppStore from "../../assets/apple.png"
 import PlayStore from "../../assets/google.png"
 import "./Footer.css"
 import { useTranslation } from "react-i18next"
+import { useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { SendEmail } from "../../RTK/Slices/NewsEmailSlice"
 
 function Footer() {
 
+    const { isemailSent, isEmailSubmitted } = useSelector(state => state.NewsEmail);
+    const dispatch = useDispatch();
     const { t } = useTranslation();
+    const EmailInp = useRef();
+    const [isWriting, setIsWriting] = useState(false);
+
+    function EmailSendMessage() {
+        if(isEmailSubmitted) {
+            if(isemailSent) 
+                return <p className="text-center text-success">{t("Email Saved")}</p>
+            else
+                return <p className="text-center text-danger">{t("Email already exists")}</p>
+        }
+    }
 
     return (
         <footer>
@@ -17,7 +33,24 @@ function Footer() {
                         <img src={logo} alt="logo" />
                     </div>
                     <p className="my-3 fs-3">{t("NewsLetter")}</p>
-                    <input className="text-center" type="text" placeholder={t("Enter Email")} />
+                    <form className="w-100 text-center" onSubmit={(e) => {
+                        setIsWriting(false);
+                        dispatch(SendEmail(EmailInp.current.value));
+                        e.preventDefault();
+                        e.target.reset();
+                    }}>
+                        <input ref={EmailInp} type="email" onChange={() => {
+                            EmailInp?.current?.value != "" ?
+                                setIsWriting(true)
+                            :
+                                setIsWriting(false)
+                        }} className="text-center" placeholder={t("Enter Email")} />
+                        {
+                            isWriting &&
+                            <button>{t("Save")}</button>
+                        }
+                        { EmailSendMessage() }
+                    </form>
                     <div className="social-media d-flex justify-content-center align-items-center">
                         <div>
                             <div>

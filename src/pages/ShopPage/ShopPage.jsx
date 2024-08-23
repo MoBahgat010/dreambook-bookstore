@@ -28,8 +28,8 @@ function ShopPage () {
     const AuthorCheckBoxes = useRef([]);
 
     function SetShopPage() {
-        let Departements = [t("Learning Languages")];
-        let Categories = [t("English Books"), t("Kids Books"), t("Offers and discounts")];
+        let Departements = [t("Learning Languages"), t("Offers and discounts")];
+        let Categories = [t("English Books"), t("Kids Books")];
         let Publications = [];
         let Authors = [];
         const currentLangauge = i18n.language;
@@ -81,9 +81,12 @@ function ShopPage () {
         let FilteredProducts = [];
         if(currentLangauge === 'en') {
             FilteredProducts = FetchedProducts.filter(product => {
-                for(let i in DepartementCheckBoxes.current) 
-                    if(DepartementCheckBoxes.current[i].checked && product.departement == departements[i])
+                for(let i in DepartementCheckBoxes.current) {
+                    if(DepartementCheckBoxes.current[i].id === "Offers and discounts" && DepartementCheckBoxes.current[i].checked && Boolean(product.discount))
                         return true;
+                    else if(DepartementCheckBoxes.current[i].checked && product.departement == departements[i])
+                        return true;
+                }
                 for(let i in CategoriesCheckBoxes.current)
                     if(CategoriesCheckBoxes.current[i].checked && product.category.englishname == categories[i])
                         return true;

@@ -24,6 +24,7 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import TargetEmail from './pages/ForgotPassword/TargetEmail';
 import toast from 'react-hot-toast';
 import PopUpProduct from './components/PopUpProduct/PopUpProduct';
+import UpArrow from './components/UpArrow/UpArrow';
 
 function App() {
 
@@ -87,6 +88,7 @@ function App() {
         <Route path='login/forgot-password/:tempToken' element={<ForgotPassword />} />
         <Route path='login/target-email' element={<TargetEmail />} />
       </Routes>
+      <UpArrow />
       <Footer />
     </>
   );

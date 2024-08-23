@@ -5,6 +5,7 @@ import { RemoveThenGetCartProducts, UpdateQuantityThenGetCartProducts } from "..
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function CartPage() {
 
@@ -46,7 +47,6 @@ function CartPage() {
               <tbody>
                 {
                   CartProducts?.map((product, index) => {
-                    console.log(product);
                     return (
                       <tr key={product.product._id}>
                         <th>
@@ -71,8 +71,10 @@ function CartPage() {
                             <p className="mx-2">{updatedQuantity[index]}</p>
                             <button onClick={() => {
                               let temp_array = [...updatedQuantity];
-                              productsAvailableQuantities[index] > updatedQuantity[index] &&
-                                temp_array[index]++;
+                              productsAvailableQuantities[index] > updatedQuantity[index] ?
+                                temp_array[index]++
+                              :
+                                toast.error("Insufficient product quantity.")
                               setUpdatedQuantity(temp_array);
                             }} className="text-white position-relative px-1 mb-1 rounded-pill"><p className="position-absolute">+</p></button>
                           </div>

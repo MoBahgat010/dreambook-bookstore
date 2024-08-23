@@ -251,22 +251,22 @@ function Home() {
                             </Swiper>
                         </div>
                         {
-                            categoriesProducts.map(([category, categoryProducts]) => {
+                            categoriesProducts.map(([category, categoryProducts], index) => {
                                 return (
                                     <div className={category}>
                                         <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
                                             <div className="text d-flex align-items-center">
                                                 <h3 className="mx-2 text-capitalize">{category}</h3>
-                                                <Link className="ms-3">{t("See More")}</Link>
+                                                <Link to={"/shop-page"} state={{data: category}} className="ms-3">{t("See More")}</Link>
                                             </div>
                                             <div className="d-flex">
                                                 <div className="p-md-2 p-1">
-                                                    <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
+                                                    <div className={`rounded-pill swiper-button-prev${index} py-md-2 py-0 px-md-3 px-2`}>
                                                         <i className="text-white fa-solid fa-chevron-left"></i>
                                                     </div>
                                                 </div>
                                                 <div className="p-md-2 p-1">
-                                                    <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
+                                                    <div className={`rounded-pill swiper-button-next${index} py-md-2 py-0 px-md-3 px-2`}>
                                                         <i className="text-white fa-solid fa-chevron-right"></i>
                                                     </div>
                                                 </div>
@@ -275,8 +275,8 @@ function Home() {
                                         <Swiper
                                             modules={[Autoplay, Pagination, Navigation]}
                                             navigation={{
-                                                nextEl: '.swiper-button-next1',
-                                                prevEl: '.swiper-button-prev1',
+                                                nextEl: `.swiper-button-next${index}`,
+                                                prevEl: `.swiper-button-prev${index}`,
                                             }}
                                             breakpoints={{
                                                 0:{
@@ -297,6 +297,33 @@ function Home() {
                                             loop= {true}
                                             className="mySwiper"
                                         >
+                                            {
+                                                categoryProducts.map((product, index) => {
+                                                    return (
+                                                        <SwiperSlide key={product._id + `${index}`}>
+                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+                                            {
+                                                categoryProducts.map((product, index) => {
+                                                    return (
+                                                        <SwiperSlide key={product._id + `${index}`}>
+                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
+                                            {
+                                                categoryProducts.map((product, index) => {
+                                                    return (
+                                                        <SwiperSlide key={product._id + `${index}`}>
+                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                        </SwiperSlide>
+                                                    );
+                                                })
+                                            }
                                             {
                                                 categoryProducts.map((product, index) => {
                                                     return (
