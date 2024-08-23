@@ -147,7 +147,7 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td>{t('Availability')}</td>
-                                        <td>{certainProduct.availability ? t("In Stock") : t("Out of Stock")}</td>
+                                        <td>{!certainProduct.quantity ? t("In Stock") : t("Out of Stock")}</td>
                                   </tr>
                                   <tr>
                                         <td>{t("Views")}</td>
@@ -155,7 +155,7 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td className="me-auto">{t('Stocks')}</td>
-                                        <td>321</td>
+                                        <td>{certainProduct.quantity}</td>
                                   </tr>
                                 </tbody>
                             </table>

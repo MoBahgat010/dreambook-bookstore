@@ -18,9 +18,9 @@ th[scope="row"],
     font-size: 14px;
 }
 
-.wishlist table tbody .remove-col {
+.wishlist table tbody .remove-col button {
     position: relative;
-    z-index: 100;
+    z-index: 99;
 }
 
 .wishlist table tbody a {

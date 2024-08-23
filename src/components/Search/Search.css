@@ -5,6 +5,7 @@
     top: calc(100% + 46px);
     background-color: #916741;
     overflow: auto;
+    z-index: 9999;
 }
 
 .search-part * {

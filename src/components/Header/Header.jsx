@@ -31,7 +31,6 @@ function Header() {
     const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);
     const { FetchedProducts } = useSelector(state => state.ShopPage);
     // const { logged } = useSelector(state => state.Authorization);
-    // const { currencyName } = useSelector(state => state.SelectedCurrency);
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
     const { RegenerateData, RedirectToLogin } = useSelector(state => state.Authorization);

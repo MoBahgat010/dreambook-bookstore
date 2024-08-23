@@ -22,6 +22,7 @@
 
 .swiper-slide {
     direction: rtl;
+    height: 100%;
 }
 
 .home .home-body {

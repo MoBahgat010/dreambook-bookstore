@@ -12,7 +12,7 @@ function PopUpCart() {
 
     const { CartProducts } = useSelector(state => state.Cart);
     
-    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const { countryCurrency } = useSelector(state => state.SelectCountry);
     const isSmallScreen = useMediaQuery({ query: '(max-width: 678px)' });
     const { t } = useTranslation();
 
@@ -94,8 +94,8 @@ function PopUpCart() {
                         <td className="product-text">{product.product.title}</td>
                         <td className="product-text">{product.quantity}</td>
                         <td className='text-center product-text'>
-                          <p>{currencyName}</p>
-                          <p>{product.quantity * product.price}</p>
+                          <p>{countryCurrency}</p>
+                          <p>{(product.quantity * product.priceExchanged).toFixed(2)}</p>
                         </td>
                       </tr>
                     );

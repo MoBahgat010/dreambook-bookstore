@@ -26,7 +26,7 @@ function Checkout() {
     const PaciNo = useRef();
     const OrderNotes = useRef();
 
-    const { currencyName } = useSelector(state => state.SelectedCurrency);
+    const { countryCurrency } = useSelector(state => state.SelectCountry);
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
     const dispatch = useDispatch();
     const [showPaymentMethods, setShowPaymentMethods] = useState(false);
@@ -171,9 +171,9 @@ function Checkout() {
                                               </div>
                                           </div>
                                         </th>
-                                        <td className="text-center">{currencyName} {product.price}</td>
+                                        <td className="text-center">{countryCurrency} {product.price}</td>
                                         <td className="text-center">{product.quantity}</td>
-                                        <td className="text-center">{currencyName} {product.quantity * product.price}</td>
+                                        <td className="text-center">{countryCurrency} {product.quantity * product.price}</td>
                                         <td className="text-center cross"><i onClick={() => {
                                           dispatch(removeProduct({ id: product.id, quantity: product.quantity, price:product.price }));
                                         }} className="fa-solid fa-circle-xmark"></i></td>

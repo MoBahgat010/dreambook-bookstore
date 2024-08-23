@@ -87,7 +87,10 @@ p {
 }
 
 .card .button.add-button {
+    border: 1px solid #054872;
+    color: white;
     background-color: #054872;
+    transition: 300ms;
 }
 
 .card .button.like-button {
@@ -95,7 +98,12 @@ p {
 }
 
 .card .button.add-button:hover {
-    background-color: #916741 !important;
+    background-color: transparent !important;
+    transition: 300ms;
+}
+
+.card .button.add-button:hover p {
+    color: black;
 }
 
 .card .button.like-button:hover {

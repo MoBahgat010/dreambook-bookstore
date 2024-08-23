@@ -110,7 +110,11 @@ table tbody {
 }
 
 .cart-page table td {
-    font-size: 10px;
+    font-size: 16px;
+}
+
+.product-text {
+    font-size: 14px;
 }
 
 .cart-page table td .d-flex button {

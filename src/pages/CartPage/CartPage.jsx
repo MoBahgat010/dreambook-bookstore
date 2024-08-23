@@ -14,16 +14,19 @@ function CartPage() {
   const { countryCurrency } = useSelector(state => state.SelectCountry);
   const [updatedQuantity, setUpdatedQuantity] = useState([]);
   const [productsAvailableQuantities, setProductsAvailableQuantities] = useState([]);
+
   useEffect(() => {
     let temp_array = [];
     let temp_array_qua = [];
     let temp_array_ids = [];
     temp_array_ids = CartProducts.map((product, index) => {
       temp_array[index] = product.quantity;
+      return product.product._id
     })
-    FetchedProducts.forEach((product, index) => {
-      if (temp_array_ids.includes(product.id))
-        temp_array_qua[index] = product.quantity;
+    let indexing = 0;
+    FetchedProducts.forEach(product => {
+      if (temp_array_ids.includes(product._id))
+        temp_array_qua[indexing++] = product.quantity;
     })
     setUpdatedQuantity(temp_array);
     setProductsAvailableQuantities(temp_array_qua);
@@ -59,7 +62,7 @@ function CartPage() {
                               </div>
                           </div>
                         </th>
-                        <td className="text-center">{countryCurrency} {product.priceExchanged}</td>
+                        <td className="text-center">{countryCurrency} {product.priceExchanged.toFixed(2)}</td>
                         <td className="text-center">
                           <div className="d-flex justify-content-center align-items-center">
                             <button onClick={() => {
@@ -88,7 +91,7 @@ function CartPage() {
                               }}>Save</button>
                           }
                         </td>
-                        <td className="text-center">{countryCurrency} {product.quantity * product.priceExchanged}</td>
+                        <td className="text-center">{countryCurrency} {(product.quantity * product.priceExchanged).toFixed(2)}</td>
                         <td className="text-center cross"><i onClick={() => {
                           dispatch(RemoveThenGetCartProducts(product._id));
                         }} className="fa-solid fa-circle-xmark"></i></td>
