@@ -25,6 +25,7 @@ import TargetEmail from './pages/ForgotPassword/TargetEmail';
 import toast from 'react-hot-toast';
 import PopUpProduct from './components/PopUpProduct/PopUpProduct';
 import UpArrow from './components/UpArrow/UpArrow';
+import i18next from 'i18next';
 
 function App() {
 
@@ -35,6 +36,11 @@ function App() {
   // const location = useLocation();
   const navigate = useNavigate();
   const firstUpdate = useRef(false);
+
+  if(i18next.language === 'en')
+    document.documentElement.classList.remove("arabic-format");
+  else
+    document.documentElement.classList.add("arabic-format");
 
   useEffect(() => {
     StartNavigation != "" && navigate(NavigateTo);

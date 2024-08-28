@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import i18n from "../../i18n";
+import gsap from "gsap";
 
 function ShopPage () {
 
@@ -15,32 +16,34 @@ function ShopPage () {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const [pagenumber, setPagenumber] = useState(0);
     const [filteredProducts, setFilteredProducts] = useState([])
     const [reFilter, setReFilter] = useState(true);
-    const [departements, setDepartements] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
     const [publications, setPublications] = useState([]);
     const [authors, setAuthors] = useState([]);
 
-    const DepartementCheckBoxes = useRef([]);
     const CategoriesCheckBoxes = useRef([]);
+    const SubCategoryCheckBoxes = useRef([]);
     const PublicationCheckBoxes = useRef([]);
     const AuthorCheckBoxes = useRef([]);
 
     function SetShopPage() {
-        let Departements = [t("Learning Languages"), t("Offers and discounts")];
-        let Categories = [t("English Books"), t("Kids Books")];
+        // let Departements = [t("Learning Languages"), t("Offers and discounts")];
+        // let Categories = [t("English Books"), t("Kids Books")];
+        let Categories = [];
+        let SubCategories = [];
         let Publications = [];
         let Authors = [];
         const currentLangauge = i18n.language;
         console.log(currentLangauge);
         if(currentLangauge === 'en') {
             FetchedProducts.forEach(product => {
-                console.log(FetchedProducts);
-                if(!Departements.includes(product.departement))
-                    Departements.push(product.departement);
                 if(!Categories.includes(product.category.englishname))
                     Categories.push(product.category.englishname);
+                if(!SubCategories.includes(product.Subcategory.englishname))
+                    SubCategories.push(product.Subcategory.englishname);
                 if(!Publications.includes(product.publication))
                     Publications.push(product.publication);
                 if(!Authors.includes(product.author.name))
@@ -50,22 +53,22 @@ function ShopPage () {
         else if(currentLangauge === 'ar') {
             FetchedProducts.forEach(product => {
                 console.log(product);
-                if(!Departements.includes(product.departement))
-                    Departements.push(product.departement);
                 if(!Categories.includes(product.category.arabicname))
                     Categories.push(product.category.arabicname);
+                if(!SubCategories.includes(product.Subcategory.arabicname))
+                    SubCategories.push(product.Subcategory.arabicname);
                 if(!Publications.includes(product.publication))
                     Publications.push(product.publication);
                 if(!Authors.includes(product.author.name))
                     Authors.push(product.author.name);
             });    
         }
-        Departements.sort();
         Categories.sort();
+        SubCategories.sort();
         Publications.sort();
         Authors.sort();
-        setDepartements(Departements);
         setCategories(Categories);
+        setSubCategories(SubCategories);
         setPublications(Publications);
         setAuthors(Authors);
         setFilteredProducts(FetchedProducts);
@@ -81,14 +84,14 @@ function ShopPage () {
         let FilteredProducts = [];
         if(currentLangauge === 'en') {
             FilteredProducts = FetchedProducts.filter(product => {
-                for(let i in DepartementCheckBoxes.current) {
-                    if(DepartementCheckBoxes.current[i].id === "Offers and discounts" && DepartementCheckBoxes.current[i].checked && Boolean(product.discount))
+                for(let i in CategoriesCheckBoxes.current) {
+                    if(CategoriesCheckBoxes.current[i].id === "Offers and discounts" && CategoriesCheckBoxes.current[i].checked && Boolean(product.discount))
                         return true;
-                    else if(DepartementCheckBoxes.current[i].checked && product.departement == departements[i])
+                    else if(CategoriesCheckBoxes.current[i].checked && product.category.englishname == categories[i])
                         return true;
                 }
-                for(let i in CategoriesCheckBoxes.current)
-                    if(CategoriesCheckBoxes.current[i].checked && product.category.englishname == categories[i])
+                for(let i in SubCategoryCheckBoxes.current)
+                    if(SubCategoryCheckBoxes.current[i].checked && product.Subcategory.englishname == subCategories[i])
                         return true;
                 for(let i in PublicationCheckBoxes.current)
                     if(PublicationCheckBoxes.current[i].checked && product.publication == publications[i])
@@ -101,11 +104,11 @@ function ShopPage () {
         }
         else if(currentLangauge === 'ar') {
             FilteredProducts = FetchedProducts.filter(product => {
-                for(let i in DepartementCheckBoxes.current) 
-                    if(DepartementCheckBoxes.current[i].checked && product.departement == departements[i])
-                        return true;
-                for(let i in CategoriesCheckBoxes.current)
+                for(let i in CategoriesCheckBoxes.current) 
                     if(CategoriesCheckBoxes.current[i].checked && product.category.arabicname == categories[i])
+                        return true;
+                for(let i in SubCategoryCheckBoxes.current)
+                    if(SubCategoryCheckBoxes.current[i].checked && product.Subcategory.arabicname == subCategories[i])
                         return true;
                 for(let i in PublicationCheckBoxes.current)
                     if(PublicationCheckBoxes.current[i].checked && product.publication == publications[i])
@@ -117,13 +120,13 @@ function ShopPage () {
             })
         }
         if(!FilteredProducts.length) {
-            for(let i in DepartementCheckBoxes.current) 
-                if(DepartementCheckBoxes.current[i].checked) {
+            for(let i in CategoriesCheckBoxes.current) 
+                if(CategoriesCheckBoxes.current[i].checked) {
                     setFilteredProducts(FilteredProducts);
                     return;
                 }
-            for(let i in CategoriesCheckBoxes.current)
-                if(CategoriesCheckBoxes.current[i].checked) {
+            for(let i in SubCategoryCheckBoxes.current)
+                if(SubCategoryCheckBoxes.current[i].checked) {
                     setFilteredProducts(FilteredProducts);
                     return;
                 }
@@ -141,30 +144,44 @@ function ShopPage () {
         }
         else
             setFilteredProducts(FilteredProducts);
-    }, [reFilter, departements, categories])
+        setPagenumber(0);
+    }, [reFilter, subCategories, categories])
     
     useEffect(() => {
         // console.log(location.state);
         if(location.state?.data != "") {
-            for(let i in DepartementCheckBoxes.current) {
-                if(DepartementCheckBoxes.current[i].id == location.state?.data) {
-                    DepartementCheckBoxes.current[i].checked = true;
-                    break;
-                }
-            }
-            for(let i in CategoriesCheckBoxes.current) {    
+            for(let i in CategoriesCheckBoxes.current) {
                 if(CategoriesCheckBoxes.current[i].id == location.state?.data) {
                     CategoriesCheckBoxes.current[i].checked = true;
                     break;
                 }
             }
+            for(let i in SubCategoryCheckBoxes.current) {    
+                if(SubCategoryCheckBoxes.current[i].id == location.state?.data) {
+                    SubCategoryCheckBoxes.current[i].checked = true;
+                    break;
+                }
+            }
             setReFilter(!reFilter);
         }
-    }, [location.state?.data, categories,departements, i18next.language])
+    }, [location.state?.data, categories, subCategories, i18next.language])
 
     useEffect(() => {
         window.scrollTo(0,0)
-    }, [])
+    }, [pagenumber])
+
+    function renderPagination() {
+        const paginationnumber = Math.ceil(filteredProducts.length / 6.0)
+        console.log("paginationnumber");
+        console.log(paginationnumber);
+        return (
+            Array(paginationnumber).fill().map((_, index) => {
+                return <li className={index == pagenumber && "active-pagination"} onClick={() => {
+                    setPagenumber(index)
+                }}>{index + 1}</li>
+            })
+        );
+    }
 
     return (
         <div className="shop-page pb-2 pt-4">
@@ -177,14 +194,14 @@ function ShopPage () {
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                             {
-                                departements?.map((departement, index) => {
+                                categories?.map((category, index) => {
                                     return (
                                         <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p>{t(departement)}</p>
-                                            <input id={departement} onChange={() => {
+                                            <p className="text-capitalize">{t(category)}</p>
+                                            <input id={category} onChange={() => {
                                                 setReFilter(!reFilter);
                                                 navigate(location.pathname, {});
-                                            }} ref={ele => DepartementCheckBoxes.current[index] = ele} type="checkbox" />
+                                            }} ref={ele => CategoriesCheckBoxes.current[index] = ele} type="checkbox" />
                                         </div>
                                     )
                                 })
@@ -196,14 +213,14 @@ function ShopPage () {
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                             {
-                                categories.map((category, index) => {
+                                subCategories.map((subCategory, index) => {
                                     return (
                                         <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p>{category}</p>
-                                            <input id={category} onChange={() => {
+                                            <p className="text-capitalize">{subCategory}</p>
+                                            <input id={subCategory} onChange={() => {
                                                 setReFilter(!reFilter);
                                                 navigate(location.pathname, {});
-                                            }} ref={ele => CategoriesCheckBoxes.current[index] = ele} type="checkbox" />
+                                            }} ref={ele => SubCategoryCheckBoxes.current[index] = ele} type="checkbox" />
                                         </div>
                                     )
                                 })
@@ -218,7 +235,7 @@ function ShopPage () {
                                 authors.map((author, index) => {
                                     return (
                                         <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p>{author}</p>
+                                            <p className="text-capitalize">{author}</p>
                                             <input id={author} onChange={() => {
                                                 setReFilter(!reFilter);
                                                 navigate(location.pathname, {});
@@ -237,7 +254,7 @@ function ShopPage () {
                                 publications.map((publication, index) => {
                                     return (
                                         <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p>{publication}</p>
+                                            <p className="text-uppercase">{publication}</p>
                                             <input id={publication} onChange={() => {
                                                 setReFilter(!reFilter);
                                                 navigate(location.pathname, {});
@@ -251,14 +268,17 @@ function ShopPage () {
                 </aside>
                 <div className="inner-container row">
                     {
-                        filteredProducts?.map((product, index) => {
+                        filteredProducts.slice(pagenumber * 6, (pagenumber + 1) * 6).map((product, index) => {
                             return (
                                 <div key={product.id + `${index}`} className="col-lg-4 p-2 col-md-6 col-12">
-                                    <Card key={product._id} id={product._id} discount={product.discount} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                    <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
                                 </div>
                             );
                         })
                     }
+                    <ul className="pagination d-flex justify-content-center flex-wrap gap-1 px-5 mt-4">
+                        { renderPagination() }
+                    </ul>
                 </div>
             </div>
         </div>

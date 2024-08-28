@@ -423,6 +423,10 @@ nav.lower-one .container .has-dropdown ul {
     color: white;
 }
 
+html.arabic-format nav.lower-one .container .has-dropdown ul {
+    right: 0;
+}
+
 nav.lower-one .container .has-dropdown ul > div {
     overflow: hidden;
 }

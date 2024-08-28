@@ -22,6 +22,34 @@
     width: 100%;
 }
 
+.shop-page .row ul.pagination {
+    list-style: none;
+}
+
+.shop-page .row ul.pagination li {
+    width: 2rem;
+    height: 2rem;
+    background-color: #916741;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #916741;
+    transition: 300ms;
+}
+
+.shop-page .row ul.pagination li:hover {
+    color: black;
+    background-color: transparent;
+    transition: 300ms;
+}
+
+.active-pagination {
+    color: black !important;
+    background-color: transparent !important;
+}
+
 @media (min-width: 576px) {
     
 }

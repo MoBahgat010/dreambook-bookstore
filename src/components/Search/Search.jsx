@@ -5,12 +5,10 @@ import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/Produ
 import gsap from "gsap";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { hideSearchComponent } from "../../RTK/Slices/ComponentsSlice";
+import { hideSearchComponent, TriggerSearchBarComponent } from "../../RTK/Slices/ComponentsSlice";
 import { Link } from "react-router-dom";
 
 function Search(props) {
-
-    const { token } = useSelector(state => state.Authorization);
 
     const { searchComponent } = useSelector(state => state.Components);
     const { countryCurrency } = useSelector(state => state.SelectCountry);
@@ -95,6 +93,7 @@ function Search(props) {
                               <td className="text-center">{product.quantity}</td>
                               <Link onClick={() => {
                                 dispatch(hideSearchComponent());
+                                dispatch(TriggerSearchBarComponent());
                               }} to={`/single-page/${product._id}`}></Link>
                             </tr>
                           );

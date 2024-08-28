@@ -195,61 +195,64 @@ function Home() {
                         </Swiper>
                     </div>
                     <div className="non-categories">
-                        <div className="new-arrivals">
-                            <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
-                                <div className="text d-flex align-items-center">
-                                    <h3 className="mx-2">{t("New Arrivals")}</h3>
-                                    <Link className="ms-3">{t("See More")}</Link>
-                                </div>
-                                <div className="d-flex">
-                                    <div className="p-md-2 p-1">
-                                        <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
-                                            <i className="text-white fa-solid fa-chevron-left"></i>
+                        {
+                            newProducts.length != 0 &&
+                            <div className="new-arrivals">
+                                <div className="options d-flex justify-content-between mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
+                                    <div className="text d-flex align-items-center">
+                                        <h3 className="mx-2">{t("New Arrivals")}</h3>
+                                        <Link className="ms-3">{t("See More")}</Link>
+                                    </div>
+                                    <div className="d-flex">
+                                        <div className="p-md-2 p-1">
+                                            <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
+                                                <i className="text-white fa-solid fa-chevron-left"></i>
+                                            </div>
+                                        </div>
+                                        <div className="p-md-2 p-1">
+                                            <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
+                                                <i className="text-white fa-solid fa-chevron-right"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="p-md-2 p-1">
-                                        <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
-                                            <i className="text-white fa-solid fa-chevron-right"></i>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                            <Swiper
-                                modules={[Autoplay, Pagination, Navigation]}
-                                navigation={{
-                                    nextEl: '.swiper-button-next1',
-                                    prevEl: '.swiper-button-prev1',
-                                }}
-                                breakpoints={{
-                                    0:{
-                                        slidesPerView: 1,
-                                    },
-                                    350: {
-                                        slidesPerView: 2,
-                                    },
-                                    768: {
-                                        slidesPerView: 3,
-                                    },
-                                    994: {
-                                        slidesPerView: 4,
+                                <Swiper
+                                    modules={[Autoplay, Pagination, Navigation]}
+                                    navigation={{
+                                        nextEl: '.swiper-button-next1',
+                                        prevEl: '.swiper-button-prev1',
+                                    }}
+                                    breakpoints={{
+                                        0:{
+                                            slidesPerView: 1,
+                                        },
+                                        350: {
+                                            slidesPerView: 2,
+                                        },
+                                        768: {
+                                            slidesPerView: 3,
+                                        },
+                                        994: {
+                                            slidesPerView: 4,
+                                        }
+                                    }}
+                                    spaceBetween={"10px"}
+                                    slidesPerView={4}
+                                    loop= {true}
+                                    className="mySwiper"
+                                >
+                                    {
+                                        newProducts.map((product, index) => {
+                                            return (
+                                                <SwiperSlide key={product._id + `${index}`}>
+                                                    <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} />
+                                                </SwiperSlide>
+                                            );
+                                        })
                                     }
-                                }}
-                                spaceBetween={"10px"}
-                                slidesPerView={4}
-                                loop= {true}
-                                className="mySwiper"
-                            >
-                                {
-                                    newProducts.map((product, index) => {
-                                        return (
-                                            <SwiperSlide key={product._id + `${index}`}>
-                                                <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
-                                            </SwiperSlide>
-                                        );
-                                    })
-                                }
-                            </Swiper>
-                        </div>
+                                </Swiper>
+                            </div>
+                        }
                         {
                             categoriesProducts.map(([category, categoryProducts], index) => {
                                 return (
@@ -301,7 +304,7 @@ function Home() {
                                                 categoryProducts.map((product, index) => {
                                                     return (
                                                         <SwiperSlide key={product._id + `${index}`}>
-                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
                                                         </SwiperSlide>
                                                     );
                                                 })
@@ -310,7 +313,7 @@ function Home() {
                                                 categoryProducts.map((product, index) => {
                                                     return (
                                                         <SwiperSlide key={product._id + `${index}`}>
-                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
                                                         </SwiperSlide>
                                                     );
                                                 })
@@ -319,7 +322,7 @@ function Home() {
                                                 categoryProducts.map((product, index) => {
                                                     return (
                                                         <SwiperSlide key={product._id + `${index}`}>
-                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
                                                         </SwiperSlide>
                                                     );
                                                 })
@@ -328,7 +331,7 @@ function Home() {
                                                 categoryProducts.map((product, index) => {
                                                     return (
                                                         <SwiperSlide key={product._id + `${index}`}>
-                                                            <Card key={product._id} discount={product.discount} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
                                                         </SwiperSlide>
                                                     );
                                                 })

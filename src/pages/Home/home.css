@@ -8,6 +8,7 @@
 .mySwiper .swiper-slide {
     width: 100%;
     height: 100%;
+    direction: ltr;
 }
 
 .home .upper {
@@ -54,6 +55,10 @@
 .home .home-body .container .categories .options > div > div {
     cursor: pointer;
     background-color: #2a8b79;
+}
+
+.home .home-body .container > div:not(.categories) .options > .d-flex {
+    direction: ltr;
 }
 
 .home .home-body .container > div:not(.categories) .options > .d-flex > div > div {

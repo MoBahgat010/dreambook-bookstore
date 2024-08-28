@@ -84,6 +84,7 @@ function PopUpCart() {
               <tbody>
                 {
                   CartProducts?.map(product => {
+                    console.log(product)
                     return (
                       <tr key={product.product._id}>
                         <th>

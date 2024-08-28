@@ -9,14 +9,21 @@ const initialState = {
 
 export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts", async (_,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
-    // console.log("here in fetch products:::", countryCurrency);
-    const response = await axios.get("http://localhost:3500/api/v1/products", {
-        headers: {
-            currency: countryCurrency
-        }
-    })
-    console.log(response);
-    return response;
+    let flag = true;
+    let i = 1;
+    let allFetchedProducts = [];
+    while(flag) {
+        const response = await axios.get(`http://localhost:3500/api/v1/products?page=${i++}`, {
+            headers: {
+                currency: countryCurrency
+            }
+        })
+        if(response.data.result.length)
+            allFetchedProducts = [...allFetchedProducts, ...response.data.result]
+        else
+            flag = false;
+    }
+    return allFetchedProducts;
 })
 
 export const FetchCertainProduct = createAsyncThunk("FetchProductsSlice/fetchCertainProducts", async (id,{ getState }) => {
@@ -40,9 +47,9 @@ export const FetchProductsSlice = createSlice({
                 state.ProductsLoader = true;
             })
             .addCase(FetchProducts.fulfilled, (state = initialState, action) => {
-                console.log("I am here now")
-                // console.log("I've finished");
-                state.FetchedProducts = action.payload.data.result
+                console.log(action.payload)
+                let x = [...action.payload, ...action.payload, ...action.payload]
+                state.FetchedProducts = x
                 state.ProductsLoader = false;
             })
             .addCase(FetchCertainProduct.pending, (state = initialState) => {

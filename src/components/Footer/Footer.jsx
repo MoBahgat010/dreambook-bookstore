@@ -134,7 +134,7 @@ function Footer() {
                 </div>
             </div>
             <div className="lower-footer text-center py-2">
-                <p>Kalemat Bookstore. © 2020. | All Rights Reserved | Designed & Developed By Mohamed Bahgat</p>
+                <p>DreamBook store. © 2024. | All Rights Reserved | Front End Developed By Mohamed Bahgat</p>
             </div>
         </footer>
     );

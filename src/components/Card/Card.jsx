@@ -41,11 +41,11 @@ function Card(props) {
         <Link to={`/single-page/${props.id}`} className="card w-100 position-relative overflow-hidden">
             {
                 props.newBadge &&
-                <div className="new-badge d-flex justify-content-center align-items-center position-absolute">New</div>
+                <div className="new-badge d-flex justify-content-center align-items-center position-absolute">{t("New")}</div>
             }
             {
                 Boolean(props.discount) &&
-                <div className="discount-badge d-flex justify-content-center align-items-center position-absolute">{props.discount}% Off</div>
+                <div className="discount-badge d-flex justify-content-center align-items-center position-absolute">{props.discount}% {t("Off")}</div>
             }
             <div className="image-container w-100">
                 <img src={props.image} className="" alt="" />

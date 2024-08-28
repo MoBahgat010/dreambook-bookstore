@@ -22,7 +22,8 @@ function PopUpProduct() {
             const allPopupProducts = res.data.result;
             const chosenProduct = Math.floor(Math.random() * (allPopupProducts.length));
             console.log(chosenProduct);
-            setPopupProduct(res.data.result[chosenProduct].product);
+            console.log(res.data.result[0])
+            setPopupProduct(res.data.result[chosenProduct]);
         })
         .catch(err => {
             console.log(err);

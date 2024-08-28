@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialstate = {
     isShown: false,
-    searchComponent: false
+    searchComponent: false,
+    SearchBarComponent: false
 }
 
 export const ComponentsSlice = createSlice({
@@ -23,9 +24,12 @@ export const ComponentsSlice = createSlice({
             // console.log("From hiding");
             // console.log("hideSearchComponent");
             state.searchComponent = false;
+        },
+        TriggerSearchBarComponent: state => {
+            state.SearchBarComponent = !state.SearchBarComponent;
         }
     }
 })
 
-export const { showComponents, hideComponents, showSearchComponent, hideSearchComponent } = ComponentsSlice.actions;
+export const { showComponents, hideComponents, showSearchComponent, hideSearchComponent, TriggerSearchBarComponent } = ComponentsSlice.actions;
 export default ComponentsSlice.reducer;

@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { FetchCertainProduct } from "../../RTK/Slices/FetchProductsSlice";
 import { AddThenGetWishList, RemoveThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
 import toast from "react-hot-toast";
+import i18next from "i18next";
 
 function SinglePage() {
 
@@ -21,7 +22,7 @@ function SinglePage() {
     const { certainProduct } = useSelector(state => state.ShopPage);
     // const [productData, setProductData] = useState({})
 
-    const { t } = useTranslation();
+    const { i18n, t } = useTranslation();
     
     const [quantity, setQuantity] = useState(1);
     const WholeHeart = useRef();
@@ -93,13 +94,6 @@ function SinglePage() {
                                         <button onClick={() => {
                                             // console.log(quantity);
                                             dispatch(AddThenGetCartProducts({ id: params.productId, quantity: quantity }))
-                                            let current_product = {
-                                                id: params.productId,
-                                                image: certainProduct.image,
-                                                title: certainProduct.title,
-                                                quantity: quantity,
-                                                price: certainProduct.price
-                                            }
                                             // dispatch(addProduct(current_product));
                                         }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
@@ -118,12 +112,12 @@ function SinglePage() {
                             <table className="table table-striped flex-grow-1 table-bordered">
                                 <tbody>
                                   <tr>
-                                      <td>{t("DEPARTEMENTS")}</td>
-                                      <td>{t(certainProduct.departement)}</td>
+                                      <td>{t("Category")}</td>
+                                      <td>{i18next.language === 'en' ? certainProduct.category?.englishname : certainProduct.category?.arabicname}</td>
                                   </tr>
                                   <tr>
-                                      <td>{t("Category")}</td>
-                                      <td>{t("Articles")}</td>
+                                      <td>{t("SubCategory")}</td>
+                                      <td>{i18next.language === 'en' ? certainProduct.Subcategory?.englishname : certainProduct.Subcategory?.arabicname}</td>
                                   </tr>
                                   <tr>
                                       <td>{t("AUTHOR")}</td>
@@ -131,11 +125,11 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                       <td>{t("Publication")}</td>
-                                      <td>EM</td>
+                                      <td>{certainProduct.publication}</td>
                                   </tr>
                                   <tr>
                                       <td>{t("Page Count")}</td>
-                                      <td>368</td>
+                                      <td>{certainProduct.papersnumber}</td>
                                   </tr>
                                   <tr>
                                         <td>{t("Weight")}</td>
@@ -147,7 +141,7 @@ function SinglePage() {
                                   </tr>
                                   <tr>
                                         <td>{t('Availability')}</td>
-                                        <td>{!certainProduct.quantity ? t("In Stock") : t("Out of Stock")}</td>
+                                        <td>{certainProduct.quantity ? t("In Stock") : t("Out of Stock")}</td>
                                   </tr>
                                   <tr>
                                         <td>{t("Views")}</td>
