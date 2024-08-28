@@ -25,12 +25,9 @@ export const AddToWishListAction = createAsyncThunk("ProductsWishListSlice/addTo
 
 export const AddThenGetWishList = createAsyncThunk("ProductsWishListSlice/addThenGetWishList", async (wished_product_id, { dispatch, getState }) => {
     const { RedirectToLogin, aidRedirection } = getState().Authorization;    
-    // console.log("RedirectToLogin ", RedirectToLogin);
     if(RedirectToLogin) {
         dispatch(NavigateToAction("login"));
         dispatch(StartNavigation());
-        // dispatch(RedirectExecutionAction(true));
-        // dispatch(AidRedirectionAction(!aidRedirection));
     } else {
         await dispatch(AddToWishListAction(wished_product_id));
         return await dispatch(GetAllWishedProducts());
@@ -40,16 +37,12 @@ export const AddThenGetWishList = createAsyncThunk("ProductsWishListSlice/addThe
 export const RemoveFromWishListAction = createAsyncThunk("ProductsWishListSlice/removeToWishList", async (wished_product_id, { dispatch, getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
-    // console.log(wished_product_id);
     const response = await axios.delete(`http://localhost:3500/api/v1/wishlist/${wished_product_id}`, {
         headers: {
           'token': token,
           'currency': countryCurrency,
           'Content-Type': 'application/json'
         }
-        // data: {
-        //   'product': wished_product_id
-        // }
     });
 });
 
@@ -61,8 +54,6 @@ export const RemoveThenGetWishList = createAsyncThunk("ProductsWishListSlice/rem
 export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getAllWishedProducts", async (_, { dispatch, getState, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    // console.log(token);
-    // console.log(countryCurrency);
     try {
         const response = await axios.get('http://localhost:3500/api/v1/wishlist', {
             headers: {
@@ -70,18 +61,12 @@ export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getA
               'currency': countryCurrency
             }
         });
-        console.log(response.data.cart.wishlistItems);
-        console.log("response fullfilled");
         dispatch(RedirectToLoginAction(false));
         return response.data.cart.wishlistItems;        ;
     }
     catch(error) {
-        // console.log(error);
-        // console.log("response rejected");
-        if(error.response.data.err !== "wishlist not found") {
+        if(error.response.data.err !== "wishlist not found")
             dispatch(RedirectToLoginAction(true));
-            // dispatch(RedirectExecutionAction(false));
-        }
         return rejectWithValue(error);
     }
 })
@@ -105,15 +90,12 @@ export const ProductsWishListSlice = createSlice({
                 state.WishListLoader = true;
             })
             .addCase(GetAllWishedProducts.fulfilled, (state, action) => {
-                // console.log("action.payload");
                 state.WishListLoader = false;
                 state.wishproducts = action.payload;
             })
             .addCase(GetAllWishedProducts.rejected, (state, action) => {
-                // console.log("Hey I need authentication");
                 state.WishListLoader = false;
                 state.wishproducts = [];
-                // console.log(action.payload);
             })
             .addCase(RemoveFromWishListAction.pending, (state, action) => {
                 state.WishListLoader = true;

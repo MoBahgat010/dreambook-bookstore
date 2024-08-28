@@ -10,17 +10,7 @@ function Login() {
     const { LoginAfterRegister, message } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const location = useLocation();
-    // console.log(location);
     
-    // let show;
-    
-    // useEffect(() => {
-    //     console.log(location);
-    //     show = location.state;
-    //     console.log(show);
-    // }, [show])
-
     const { t } = useTranslation();
 
     const LoginTab = useRef();
@@ -56,10 +46,7 @@ function Login() {
     }
 
     useEffect(() => {
-        console.log("LoginAfterRegister ", LoginAfterRegister);
-        // if(LoginAfterRegister) {
-            LoginTab.current.click();
-        // }
+        LoginTab.current.click();
     }, [LoginAfterRegister])
 
     return (

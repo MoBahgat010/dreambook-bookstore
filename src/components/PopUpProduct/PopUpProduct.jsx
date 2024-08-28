@@ -18,12 +18,12 @@ function PopUpProduct() {
     useEffect(() => {
         axios.get("http://localhost:3500/api/v1/popup")
         .then(res => {
-            console.log(res.data.result);
+            // console.log(res.data.result);
             const allPopupProducts = res.data.result;
             const chosenProduct = Math.floor(Math.random() * (allPopupProducts.length));
-            console.log(chosenProduct);
-            console.log(res.data.result[0])
-            setPopupProduct(res.data.result[chosenProduct]);
+            // console.log(chosenProduct);
+            // console.log(res.data.result[0])
+            setPopupProduct(res.data.result[chosenProduct].product);
         })
         .catch(err => {
             console.log(err);

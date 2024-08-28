@@ -50,7 +50,6 @@ function CartPage() {
               <tbody>
                 {
                   CartProducts?.map((product, index) => {
-                    console.log(product.priceExchanged)
                     return (
                       <tr key={product.product._id}>
                         <th>

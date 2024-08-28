@@ -17,12 +17,9 @@ export const ComponentsSlice = createSlice({
             state.isShown = false;
         },
         showSearchComponent: (state) => {
-            // console.log("showSearchComponent");
             state.searchComponent = true;
         },
         hideSearchComponent: (state) => {
-            // console.log("From hiding");
-            // console.log("hideSearchComponent");
             state.searchComponent = false;
         },
         TriggerSearchBarComponent: state => {

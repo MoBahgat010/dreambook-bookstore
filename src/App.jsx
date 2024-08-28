@@ -68,12 +68,6 @@ function App() {
   //     <Outlet />
   // }, [RedirectToLogin, aidRedirection])
 
-  // useEffect(() => {
-  //   console.log("RedirectExecution ", RedirectExecution);
-  //   console.log("RedirectToLogin ", RedirectToLogin);
-  //   console.log("////////////////////////////////////////////////")
-  // }, [RedirectExecution, RedirectToLogin])
-
   return (
     <>
       <Loader />    

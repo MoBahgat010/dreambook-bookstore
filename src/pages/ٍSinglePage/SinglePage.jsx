@@ -92,9 +92,7 @@ function SinglePage() {
                                     </div>
                                     <div className="px-1">
                                         <button onClick={() => {
-                                            // console.log(quantity);
                                             dispatch(AddThenGetCartProducts({ id: params.productId, quantity: quantity }))
-                                            // dispatch(addProduct(current_product));
                                         }} type="button" className="h-100 text-white rounded-pill py-2 px-4">{t("Add to Cart")}</button>
                                     </div>
                                     {

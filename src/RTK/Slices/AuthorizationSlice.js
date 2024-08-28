@@ -19,7 +19,6 @@ const initialState = {
 
 export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ getState, dispatch, rejectWithValue }) => {
     const { token } = getState().Authorization;
-    console.log(token);
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
@@ -42,7 +41,6 @@ export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ g
 
 export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/register", async ({ name, email, password }, { getState, rejectWithValue }) => {
     const { countryCurrency } = getState().SelectCountry;
-    console.log(countryCurrency);
     try {
         const response = await axios.post(
             'http://localhost:3500/api/v1/auth/signup',
@@ -58,7 +56,6 @@ export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/regist
               }
             }
         );
-        console.log(response.data);
         return response;
     }
     catch(error) {
@@ -82,7 +79,6 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
                 }
             }
         );
-        // console.log("Helllllo")
         // dispatch(RedirectExecutionAction(false));
         dispatch(NavigateToAction(""));
         dispatch(StartNavigation());
@@ -142,13 +138,8 @@ export const AuthorizationSlice = createSlice({
     initialState,
     reducers: {
         RedirectToLoginAction(state, action) {
-            // console.log("here in aurthorization");
-            // console.log(action.payload);
             state.RedirectToLogin = action.payload;
         },
-        // RedirectExecutionAction(state = initialState, action) {
-        //     state.RedirectExecution = action.payload;
-        // },
         setMessage(state, action) {
             state.message = action.payload;
         },
@@ -190,10 +181,7 @@ export const AuthorizationSlice = createSlice({
                 AuthorizationSlice.caseReducers.RedirectToLoginAction(state, { payload: false });
                 state.loader = false;
                 state.token = action.payload;
-                console.log("token ", state.token);
                 localStorage.setItem("token", state.token);
-                console.log("Auth")
-                console.log("state.RedirectToLogin ", state.RedirectToLogin);
                 state.RedirectToLogin = false;
                 state.RedirectExecution = false;
                 state.aidRedirection = !state.aidRedirection;
@@ -236,7 +224,6 @@ export const AuthorizationSlice = createSlice({
                 state.loader = false;
             })
             .addCase(ResetPasswrod.rejected, (state, action) => {
-                console.log(action.payload);
                 state.loader = false;
             })
     }

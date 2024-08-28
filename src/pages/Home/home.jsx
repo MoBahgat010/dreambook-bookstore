@@ -66,18 +66,15 @@ function Home() {
             })
         }
         CategoriesMap = Array.from(CategoriesMap); 
-        CategoriesMap.map(([x,y]) => {
-            console.log(x); 
-            console.log(y); 
-        });
+        // CategoriesMap.map(([x,y]) => {
+        //     console.log(x); 
+        //     console.log(y); 
+        // });
         NewProducts = NewProducts.slice(0,12);
         setNewProducts(NewProducts);
         setCategoriesProducts(CategoriesMap);
     }, [FetchedProducts, i18next.language])
 
-    useEffect(() => {
-        console.log(categoriesProducts);
-    }, [categoriesProducts])
     return (
         <section className="home">
             <div className="upper">

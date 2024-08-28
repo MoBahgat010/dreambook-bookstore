@@ -22,7 +22,6 @@ function UpArrow() {
         }
         if(isScrollChange) {
             if(ShowUpArrow) {
-                console.log("show arrow");
                 gsap.to(".up-arrow", {
                     opacity: 1,
                     duration: 0.5,
@@ -44,7 +43,6 @@ function UpArrow() {
                     .to(".up-arrow", {
                         visibility: "hidden",
                     })
-                console.log("hide arrow");
             }
             isScrollChange = false;
         }

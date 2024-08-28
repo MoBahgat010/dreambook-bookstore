@@ -7,7 +7,6 @@ const initialstate = {
 }
 
 export const SendEmail = createAsyncThunk("NewsEmailSlice/SendEmail", async (email, { getState, dispatch, rejectWithValue }) => {
-    console.log(email);
     try {
         const response = await axios.post(
             'http://localhost:3500/api/v1/newsletter',

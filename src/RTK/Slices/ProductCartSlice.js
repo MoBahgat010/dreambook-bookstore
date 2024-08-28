@@ -34,7 +34,6 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
 export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart", async (id, { getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    // console.log(id);
     const response = await axios.delete(`http://localhost:3500/api/v1/carts/${id}`, {
         headers: {
           'token': token,
@@ -47,12 +46,9 @@ export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart"
 
 export const AddThenGetCartProducts = createAsyncThunk("ProductCartSlice/addThenGetCartProducts", async ({ id, quantity }, { dispatch, getState }) => {
     const { RedirectToLogin, aidRedirection } = getState().Authorization;    
-    // console.log(RedirectToLogin);
     if(RedirectToLogin) {
         dispatch(NavigateToAction("login"));
         dispatch(StartNavigation());
-        // dispatch(RedirectExecutionAction(true));
-        // dispatch(AidRedirectionAction(!aidRedirection));
     } else {
         await dispatch(AddToCartAction({ id, quantity }));
         return await dispatch(GetAllCartProducts());
@@ -90,7 +86,6 @@ export const UpdateQuantity = createAsyncThunk("ProductCartSlice/updateCartProdu
 
 export const UpdateQuantityThenGetCartProducts = createAsyncThunk("ProductCartSlice/updateQuantityThenGetCartProducts", async (updatedData, { dispatch }) => {
     await dispatch(UpdateQuantity(updatedData));
-    console.log("Heeeer")
     return await dispatch(GetAllCartProducts());
 })
 
@@ -104,7 +99,6 @@ export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartP
               'currency': countryCurrency
             }
         })
-        console.log(response.data);
         return response.data;
     }
     catch (error) {
@@ -168,13 +162,11 @@ export const ProductCartSlice = createSlice({
                 state.Cartloader = true;
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
-                console.log(action.payload);
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;
             })
             .addCase(GetAllCartProducts.rejected, (state = initialstate, action) => {  
-                // console.log(action.payload.response.data.err);
                 state.Cartloader = false;
                 state.CartProducts = [];
                 state.cartTotal = 0;

@@ -18,7 +18,6 @@ function Search(props) {
     
     useEffect(() => {
       const ScrollY = window.scrollY;
-      // console.log(searchComponent);
       if(searchComponent) {
         gsap.to(".search-part", {
           duration: 0.2,
@@ -39,7 +38,6 @@ function Search(props) {
     }, [searchComponent])
 
     useEffect(() => {  
-      // console.log(props.searchText != "" ? props.searchText : null);    
       axios.get('http://localhost:3500/api/v1/products/', {
         params: {
           'keyword': props.searchText != "" ? props.searchText : -1
@@ -49,10 +47,8 @@ function Search(props) {
         }
       })
       .then(response => {
-        // console.log(response);
         setSearchResults(response.data.result);
       })
-      // console.log(searchResults.length);
     }, [props.searchText])
 
     return (

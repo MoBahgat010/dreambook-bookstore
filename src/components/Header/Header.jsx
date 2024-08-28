@@ -20,7 +20,7 @@ import axios from "axios";
 import Search from "../Search/Search";
 import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { LogOut, RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
-import { FetchProducts, setBaseFilter } from "../../RTK/Slices/FetchProductsSlice";
+import { FetchProducts, GetAllCategories, GetAllSubCategories, setBaseFilter } from "../../RTK/Slices/FetchProductsSlice";
 
 function Header() {
 
@@ -30,68 +30,59 @@ function Header() {
 
     const { SearchBarComponent } = useSelector(state => state.Components);
     const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);
-    const { FetchedProducts } = useSelector(state => state.ShopPage);
+    const { allCategories, allSubCategories } = useSelector(state => state.ShopPage);
     // const { logged } = useSelector(state => state.Authorization);
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
     const { RegenerateData, RedirectToLogin } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
-    const [booksCategory, setBooksCategory] = useState([]);
-    const [stationaryCategory, setStationaryCategory] = useState([]);
-    const [kidsBooksCategory, setKidsBooksCategory] = useState([]);
-    const [learningLanguagesCategory, setLearningLanguagesCategory] = useState([]);
-    const [englishBooksCategory, setEnglishBooksCategory] = useState([]);
+    // const [booksCategory, setBooksCategory] = useState([]);
+    // const [stationaryCategory, setStationaryCategory] = useState([]);
+    // const [kidsBooksCategory, setKidsBooksCategory] = useState([]);
+    // const [learningLanguagesCategory, setLearningLanguagesCategory] = useState([]);
+    // const [englishBooksCategory, setEnglishBooksCategory] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [otherCategories, setOthercategories] = useState([]);
     let currencyName = countryCurrency;
 
-    useEffect(() => {
-        let BooksCategory = [];
-        let StationaryCategory = [];
-        let KidsBooksCategory = [];
-        let LearningLanguagesCategory = [];
-        let EnglishBooksCategory = [];
-        // let StationaryDepartementCategories = [];
-        // let BooksCategoryCategories = [];
-        // let KidsBooksCategories = [];
+    useEffect(() => {   // destroy is not a function is an error due to that useEffect function has to be sync not asnyc
+        let AllCategoriesMap = new Map(); 
+        let OtherCategories = [];
         if(i18n.language === 'en')
-            FetchedProducts.forEach(product => {
-                if(product.category.englishname === "Books" && !BooksCategory.includes(product.Subcategory.englishname))
-                    BooksCategory.push(product.Subcategory.englishname);
-                else if(product.category.englishname === "Stationary" && !StationaryCategory.includes(product.Subcategory.englishname))
-                    StationaryCategory.push(product.Subcategory.englishname);
-                else if(product.category.englishname === "Kids Books" && !KidsBooksCategory.includes(product.Subcategory.englishname))
-                    KidsBooksCategory.push(product.Subcategory.englishname);
-                else if(product.category.englishname === "English Books" && !EnglishBooksCategory.includes(product.Subcategory.englishname))
-                    EnglishBooksCategory.push(product.Subcategory.englishname);
-                else if(product.category.englishname === "Learning Languages" && !LearningLanguagesCategory.includes(product.Subcategory.englishname))
-                    LearningLanguagesCategory.push(product.Subcategory.englishname);
-            });
+            allCategories.forEach(category => {
+                AllCategoriesMap.set(category.name, []);
+                allSubCategories.forEach(subcategory => {
+                    if(subcategory.category.englishname == category.name)
+                        AllCategoriesMap.get(category.name).push(subcategory);
+                    })
+            })
         else
-            FetchedProducts.forEach(product => {
-                if(product.category.englishname === "Books" && !BooksCategory.includes(product.Subcategory.arabicname))
-                    BooksCategory.push(product.Subcategory.arabicname);
-                else if(product.category.englishname === "Stationary" && !StationaryCategory.includes(product.Subcategory.arabicname))
-                    StationaryCategory.push(product.Subcategory.arabicname);
-                else if(product.category.englishname === "Kids Books" && !KidsBooksCategory.includes(product.Subcategory.arabicname))
-                    KidsBooksCategory.push(product.Subcategory.arabicname);
-                else if(product.category.englishname === "arabic Books" && !EnglishBooksCategory.includes(product.Subcategory.arabicname))
-                    EnglishBooksCategory.push(product.Subcategory.arabicname);
-                else if(product.category.englishname === "Learning Languages" && !LearningLanguagesCategory.includes(product.Subcategory.arabicname))
-                    LearningLanguagesCategory.push(product.Subcategory.arabicname);
-            });
-            
-        setBooksCategory(BooksCategory);
-        setStationaryCategory(StationaryCategory);
-        setKidsBooksCategory(KidsBooksCategory)
-        setEnglishBooksCategory(EnglishBooksCategory);
-        setLearningLanguagesCategory(LearningLanguagesCategory);
-    }, [FetchedProducts, i18n.language])
+            allCategories.forEach(category => {
+                AllCategoriesMap.set(category.name, []);
+                allSubCategories.forEach(subcategory => {
+                    if(subcategory.category.arabicname == category.name)
+                        AllCategoriesMap.get(category.name).push(subcategory);
+                    })
+            })
+        console.log(AllCategoriesMap)
+        AllCategoriesMap = Array.from(AllCategoriesMap);
+        console.log(AllCategoriesMap);
+        if(AllCategoriesMap.length > 5)
+            OtherCategories = AllCategoriesMap.splice(4);
+        setCategories(AllCategoriesMap);
+        setOthercategories(OtherCategories);
+    }, [allCategories,  allSubCategories])
+
+    useEffect(() => {
+        dispatch(GetAllCategories());
+        dispatch(GetAllSubCategories());
+    }, [countryCurrency, i18n.language])
 
     useEffect(() => {
         dispatch(FetchProducts());
     }, [])
 
     useEffect(() => {
-        // console.log(wishproducts);
         dispatch(GetAllWishedProducts());
         dispatch(GetAllCartProducts());
     }, [RegenerateData])
@@ -430,158 +421,79 @@ function Header() {
                             CloseMenuBar();
                         }} to={"home"}>{t('Home')}</Link>
                     </div>
-                    <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(2)}>
-                        <div className="w-100 h-100 d-flex align-items-center">
-                            <Link onClick={(e) => {
-                                e.stopPropagation();
-                                isSmallScreen &&
-                                    CloseMenuBar();
-                                dispatch(hideSearchComponent());
-                            }} to={"/shop-page"} state={{data: "Books"}} className="mb-0 mx-2">{t('Books')}</Link>
-                            <i className="fa-solid fa-caret-down"></i>
-                        </div>
-                        <ul ref={subDropDowns} className="px-md-2 m-0">
-                            <div>
-                                {
-                                    booksCategory.map(categoryName => {
-                                        return (
-                                            <li key={categoryName} className="py-2">
-                                                <Link onClick={() => {
-                                                    dispatch(hideSearchComponent());
-                                                    isSmallScreen &&
-                                                        CloseMenuBar();
-                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
-                                                    <p>{categoryName}</p>
-                                                </Link> 
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </div>
-                        </ul>
-                    </div>
-                    <div className="has-dropdown mb-md-0 px-1" onClick={() => ManipulateSubDropDowns(3)}>
-                        <div className="w-100 h-100 d-flex align-items-center">
-                            <Link onClick={() => {
-                                dispatch(hideSearchComponent());
-                                isSmallScreen &&
-                                    CloseMenuBar();
-                            }} to={"/shop-page"} state={{data: "Stationary"}} className="mb-0 mx-2">{t('Stationary')}</Link>
-                            <i className="fa-solid fa-caret-down"></i>
-                        </div>
-                        <ul ref={subDropDowns} className="px-md-2 m-0">
-                            <div>
-                                {
-                                    stationaryCategory.map(categoryName => {
-                                        return (
-                                            <li className="py-2">
-                                                <Link onClick={() => {
-                                                    dispatch(hideSearchComponent());
-                                                    isSmallScreen &&
-                                                        CloseMenuBar();
-                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
-                                                    <p>{categoryName}</p>
-                                                </Link> 
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </div>
-                        </ul>
-                    </div>
                     <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block mb-md-0 px-1">
                         <p className="mb-0">{t('Offers and discounts')}</p>
                     </Link>
-                    <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(5)}>
-                        <div className="w-100 h-100 d-flex align-items-center">
-                            <Link onClick={(e) => {
-                                e.stopPropagation();
-                                isSmallScreen &&
-                                    CloseMenuBar();
-                                dispatch(hideSearchComponent());
-                            }} to={"/shop-page"} state={{data: "English Books"}} className="mb-0 mx-2">{t('English Books')}</Link>
-                            <i className="fa-solid fa-caret-down"></i>
-                        </div>
-                        <ul ref={subDropDowns} className="px-md-2 m-0">
-                            <div>
-                                {
-                                    englishBooksCategory.map(categoryName => {
-                                        return (
-                                            <li key={categoryName} className="py-2">
-                                                <Link onClick={() => {
-                                                    dispatch(hideSearchComponent());
-                                                    isSmallScreen &&
-                                                        CloseMenuBar();
-                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
-                                                    <p>{categoryName}</p>
-                                                </Link> 
-                                            </li>
-                                        );
-                                    })
-                                }
+                    {
+                        categories.map(([category, subCategories], index) => {
+                            return (
+                                <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(index + 3)}>
+                                    <div className="w-100 h-100 d-flex align-items-center">
+                                        <Link onClick={(e) => {
+                                            e.stopPropagation();
+                                            isSmallScreen &&
+                                                CloseMenuBar();
+                                            dispatch(hideSearchComponent());
+                                        }} to={"/shop-page"} state={{data: category}} className="mb-0 mx-2">{category}</Link>
+                                        <i className="fa-solid fa-caret-down"></i>
+                                    </div>
+                                    <ul ref={subDropDowns} className="px-md-2 m-0">
+                                        <div>
+                                            {
+                                                subCategories.map(subCategory => {
+                                                    return (
+                                                        <li key={subCategory.englishname} className="py-2">
+                                                            <Link onClick={() => {
+                                                                dispatch(hideSearchComponent());
+                                                                isSmallScreen &&
+                                                                    CloseMenuBar();
+                                                            }} to={"/shop-page"} state={{data: subCategory.englishname}} className="link-tap">
+                                                                <p>{i18n.language === 'en' ? subCategory.englishname : subCategory.arabicname}</p>
+                                                            </Link> 
+                                                        </li>
+                                                    );
+                                                })
+                                            }
+                                        </div>
+                                    </ul>
+                                </div>
+                            );
+                        })
+                    }
+                    {
+                        otherCategories.length != 0  &&
+                        <div className="has-dropdown others mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(3)}>
+                            <div className="w-100 h-100 d-flex align-items-center">
+                                <Link onClick={(e) => {
+                                    e.stopPropagation();
+                                    isSmallScreen &&
+                                        CloseMenuBar();
+                                    dispatch(hideSearchComponent());
+                                }} to={"/shop-page"} className="mb-0 mx-2">{t('Others')}</Link>
+                                <i className="fa-solid fa-caret-down"></i>
                             </div>
-                        </ul>
-                    </div>
-                    <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(6)}>
-                        <div className="w-100 h-100 d-flex align-items-center">
-                            <Link onClick={(e) => {
-                                e.stopPropagation();
-                                isSmallScreen &&
-                                    CloseMenuBar();
-                                dispatch(hideSearchComponent());
-                            }} to={"/shop-page"} state={{data: "Kids Books"}} className="mb-0 mx-2">{t('Kids Books')}</Link>
-                            <i className="fa-solid fa-caret-down"></i>
+                            <ul ref={subDropDowns} className="px-md-2 m-0">
+                                <div>
+                                    {
+                                        otherCategories.map(([category, subCategories], index) => {
+                                            console.log(category);
+                                            return (
+                                                <li key={category} className="py-2 position-relative">
+                                                    <Link onClick={() => {
+                                                        dispatch(hideSearchComponent());
+                                                        isSmallScreen &&
+                                                            CloseMenuBar();
+                                                    }} to={"/shop-page"} state={{data: category}} className="link-tap">
+                                                        <p>{category}</p>
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })
+                                    }
+                                </div>
+                            </ul>
                         </div>
-                        <ul ref={subDropDowns} className="px-md-2 m-0">
-                            <div>
-                                {
-                                    kidsBooksCategory.map(categoryName => {
-                                        return (
-                                            <li key={categoryName} className="py-2">
-                                                <Link onClick={() => {
-                                                    dispatch(hideSearchComponent());
-                                                    isSmallScreen &&
-                                                        CloseMenuBar();
-                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
-                                                    <p>{categoryName}</p>
-                                                </Link> 
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </div>
-                        </ul>
-                    </div>
-                    <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(7)}>
-                        <div className="w-100 h-100 d-flex align-items-center">
-                            <Link onClick={(e) => {
-                                e.stopPropagation();
-                                isSmallScreen &&
-                                    CloseMenuBar();
-                                dispatch(hideSearchComponent());
-                            }} to={"/shop-page"} state={{data: "Learning Languages"}} className="mb-0 mx-2">{t('Learning Languages')}</Link>
-                            <i className="fa-solid fa-caret-down"></i>
-                        </div>
-                        <ul ref={subDropDowns} className="px-md-2 m-0">
-                            <div>
-                                {
-                                    learningLanguagesCategory.map(categoryName => {
-                                        return (
-                                            <li key={categoryName} className="py-2">
-                                                <Link onClick={() => {
-                                                    dispatch(hideSearchComponent());
-                                                    isSmallScreen &&
-                                                        CloseMenuBar();
-                                                }} to={"/shop-page"} state={{data: categoryName}} className="link-tap">
-                                                    <p>{categoryName}</p>
-                                                </Link> 
-                                            </li>
-                                        );
-                                    })
-                                }
-                            </div>
-                        </ul>
-                    </div>
+                    }
                     <Link onClick={() => {
                         dispatch(hideSearchComponent())
                         isSmallScreen &&
@@ -589,7 +501,11 @@ function Header() {
                     }} to={"/about-us"} className="mb-2 mb-md-0 px-1">
                         <p className="mb-0">{t("About Us")}</p>
                     </Link>
-                    <Link to={"/contact-us"}><p className="mb-0">{t('Contact Us')}</p></Link>
+                    <Link onClick={() => {
+                        dispatch(hideSearchComponent())
+                        isSmallScreen &&
+                            CloseMenuBar();
+                    }} to={"/contact-us"}><p className="mb-0">{t('Contact Us')}</p></Link>
                 </div>
                 <Search searchText={searchBarValue} header_height={headerHeight} />
             </nav>

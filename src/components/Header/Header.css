@@ -452,6 +452,12 @@ nav.lower-one .container .has-dropdown ul li:hover p {
     transition: 300ms;
 }
 
+html.arabic-format nav.lower-one .container .has-dropdown ul li:hover p {
+    transform: translateX(-0.5rem);
+    cursor: pointer;
+    transition: 300ms;
+}
+
 @media (min-width: 576px) {
     nav.upper-one .collapse ul li.email .link-li > p {
         font-size: 10px;
