@@ -20,7 +20,7 @@ import axios from "axios";
 import Search from "../Search/Search";
 import { GetAllCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { LogOut, RedirectExecutionAction, RedirectToLoginAction } from "../../RTK/Slices/AuthorizationSlice";
-import { FetchProducts, GetAllCategories, GetAllSubCategories, setBaseFilter } from "../../RTK/Slices/FetchProductsSlice";
+import { GetAllAuthors, GetAllCategories, GetAllSubCategories, setBaseFilter } from "../../RTK/Slices/FetchProductsSlice";
 
 function Header() {
 
@@ -34,7 +34,7 @@ function Header() {
     // const { logged } = useSelector(state => state.Authorization);
     const { wishproducts } = useSelector(state => state.WishList);
     const { CartProducts } = useSelector(state => state.Cart);
-    const { RegenerateData, RedirectToLogin } = useSelector(state => state.Authorization);
+    const { RedirectToLogin } = useSelector(state => state.Authorization);
     const dispatch = useDispatch();
     // const [booksCategory, setBooksCategory] = useState([]);
     // const [stationaryCategory, setStationaryCategory] = useState([]);
@@ -46,29 +46,20 @@ function Header() {
     let currencyName = countryCurrency;
 
     useEffect(() => {   // destroy is not a function is an error due to that useEffect function has to be sync not asnyc
-        let AllCategoriesMap = new Map(); 
+        let AllCategoriesMap = new Map();
         let OtherCategories = [];
-        if(i18n.language === 'en')
-            allCategories.forEach(category => {
-                AllCategoriesMap.set(category.name, []);
-                allSubCategories.forEach(subcategory => {
-                    if(subcategory.category.englishname == category.name)
-                        AllCategoriesMap.get(category.name).push(subcategory);
-                    })
-            })
-        else
-            allCategories.forEach(category => {
-                AllCategoriesMap.set(category.name, []);
-                allSubCategories.forEach(subcategory => {
-                    if(subcategory.category.arabicname == category.name)
-                        AllCategoriesMap.get(category.name).push(subcategory);
-                    })
-            })
+        allCategories.forEach(category => {
+            AllCategoriesMap.set(category, []);
+            allSubCategories.forEach(subcategory => {
+                if(subcategory.category._id == category._id)
+                    AllCategoriesMap.get(category).push(subcategory);
+                })
+        })
         console.log(AllCategoriesMap)
         AllCategoriesMap = Array.from(AllCategoriesMap);
         console.log(AllCategoriesMap);
-        if(AllCategoriesMap.length > 5)
-            OtherCategories = AllCategoriesMap.splice(4);
+        if(AllCategoriesMap.length > 3)
+            OtherCategories = AllCategoriesMap.splice(3);
         setCategories(AllCategoriesMap);
         setOthercategories(OtherCategories);
     }, [allCategories,  allSubCategories])
@@ -76,16 +67,8 @@ function Header() {
     useEffect(() => {
         dispatch(GetAllCategories());
         dispatch(GetAllSubCategories());
+        dispatch(GetAllAuthors());
     }, [countryCurrency, i18n.language])
-
-    useEffect(() => {
-        dispatch(FetchProducts());
-    }, [])
-
-    useEffect(() => {
-        dispatch(GetAllWishedProducts());
-        dispatch(GetAllCartProducts());
-    }, [RegenerateData])
 
     const countriesImages = [ 
         {
@@ -421,20 +404,17 @@ function Header() {
                             CloseMenuBar();
                         }} to={"home"}>{t('Home')}</Link>
                     </div>
-                    <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block mb-md-0 px-1">
-                        <p className="mb-0">{t('Offers and discounts')}</p>
-                    </Link>
                     {
                         categories.map(([category, subCategories], index) => {
                             return (
-                                <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(index + 3)}>
+                                <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(index + 2)}>
                                     <div className="w-100 h-100 d-flex align-items-center">
                                         <Link onClick={(e) => {
                                             e.stopPropagation();
                                             isSmallScreen &&
                                                 CloseMenuBar();
                                             dispatch(hideSearchComponent());
-                                        }} to={"/shop-page"} state={{data: category}} className="mb-0 mx-2">{category}</Link>
+                                        }} to={"/shop-page"} state={{data: category._id}} className="mb-0 mx-2">{category.name}</Link>
                                         <i className="fa-solid fa-caret-down"></i>
                                     </div>
                                     <ul ref={subDropDowns} className="px-md-2 m-0">
@@ -442,12 +422,12 @@ function Header() {
                                             {
                                                 subCategories.map(subCategory => {
                                                     return (
-                                                        <li key={subCategory.englishname} className="py-2">
+                                                        <li key={subCategory._id} className="py-2">
                                                             <Link onClick={() => {
                                                                 dispatch(hideSearchComponent());
                                                                 isSmallScreen &&
                                                                     CloseMenuBar();
-                                                            }} to={"/shop-page"} state={{data: subCategory.englishname}} className="link-tap">
+                                                            }} to={"/shop-page"} state={{data: subCategory._id}} className="link-tap">
                                                                 <p>{i18n.language === 'en' ? subCategory.englishname : subCategory.arabicname}</p>
                                                             </Link> 
                                                         </li>
@@ -462,29 +442,28 @@ function Header() {
                     }
                     {
                         otherCategories.length != 0  &&
-                        <div className="has-dropdown others mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(3)}>
+                        <div className="has-dropdown others mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(categories.length + 3)}>
                             <div className="w-100 h-100 d-flex align-items-center">
                                 <Link onClick={(e) => {
                                     e.stopPropagation();
                                     isSmallScreen &&
                                         CloseMenuBar();
                                     dispatch(hideSearchComponent());
-                                }} to={"/shop-page"} className="mb-0 mx-2">{t('Others')}</Link>
+                                }} to={"/shop-page"} className="mb-0 mx-2">{t('More')}</Link>
                                 <i className="fa-solid fa-caret-down"></i>
                             </div>
                             <ul ref={subDropDowns} className="px-md-2 m-0">
                                 <div>
                                     {
                                         otherCategories.map(([category, subCategories], index) => {
-                                            console.log(category);
                                             return (
-                                                <li key={category} className="py-2 position-relative">
+                                                <li key={category._id} className="py-2 position-relative">
                                                     <Link onClick={() => {
                                                         dispatch(hideSearchComponent());
                                                         isSmallScreen &&
                                                             CloseMenuBar();
-                                                    }} to={"/shop-page"} state={{data: category}} className="link-tap">
-                                                        <p>{category}</p>
+                                                    }} to={"/shop-page"} state={{data: category._id}} className="link-tap">
+                                                        <p>{category.name}</p>
                                                     </Link>
                                                 </li>
                                             );

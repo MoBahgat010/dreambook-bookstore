@@ -1,7 +1,7 @@
 import "./CartPage.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useDispatch, useSelector } from "react-redux";
-import { RemoveThenGetCartProducts, UpdateQuantityThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
+import { GetAllCartProducts, RemoveThenGetCartProducts, UpdateQuantityThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 function CartPage() {
 
+  const { RegenerateData } = useSelector(state => state.Authorization);
   const { FetchedProducts } = useSelector(state => state.ShopPage);
   const { CartProducts, cartTotal } = useSelector(state => state.Cart);
   const { countryCurrency } = useSelector(state => state.SelectCountry);

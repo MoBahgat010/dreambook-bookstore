@@ -5,7 +5,7 @@ import TestImage from "../../assets/TestImage.jpg"
 import VisaMasterCard from "../../assets/visa_master.jpeg"
 import CashOnDelivery from "../../assets/cash_on_delivery.png"
 import { useDispatch, useSelector } from "react-redux";
-import { removeProduct } from "../../RTK/Slices/ProductCartSlice";
+import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { useTranslation } from "react-i18next";
 
 function Checkout() {
@@ -160,22 +160,18 @@ function Checkout() {
                                         <th>
                                           <div className="d-flex align-items-center">
                                               <div className="image-container d-none d-md-block p-2">
-                                                  <img src={product.image} alt="" />
+                                                  <img src={product.product.image} alt="" />
                                               </div>
                                               <div className="product-text text-center px-2">
-                                                <strong>Girl, Missing</strong>
-                                                <p>Code <strong>:202300719</strong></p>
-                                                <p>Author <strong>:Sophie McKenzie</strong></p>
-                                                <p>Publication <strong>:Simon & Schuster</strong></p>
-                                                <p>Physical Book</p>
+                                                <p>{product.product.title}</p>
                                               </div>
                                           </div>
                                         </th>
                                         <td className="text-center">{countryCurrency} {product.price}</td>
                                         <td className="text-center">{product.quantity}</td>
-                                        <td className="text-center">{countryCurrency} {product.quantity * product.price}</td>
+                                        <td className="text-center">{countryCurrency} {(product.quantity * product.priceExchanged).toFixed(2)}</td>
                                         <td className="text-center cross"><i onClick={() => {
-                                          dispatch(removeProduct({ id: product.id, quantity: product.quantity, price:product.price }));
+                                          dispatch(RemoveThenGetCartProducts(product._id));
                                         }} className="fa-solid fa-circle-xmark"></i></td>
                                       </tr>
                                     );
@@ -196,19 +192,19 @@ function Checkout() {
                               <div className="p-2">
                                 <div className="total-amount d-flex justify-content-between">
                                   <div>{t("Total Amount")}:</div>
-                                  <div>{cartTotal} AED</div>
+                                  <div>{cartTotal} {countryCurrency}</div>
                                 </div>
                                 <div className="discount d-flex justify-content-between">
                                   <div>{t('Discount or Coupon')}</div>
-                                  <div>AED0.000</div>
+                                  <div>0.000 {countryCurrency}</div>
                                 </div>
                                 <div className="shipping d-flex justify-content-between">
                                   <div>{t("Shipping")}</div>
-                                  <div>{0.05 * cartTotal} AED</div>
+                                  <div>{(0.05 * cartTotal).toFixed(2)} {countryCurrency}</div>
                                 </div>
                                 <div className="total d-flex justify-content-between">
                                   <div>{t("Grand Total")}</div>
-                                  <div>{1.05 * cartTotal}</div>
+                                  <div>{(1.05 * cartTotal).toFixed(2)} {countryCurrency}</div>
                                 </div>
                               </div>
                             </div>

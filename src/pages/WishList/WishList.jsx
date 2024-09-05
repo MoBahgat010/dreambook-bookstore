@@ -2,9 +2,10 @@ import "./WishList.css"
 import TestImage from "../../assets/TestImage.jpg"
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromWishList, RemoveFromWishListAction, RemoveThenGetWishList } from "../../RTK/Slices/ProductsWishListSlice";
+import { removeProductFromWishList, RemoveFromWishListAction, RemoveThenGetWishList, GetAllWishedProducts } from "../../RTK/Slices/ProductsWishListSlice";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function WishList() {
 

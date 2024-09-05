@@ -3,6 +3,7 @@ import "./Loader.css"
 import { useEffect } from "react";
 import gsap from "gsap";
 import { resetEmail } from "../../RTK/Slices/NewsEmailSlice";
+import { useTranslation } from "react-i18next";
 
 function Loader() {
 
@@ -10,6 +11,8 @@ function Loader() {
     const { ProductsLoader } = useSelector(state => state.ShopPage);
     const { WishListLoader } = useSelector(state => state.WishList);
     const dispatch = useDispatch();
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (Cartloader || ProductsLoader || WishListLoader) {
@@ -54,7 +57,7 @@ function Loader() {
 
     return(
         <div className="loader">
-            <h1 className="text-black">Loading...</h1>
+            <h1 className="text-black">{t("Loading")}...</h1>
         </div>
     );
 }

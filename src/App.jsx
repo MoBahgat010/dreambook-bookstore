@@ -26,13 +26,17 @@ import toast from 'react-hot-toast';
 import PopUpProduct from './components/PopUpProduct/PopUpProduct';
 import UpArrow from './components/UpArrow/UpArrow';
 import i18next from 'i18next';
+import { FetchProducts } from './RTK/Slices/FetchProductsSlice';
+import { GetAllWishedProducts } from './RTK/Slices/ProductsWishListSlice';
+import { GetAllCartProducts } from './RTK/Slices/ProductCartSlice';
 
 function App() {
 
-  const { StartNavigation, NavigateTo } = useSelector(state => state.Authorization);
+  const { startToFilter } = useSelector(state => state.ShopPage); 
+  const { StartNavigation, NavigateTo, RegenerateData } = useSelector(state => state.Authorization);
   const { InsuffecientProductQuantity } = useSelector(state => state.Cart);
   // const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const location = useLocation();
   const navigate = useNavigate();
   const firstUpdate = useRef(false);
@@ -53,20 +57,19 @@ function App() {
     firstUpdate.current = true;
   }, [InsuffecientProductQuantity])
   
-  // useEffect(() => {
-  //   if(RedirectToLogin) {
-  //     if(RedirectExecution) {
-  //       navigate("login");
-  //     }
-  //     else {
-  //       navigate("/");
-  //     }
-  //   }
-  //   else if(location.pathname == "/login")
-  //     navigate("/");
-  //   else
-  //     <Outlet />
-  // }, [RedirectToLogin, aidRedirection])
+  useEffect(() => {
+    console.log("fetch productssssssssssssssssssssssssss")
+    dispatch(FetchProducts(1));
+  }, [])
+
+  useEffect(() => {
+    console.log(startToFilter);
+  }, [startToFilter])
+
+  useEffect(() => {
+    dispatch(GetAllWishedProducts());
+    dispatch(GetAllCartProducts());
+  }, [RegenerateData])
 
   return (
     <>
