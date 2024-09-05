@@ -93,6 +93,6 @@ NavBar filtering is done for only the Books and Stationary departements.
 
 Any variable which starts with [aid] is used to trigger [useEffect] only.
 Any comment was for debugging and has no use.
-All API links are in the RTK folder in addition to the search endpoint in the Search.jsx
+All API links are in the RTK folder in addition to the search endpoint in the Search.jsx and popup product endpoint in PopUpProduct.jsx
 
 
