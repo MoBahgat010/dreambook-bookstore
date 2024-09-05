@@ -145,7 +145,7 @@ function ShopPage () {
                                 })
                             }
                         </div>
-                        <div className="author mb-5">
+                        {/* <div className="author mb-5">
                             <div className="d-flex px-1 rounded bg-white justify-content-between">
                                 <p>{t("AUTHOR")}</p>
                                 <i className="fa-solid fa-angle-down mt-1"></i>
@@ -163,7 +163,7 @@ function ShopPage () {
                                     )
                                 })
                             }
-                        </div>
+                        </div> */}
                         {/* <div className="publication mb-5">
                             <div className="d-flex px-1 rounded bg-white justify-content-between">
                                 <p>{t("Publication")}</p>
@@ -191,7 +191,7 @@ function ShopPage () {
                         filteredProducts.slice(pagenumber * 20, (pagenumber + 1) * 20).map((product, index) => {
                                 return (
                                     <div key={product.id + `${index}`} className="col-lg-4 p-2 col-md-6 col-12">
-                                        <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                        <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} />
                                     </div>
                                 );
                             })
