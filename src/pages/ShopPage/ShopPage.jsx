@@ -113,7 +113,7 @@ function ShopPage () {
                                 <i className="fa-solid fa-angle-down mt-1"></i>
                             </div>
                             {
-                                allCategories?.map((category, index, array) => {
+                                allCategories?.map((category, index) => {
                                     return (
                                         <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
                                             <p className="text-capitalize">{t(category.name)}</p>
@@ -145,44 +145,6 @@ function ShopPage () {
                                 })
                             }
                         </div>
-                        {/* <div className="author mb-5">
-                            <div className="d-flex px-1 rounded bg-white justify-content-between">
-                                <p>{t("AUTHOR")}</p>
-                                <i className="fa-solid fa-angle-down mt-1"></i>
-                            </div>
-                            {
-                                allAuthors.map((author, index) => {
-                                    return (
-                                        <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p className="text-capitalize">{author.name}</p>
-                                            <input id={author._id} onChange={() => {
-                                                setReFilter(!reFilter);
-                                                navigate(location.pathname, {});
-                                            }} ref={ele => AuthorCheckBoxes.current[index] = ele} type="checkbox" />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div> */}
-                        {/* <div className="publication mb-5">
-                            <div className="d-flex px-1 rounded bg-white justify-content-between">
-                                <p>{t("Publication")}</p>
-                                <i className="fa-solid fa-angle-down mt-1"></i>
-                            </div>
-                            {
-                                publications.map((publication, index) => {
-                                    return (
-                                        <div key={index} className="d-flex justify-content-between align-items-center mt-2 px-2">
-                                            <p className="text-uppercase">{publication}</p>
-                                            <input id={publication} onChange={() => {
-                                                setReFilter(!reFilter);
-                                                navigate(location.pathname, {});
-                                            }} ref={ele => PublicationCheckBoxes.current[index] = ele} type="checkbox" />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div> */}
                     </div>
                 </aside>
                 <div className="inner-container row">

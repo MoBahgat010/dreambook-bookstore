@@ -31,7 +31,6 @@ function Home() {
     
     const { FetchedProducts, allCategories } = useSelector(state => state.ShopPage);
     const dispatch = useDispatch();
-    const [newProducts, setNewProducts] = useState([]);
     const [categoriesProducts, setCategoriesProducts] = useState([]);
     const swiper = useState(null);
     const { t } = useTranslation();
@@ -57,26 +56,6 @@ function Home() {
             fetchCategoriesProducts();
         }
     }, [allCategories, i18next.language]);
-
-    // function ShowCategoriesImages(category_name) {
-    //     category_name = category_name.split(" ");
-    //     category_name.forEach((word, index) => {
-    //         category_name[index] = word.charAt(0).toUpperCase() + word.slice(1);
-    //     })
-    //     category_name = category_name.join(" ");
-    //     console.log(category_name)
-    //     switch(category_name) {
-    //         case "Kids Books": return <img src={KidsBooks} alt={category_name}></img>
-    //         case "Learning Languages": return <img src={LearningLanguages} alt={category_name}></img>
-    //         case "English Books": return <img src={EnglishBooks} alt={category_name}></img>
-    //         default: return;
-    //     }
-    // }
-    
-    
-    // useEffect(() => {
-    //     console.log(categoriesProducts)
-    // }, [categoriesProducts])
 
     return (
         <section className="home">
@@ -114,76 +93,6 @@ function Home() {
             </div>
             <div className="home-body py-5">
                 <div className="container">
-                    {/* <div className="categories mb-5">
-                        <div className="options d-flex justify-content-end mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
-                            <div className="p-md-2 p-1">
-                                <div className="rounded-pill swiper-button-prev0 py-md-2 py-0 px-md-3 px-2">
-                                    <i className="text-white fa-solid fa-chevron-left"></i>
-                                </div>
-                            </div>
-                            <div className="p-md-2 p-1">
-                                <div className="rounded-pill swiper-button-next0 py-md-2 py-0 px-md-3 px-2">
-                                    <i className="text-white fa-solid fa-chevron-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <Swiper
-                            modules={[Autoplay, Pagination, Navigation]}
-                            navigation={{
-                                nextEl: '.swiper-button-next0',
-                                prevEl: '.swiper-button-prev0',
-                            }}
-                            breakpoints={{
-                                0:{
-                                    slidesPerView: 1,
-                                },
-                                350: {
-                                    slidesPerView: 2,
-                                },
-                                576: {
-                                    slidesPerView: 3,
-                                },
-                                768: {
-                                    slidesPerView: 4,
-                                }
-                            }}
-                            spaceBetween={"10px"}
-                            slidesPerView={4}
-                            loop= {true}
-                            className="mySwiper"
-                        >
-                            {
-                                allCategories.map(category => {
-                                    return (
-                                        <SwiperSlide>
-                                            <Link to={"/shop-page"} state={{data: category._id}} className="d-block bg-white text-center rounded py-3">
-                                                <div className="image-container">
-                                                    {ShowCategoriesImages(category.name)}
-                                                </div>
-                                                <p className="fw-bolder">{category.name}</p>
-                                            </Link>
-                                        </SwiperSlide>
-                                    );
-                                })
-                            }
-                            {/* <SwiperSlide>
-                                <Link to={"/shop-page"} state={{data: "Learning Languages"}} className="d-block bg-white text-center rounded py-3">
-                                    <div className="image-container">
-                                        <img src={LearningLanguages} alt="KidsBooks" />
-                                    </div>
-                                    <p className="fw-bolder">{t("Learning Languages")}</p>
-                                </Link>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <Link to={"/shop-page"} state={{data: "English Books"}} className="d-block bg-white text-center rounded py-3">
-                                    <div className="image-container">
-                                        <img src={EnglishBooks} alt="KidsBooks" />
-                                    </div>
-                                    <p className="fw-bolder">{t("English Books")}</p>
-                                </Link>
-                            </SwiperSlide> */}
-                        {/* </Swiper> */}
-                    {/* </div> */}
                     <div className="non-categories">
                         {
                             FetchedProducts.length != 0 &&
@@ -194,12 +103,12 @@ function Home() {
                                     </div>
                                     <div className="d-flex">
                                         <div className="p-md-2 p-1">
-                                            <div className="rounded-pill swiper-button-prev1 py-md-2 py-0 px-md-3 px-2">
+                                            <div className="rounded-pill swiper-prev1 py-md-2 py-0 px-md-3 px-2">
                                                 <i className="text-white fa-solid fa-chevron-left"></i>
                                             </div>
                                         </div>
                                         <div className="p-md-2 p-1">
-                                            <div className="rounded-pill swiper-button-next1 py-md-2 py-0 px-md-3 px-2">
+                                            <div className="rounded-pill swiper-next1 py-md-2 py-0 px-md-3 px-2">
                                                 <i className="text-white fa-solid fa-chevron-right"></i>
                                             </div>
                                         </div>
@@ -208,8 +117,8 @@ function Home() {
                                 <Swiper
                                     modules={[Autoplay, Pagination, Navigation]}
                                     navigation={{
-                                        nextEl: '.swiper-button-next1',
-                                        prevEl: '.swiper-button-prev1',
+                                        nextEl: '.swiper-next1',
+                                        prevEl: '.swiper-prev1',
                                     }}
                                     breakpoints={{
                                         0:{

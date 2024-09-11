@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import logo from"../../assets/logo.png"
+import "./about.css"
 
 function About() {
 
@@ -8,14 +9,14 @@ function About() {
     return (
         <section style={{backgroundColor: "#F2F2F2"}} className="about py-5">
             <div className="container p-2">
-                <h2 className="text-center">{t("About Us")}</h2>
+                <h2 className="text-center mb-4">{t("About Us")}</h2>
                 <div className="row align-items-center">
                     <div className="col-12 col-md-6">
                         <div className="pe-1">
                             <img src={logo} alt="" />
                         </div>
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="text col-12 col-md-6">
                         <div className="ps-1">
                             <p className="mb-4">إنّ الحروفُ إذا افترقَت لاقيمة لها..</p>
                             <p className="mb-4">لكنها تخلقُ سماءً إذا اجتمَعَت؛ وتحققُ حلماً؛ وتُرضي طموحاً؛ وتروي الظمأ!</p>
