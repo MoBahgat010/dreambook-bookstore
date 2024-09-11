@@ -26,11 +26,11 @@ function Loader() {
         } else {
             const tl = gsap.timeline();
             tl
-                .to(".loader",{
-                    delay: 0.8,
-                    duration: 0.4,
-                    opacity: 0,
-                })
+            .to(".loader",{
+                delay: 0.8,
+                duration: 0.4,
+                opacity: 0,
+            })
                 .to(".loader",{
                     visibility: "hidden",
                 })

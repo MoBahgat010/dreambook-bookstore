@@ -29,6 +29,8 @@ import i18next from 'i18next';
 import { FetchProducts } from './RTK/Slices/FetchProductsSlice';
 import { GetAllWishedProducts } from './RTK/Slices/ProductsWishListSlice';
 import { GetAllCartProducts } from './RTK/Slices/ProductCartSlice';
+import PayementSuccess from './pages/PayementSuccess/PayementSuccess';
+import PayementFailed from './pages/PayementFailed/PayementFailed';
 
 function App() {
 
@@ -90,6 +92,8 @@ function App() {
         <Route path='contact-us' element={<ContactUs />} />
         <Route path='login/forgot-password/:tempToken' element={<ForgotPassword />} />
         <Route path='login/target-email' element={<TargetEmail />} />
+        <Route path='/payement-success' element={<PayementSuccess />} />
+        <Route path='/payement-failed' element={<PayementFailed />} />
       </Routes>
       <UpArrow />
       <Footer />

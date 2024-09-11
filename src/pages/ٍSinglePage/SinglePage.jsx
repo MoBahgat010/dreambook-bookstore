@@ -27,6 +27,8 @@ function SinglePage() {
     const [quantity, setQuantity] = useState(1);
     const WholeHeart = useRef();
 
+    console.log(certainProduct)
+
     function handleSettingLiked() {
         if(WholeHeart.current.classList.contains("like-active"))
             dispatch(RemoveThenGetWishList(params.productId));
@@ -50,11 +52,8 @@ function SinglePage() {
 
     useEffect(() => {
         dispatch(FetchCertainProduct(params.productId));
-    }, [countryCurrency, params])  
-
-    useEffect(() => {
-        window.scrollTo(0,0);
-    }, [params])
+        window.scroll(0,0);
+    }, [countryCurrency, params.productId])  
 
     return (
         <section className="single-page py-5">
@@ -67,9 +66,9 @@ function SinglePage() {
                         <div className="upper-data">
                             <h1>{certainProduct.title}</h1>
                             {
-                                Boolean(certainProduct.discount) ?
+                                certainProduct.priceAfterDiscount != certainProduct.price ?
                                     <div className="d-flex gap-2">
-                                        <span>{(100 - certainProduct.discount) / 100.0 * certainProduct.price} {countryCurrency}</span>
+                                        <span>{certainProduct.priceAfterDiscount} {countryCurrency}</span>
                                         <span className="old-price">{certainProduct.price} {countryCurrency}</span>
                                     </div>
                                 :

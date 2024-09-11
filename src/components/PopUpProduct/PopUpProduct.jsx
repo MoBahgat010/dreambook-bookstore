@@ -95,6 +95,7 @@ function PopUpProduct() {
                         e.stopPropagation();
                         e.preventDefault();
                         HidePopUp();
+                        dispatch(AddThenGetCartProducts({ id: popupProduct.product._id, quantity: 1}))
                     }} >{t("Add To Cart")}</button>
                 </Link>
             </div>
@@ -112,12 +113,6 @@ function PopUpProduct() {
                         <div className="product-image mb-2">
                             <img src={popupProduct.image} alt={popupProduct.title} />
                         </div>
-                        <button onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            HidePopUp();
-                            dispatch(AddThenGetCartProducts({ id: popupProduct._id, quantity: 1}))
-                        }} >{t("Add To Cart")}</button>
                     </div>
                 </div>
             );

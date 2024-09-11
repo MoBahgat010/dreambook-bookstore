@@ -16,25 +16,6 @@ const initialState = {
     startToFilter: false
 }
 
-export const FetchAllProducts = createAsyncThunk("FetchProductsSlice/fetchAllProducts", async (pageNumber,{ getState }) => {
-    const { countryCurrency } = getState().SelectCountry;
-    let flag = true;
-    let i = 1;
-    let allFetchedProducts = [];
-    while(flag) {
-        const response = await axios.get(`http://localhost:3500/api/v1/products?page=${i++}`, {
-            headers: {
-                currency: countryCurrency
-            }
-        })
-        if(response.data.result.length)
-            allFetchedProducts = [...allFetchedProducts, ...response.data.result]
-        else
-            flag = false;
-    }
-    return allFetchedProducts;
-})
-
 export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts", async (pageNumber,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     const response = await axios.get(`http://localhost:3500/api/v1/products?page=${pageNumber}`, {
@@ -150,13 +131,6 @@ export const FetchProductsSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(FetchAllProducts.pending, (state = initialState) => {
-                state.ProductsLoader = true;
-            })
-            .addCase(FetchAllProducts.fulfilled, (state = initialState, action) => {
-                state.allExistedProducts = action.payload;
-                state.ProductsLoader = false;
-            })
             /******************************FetchProducts******************************/
             .addCase(FetchProducts.pending, (state = initialState) => {
                 state.ProductsLoader = true;
