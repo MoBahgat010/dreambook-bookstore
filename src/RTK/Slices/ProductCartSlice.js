@@ -15,7 +15,7 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry; 
     try {
-        const response = await axios.post('http://localhost:3500/api/v1/carts', {
+        const response = await axios.post(process.env.REACT_APP_BASE_URL + 'api/v1/carts', {
             'product': id,
             'quantity': quantity
           }, {
@@ -35,7 +35,7 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
 export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart", async (id, { getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
-    const response = await axios.delete(`http://localhost:3500/api/v1/carts/${id}`, {
+    const response = await axios.delete(process.env.REACT_APP_BASE_URL + `api/v1/carts/${id}`, {
         headers: {
           'token': token,
           'currency': countryCurrency,
@@ -66,7 +66,7 @@ export const UpdateQuantity = createAsyncThunk("ProductCartSlice/updateCartProdu
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.put(
-            `http://localhost:3500/api/v1/carts/${id}`,
+            `${process.env.REACT_APP_BASE_URL}api/v1/carts/${id}`,
             {
               'quantity': quantity
             },
@@ -94,7 +94,7 @@ export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartP
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get('http://localhost:3500/api/v1/carts', {
+        const response = await axios.get( process.env.REACT_APP_BASE_URL + 'api/v1/carts', {
             headers: {
               'token': token,
               'currency': countryCurrency
@@ -164,7 +164,6 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
-                console.log(action.payload.cart._id);
                 state.cartId = action.payload.cart._id;
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;

@@ -13,6 +13,7 @@ import { ClearFilteredProducts, FetchProducts, GetSpecificCategory, GetSpecificS
 function ShopPage () {
 
     const { FetchedProducts, filteredProducts, allCategories, allSubCategories, totalPages, startToFilter, allAuthors } = useSelector(state => state.ShopPage); 
+    const { countryName, countryCurrency } = useSelector(state => state.SelectCountry);
     const { i18n, t } = useTranslation();
 
     const dispatch = useDispatch()
@@ -37,7 +38,6 @@ function ShopPage () {
         dispatch(ClearFilteredProducts());
         let flag = false;
         for(let i in CategoriesCheckBoxes.current) {
-            console.log(CategoriesCheckBoxes.current[i].checked);
             if(CategoriesCheckBoxes.current[i].checked) {
                 flag = true;
                 dispatch(GetSpecificCategory(CategoriesCheckBoxes.current[i].id));
@@ -58,7 +58,6 @@ function ShopPage () {
     }, [reFilter, allCategories, allSubCategories])
     
     useEffect(() => {
-        console.log(location.state?.data);
         if(location.state?.data != "") {
             for(let i in CategoriesCheckBoxes.current) {
                 if(CategoriesCheckBoxes.current[i].id == location.state?.data) {
@@ -74,7 +73,14 @@ function ShopPage () {
             }
             FilterProducts();
         }
-    }, [location.state?.data, allCategories, allSubCategories, i18next.language])
+    }, [location.state?.data, allCategories, allSubCategories])
+
+    useEffect(() => {
+        for(let i in CategoriesCheckBoxes.current)
+            CategoriesCheckBoxes.current[i].checked = false;
+        for(let i in SubCategoryCheckBoxes.current)
+            SubCategoryCheckBoxes.current[i].checked = false;
+    }, [i18next.language, countryCurrency, countryName])
 
     useEffect(() => {
         window.scrollTo(0,0)

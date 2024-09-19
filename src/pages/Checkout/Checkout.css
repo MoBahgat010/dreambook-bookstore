@@ -65,6 +65,11 @@
     border: 2px solid #916741;
 }
 
+.button-disabled {
+    opacity: 0.3 !important;
+    cursor: no-drop !important;
+}
+
 .checkout table caption {
     width: 100%;
     border-right: 1px solid #DEE2E6;

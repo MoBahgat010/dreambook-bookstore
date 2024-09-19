@@ -18,7 +18,7 @@ const initialState = {
 
 export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts", async (pageNumber,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
-    const response = await axios.get(`http://localhost:3500/api/v1/products?page=${pageNumber}`, {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/products?page=${pageNumber}`, {
         headers: {
             currency: countryCurrency
         }
@@ -28,7 +28,7 @@ export const FetchProducts = createAsyncThunk("FetchProductsSlice/fetchProducts"
 
 export const FetchCertainProduct = createAsyncThunk("FetchProductsSlice/fetchCertainProducts", async (id,{ getState }) => {
     const { countryCurrency } = getState().SelectCountry;
-    const response = await axios.get(`http://localhost:3500/api/v1/products/${id}`,{
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/products/${id}`,{
         headers: {
             currency:  countryCurrency
         }
@@ -39,7 +39,7 @@ export const FetchCertainProduct = createAsyncThunk("FetchProductsSlice/fetchCer
 export const GetAllCategories = createAsyncThunk("FetchProductsSlice/getAllCategories", async (_, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get("http://localhost:3500/api/v1/categories", {
+        const response = await axios.get(process.env.REACT_APP_BASE_URL + "api/v1/categories", {
             headers: {
                 "accept-language": i18next.language,
                 "currency": countryCurrency
@@ -55,7 +55,7 @@ export const GetAllCategories = createAsyncThunk("FetchProductsSlice/getAllCateg
 export const GetSpecificCategory = createAsyncThunk("FetchProductsSlice/getSpecificCategory", async (category_id, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get(`http://localhost:3500/api/v1/categories/${category_id}`, {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/categories/${category_id}`, {
             headers: {
                 "accept-language": i18next.language,
                 "currency": countryCurrency
@@ -71,7 +71,7 @@ export const GetSpecificCategory = createAsyncThunk("FetchProductsSlice/getSpeci
 export const GetAllSubCategories = createAsyncThunk("FetchProductsSlice/getAllSubCategories", async (_, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get("http://localhost:3500/api/v1/subcategory", {
+        const response = await axios.get(process.env.REACT_APP_BASE_URL + "api/v1/subcategory", {
             headers: {
                 "accept-language": i18next.language,
                 "currency": countryCurrency
@@ -88,7 +88,7 @@ export const GetAllSubCategories = createAsyncThunk("FetchProductsSlice/getAllSu
 export const GetSpecificSubCategory = createAsyncThunk("FetchProductsSlice/getSpecificSubCategory", async (subCategory_id, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get(`http://localhost:3500/api/v1/subcategory/${subCategory_id}`, {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}api/v1/subcategory/${subCategory_id}`, {
             headers: {
                 "accept-language": i18next.language,
                 "currency": countryCurrency
@@ -105,7 +105,7 @@ export const GetSpecificSubCategory = createAsyncThunk("FetchProductsSlice/getSp
 export const GetAllAuthors = createAsyncThunk("FetchProductsSlice/getAllAuthors", async (_, { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get("http://localhost:3500/api/v1/authors", {
+        const response = await axios.get(process.env.REACT_APP_BASE_URL + "api/v1/authors", {
             headers: {
                 "currency": countryCurrency
             }

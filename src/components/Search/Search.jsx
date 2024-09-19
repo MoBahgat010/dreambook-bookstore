@@ -38,7 +38,7 @@ function Search(props) {
     }, [searchComponent])
 
     useEffect(() => {  
-      axios.get('http://localhost:3500/api/v1/products/', {
+      axios.get(process.env.REACT_APP_BASE_URL + 'api/v1/products/', {
         params: {
           'keyword': props.searchText != "" ? props.searchText : -1
         },

@@ -55,9 +55,7 @@ function Header() {
                     AllCategoriesMap.get(category).push(subcategory);
                 })
         })
-        console.log(AllCategoriesMap)
         AllCategoriesMap = Array.from(AllCategoriesMap);
-        console.log(AllCategoriesMap);
         if(AllCategoriesMap.length > 3)
             OtherCategories = AllCategoriesMap.splice(3);
         setCategories(AllCategoriesMap);
@@ -67,7 +65,7 @@ function Header() {
     useEffect(() => {
         dispatch(GetAllCategories());
         dispatch(GetAllSubCategories());
-        dispatch(GetAllAuthors());
+        // dispatch(GetAllAuthors());
     }, [countryCurrency, i18n.language])
 
     const countriesImages = [ 

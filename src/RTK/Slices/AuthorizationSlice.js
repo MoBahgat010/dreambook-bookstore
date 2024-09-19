@@ -22,7 +22,7 @@ export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ g
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
-            'http://localhost:3500/api/v1/auth/logout',
+            process.env.REACT_APP_BASE_URL + 'api/v1/auth/logout',
             '',
             {
               headers: {
@@ -43,7 +43,7 @@ export const RegisterAuthorization = createAsyncThunk("AuthorizationSlice/regist
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
-            'http://localhost:3500/api/v1/auth/signup',
+            process.env.REACT_APP_BASE_URL + 'api/v1/auth/signup',
             {
                 'email': email,
                 'name': name,
@@ -67,7 +67,7 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
-            'http://localhost:3500/api/v1/auth/signin',
+            process.env.REACT_APP_BASE_URL + 'api/v1/auth/signin',
             {
                 'email': email,
                 'password': password
@@ -92,7 +92,7 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
 export const ForgotPassword = createAsyncThunk("AuthorizationSlice/forgotPassword", async (email) => {
     try {
         const response = await axios.patch(
-            'http://localhost:3500/api/v1/auth/forgetpassword',
+            process.env.REACT_APP_BASE_URL + 'api/v1/auth/forgetpassword',
             {
               'email': email
             },
@@ -111,7 +111,7 @@ export const ForgotPassword = createAsyncThunk("AuthorizationSlice/forgotPasswor
 export const ResetPasswrod = createAsyncThunk("AuthorizationSlice/resetPasswrod", async ({new_password, temp_token}, { getState, dispatch, rejectWithValue }) => {
     try {
         const response = await axios.patch(
-            'http://localhost:3500/api/v1/auth/resetpassword/',
+            process.env.REACT_APP_BASE_URL + 'api/v1/auth/resetpassword/',
             {
               'password': new_password
             },

@@ -22,7 +22,6 @@ function PopUpCart() {
     const dispatch = useDispatch();
 
     function ShowPopUpCart() {
-      console.log("ShowPopUpCart");
       gsap.set("body", {
         overflow: "hidden",
       })
@@ -50,7 +49,6 @@ function PopUpCart() {
     }
     
     function HidePopUpCart() {
-      console.log("HidePopUpCart");
       gsap.set("body", {
         overflow: "visible"
       })

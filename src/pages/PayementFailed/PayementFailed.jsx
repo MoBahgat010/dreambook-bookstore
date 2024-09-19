@@ -6,7 +6,6 @@ function PayementFailed() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const message = query.get("message");
-    console.log(message);
 
     function RenderErrorMessage() {
         switch(message) {

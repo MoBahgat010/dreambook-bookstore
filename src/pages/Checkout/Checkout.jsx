@@ -27,6 +27,7 @@ function Checkout() {
     const Floor = useRef();
     const Area = useRef();
     const OrderNotes = useRef();
+    const paymentButton = useRef();
 
     const { countryName, countryCurrency } = useSelector(state => state.SelectCountry);
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
@@ -34,6 +35,17 @@ function Checkout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+
+    useEffect(() => {
+      if (cartTotal == 0) {
+        paymentButton.current.classList.add("button-disabled");
+        paymentButton.current.setAttribute("disabled", "");
+      }
+      else {
+        paymentButton.current.classList.remove("button-disabled");
+        paymentButton.current.removeAttribute("disabled", "");
+      }
+    }, [cartTotal])
 
     useEffect(() => {
         if(redirectURL)
@@ -132,7 +144,7 @@ function Checkout() {
                             <div className="title d-flex align-items-center p-1">
                                 <div>
                                     <div className="step-one px-3 py-2 text-white">
-                                        3
+                                        2
                                     </div>
                                 </div>
                                 <div className="address">
@@ -208,7 +220,7 @@ function Checkout() {
                     </div>
                 </div>
                 <div className="payement-button py-3 text-center">
-                    <button type="submit" form="order-details">{t("Pay")}</button>
+                    <button ref={paymentButton} disabled type="submit" className="button-disabled" form="order-details">{t("Pay")}</button>
                 </div>
             </div>
         </section>

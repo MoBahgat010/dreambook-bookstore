@@ -11,7 +11,7 @@ export const AddToWishListAction = createAsyncThunk("ProductsWishListSlice/addTo
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
     const response = await axios.post(
-        `http://localhost:3500/api/v1/wishlist/${wished_product_id}`,
+        `${process.env.REACT_APP_BASE_URL}api/v1/wishlist/${wished_product_id}`,
         '',
         {
           headers: {
@@ -37,7 +37,7 @@ export const AddThenGetWishList = createAsyncThunk("ProductsWishListSlice/addThe
 export const RemoveFromWishListAction = createAsyncThunk("ProductsWishListSlice/removeToWishList", async (wished_product_id, { dispatch, getState }) => {
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
-    const response = await axios.delete(`http://localhost:3500/api/v1/wishlist/${wished_product_id}`, {
+    const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}api/v1/wishlist/${wished_product_id}`, {
         headers: {
           'token': token,
           'currency': countryCurrency,
@@ -55,7 +55,7 @@ export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getA
     const { token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
-        const response = await axios.get('http://localhost:3500/api/v1/wishlist', {
+        const response = await axios.get(process.env.REACT_APP_BASE_URL + 'api/v1/wishlist', {
             headers: {
               'token': token,
               'currency': countryCurrency

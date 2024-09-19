@@ -9,7 +9,7 @@ export const SendPayment = createAsyncThunk("PaymentSlice/SendPayment", async (s
     const { token } = getState().Authorization;
     const { cartId } = getState().Cart;
     try {
-        const response = await axios.post("http://localhost:3500/api/v1/orders/pay/" + cartId,
+        const response = await axios.post( process.env.REACT_APP_BASE_URL + "api/v1/orders/pay/" + cartId,
             {
                 "shippingAddress": {
                   "street": shippingAddress.street,
@@ -28,7 +28,6 @@ export const SendPayment = createAsyncThunk("PaymentSlice/SendPayment", async (s
                 },
             }
         )
-        console.log(response.data);
         return response.data;
     }
     catch(error) {

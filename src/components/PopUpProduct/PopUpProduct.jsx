@@ -18,13 +18,11 @@ function PopUpProduct() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        axios.get("http://localhost:3500/api/v1/popup")
+        axios.get(process.env.REACT_APP_BASE_URL + "api/v1/popup")
         .then(res => {
             const allPopupProducts = res.data.result;
-            console.log(allPopupProducts)
             if(allPopupProducts.length > 0) {
                 const chosenProduct = Math.floor(Math.random() * (allPopupProducts.length));
-                console.log(res.data.result[chosenProduct])
                 setPopupProduct(res.data.result[chosenProduct]);
             }
             else

@@ -61,12 +61,10 @@ function App() {
   }, [InsuffecientProductQuantity])
   
   useEffect(() => {
-    // console.log("fetch productssssssssssssssssssssssssss")
     dispatch(FetchProducts(1));
   }, [])
 
   useEffect(() => {
-    // console.log(location.pathname);
     if(location.pathname !== "/shop-page" && startToFilter)
       dispatch(SetFilterStatus(false));
   }, [location.pathname])
