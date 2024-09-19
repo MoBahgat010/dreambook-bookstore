@@ -4,6 +4,7 @@ import { AidRedirectionAction, NavigateToAction, RedirectExecutionAction, Redire
 import { ErrorIcon } from "react-hot-toast";
 
 const initialstate = {
+    cartId: null,
     CartProducts: [],
     Cartloader: false,
     cartTotal: 0,
@@ -163,6 +164,8 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
+                console.log(action.payload.cart._id);
+                state.cartId = action.payload.cart._id;
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;
             })

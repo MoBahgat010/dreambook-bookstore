@@ -28,8 +28,6 @@ function ShopPage () {
     const PublicationCheckBoxes = useRef([]);
     const AuthorCheckBoxes = useRef([]);
 
-    console.log(filteredProducts)
-
     useEffect(() => {
         if(startToFilter)
             dispatch(FetchProducts(pagenumber + 1));
@@ -38,10 +36,9 @@ function ShopPage () {
     function FilterProducts() {
         dispatch(ClearFilteredProducts());
         let flag = false;
-        console.log(CategoriesCheckBoxes.current[0]);
         for(let i in CategoriesCheckBoxes.current) {
+            console.log(CategoriesCheckBoxes.current[i].checked);
             if(CategoriesCheckBoxes.current[i].checked) {
-                console.log("true status")
                 flag = true;
                 dispatch(GetSpecificCategory(CategoriesCheckBoxes.current[i].id));
             }
@@ -52,7 +49,6 @@ function ShopPage () {
                 dispatch(GetSpecificSubCategory(SubCategoryCheckBoxes.current[i].id));
             }
         }
-        console.log("Please send smth: ", flag)
         dispatch(SetFilterStatus(flag));
         setPagenumber(0);
     }
@@ -62,6 +58,7 @@ function ShopPage () {
     }, [reFilter, allCategories, allSubCategories])
     
     useEffect(() => {
+        console.log(location.state?.data);
         if(location.state?.data != "") {
             for(let i in CategoriesCheckBoxes.current) {
                 if(CategoriesCheckBoxes.current[i].id == location.state?.data) {
@@ -84,8 +81,6 @@ function ShopPage () {
     }, [pagenumber])
 
     function renderPagination() {
-        console.log("Daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaamn")
-        console.log(startToFilter)
         return (
             startToFilter ?
                 Array(Math.ceil(filteredProducts.length > 0 ? filteredProducts.length / 20.0 : 1)).fill().map((_, index) => {

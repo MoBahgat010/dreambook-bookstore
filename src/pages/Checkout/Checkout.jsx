@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Checkout.css"
 
 import TestImage from "../../assets/TestImage.jpg"
@@ -7,6 +7,8 @@ import CashOnDelivery from "../../assets/cash_on_delivery.png"
 import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { useTranslation } from "react-i18next";
+import { SendPayment } from "../../RTK/Slices/PaymentSlice";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
 
@@ -18,18 +20,25 @@ function Checkout() {
     const Mobile = useRef();
     const Country = useRef();
     const Block = useRef();
-    const Gada = useRef();
-    const Building = useRef();
+    const Appartement = useRef();
+    const City = useRef();
     const Street = useRef();
     const Flat = useRef();
     const Floor = useRef();
-    const PaciNo = useRef();
+    const Area = useRef();
     const OrderNotes = useRef();
 
-    const { countryCurrency } = useSelector(state => state.SelectCountry);
+    const { countryName, countryCurrency } = useSelector(state => state.SelectCountry);
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
+    const { redirectURL } = useSelector(state => state.Payment);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+
+    useEffect(() => {
+        if(redirectURL)
+            window.location.href = redirectURL;
+    }, [redirectURL])
 
     return (
         <section className="checkout py-5">
@@ -47,45 +56,61 @@ function Checkout() {
                                     <p>{t("Address Details")}</p>
                                 </div>
                             </div>
-                            <form onSubmit={(e) => {
+                            <form id="order-details" onSubmit={(e) => {
                                 e.preventDefault();
                                 e.target.reset();
+                                dispatch(SendPayment({
+                                    street: Street.current.value,
+                                    building: Block.current.value,
+                                    area: Area.current.value,
+                                    floor: Floor.current.value,
+                                    apartment: Appartement.current.value,
+                                    city: City.current.value,
+                                    phone: Mobile.current.value,
+                                    country: countryName
+                                }));
                             }} className=" w-100">
-                                <div className="d-flex gap-1 py-4 w-100">
+                                {/* <div className="d-flex gap-1 py-4 w-100">
                                     <div className="w-100">
                                         <input ref={FirstName} required className="w-100 p-2" type="text" placeholder={t("First Name")} />
                                     </div>
                                     <div className="w-100">
                                         <input ref={LastName} required className="w-100 p-2" type="text" placeholder={t("Last Name")} />
                                     </div>
-                                </div>
-                                <div className="w-100">
+                                </div> */}
+                                {/* <div className="w-100">
                                     <input ref={Email} required className="w-100 p-2" type="emial" placeholder={t("Email")} />
-                                </div>
-                                <div className="w-100 py-4">
+                                </div> */}
+                                <div className="w-100 pt-4">
                                     <input ref={Mobile} required className="w-100 p-2" type="tel" placeholder={t("Mobile")} />
                                 </div>
-                                <select ref={Country} onInput={() => {
+                                {/* <select ref={Country} onInput={() => {
                                     Country.current.value == "Select Country" ? setShowPaymentMethods(false) : setShowPaymentMethods(true);
                                 }} required className="form-select p-2 form-select-lg" aria-label="Large select example">
                                   <option selected>{t("Select Country")}</option>
                                   <option value="egypt">Egypt</option>
-                                </select>
+                                </select> */}
+                                <div className="w-100 pt-4">
+                                    <input ref={Area} required className="w-100 p-2" type="text" placeholder={t("Area")} />
+                                </div>
                                 <div className="w-100 py-4">
                                     <input ref={Block} required className="w-100 p-2" type="text" placeholder={t("Block")} />
                                 </div>
                                 <div className="d-flex gap-1 w-100">
                                     <div className="w-100">
-                                        <input ref={Gada} required className="w-100 p-2" type="text" placeholder={t("Gada")} />
+                                        <input ref={Appartement} required className="w-100 p-2" type="text" placeholder={t("Appartement No.")} />
                                     </div>
                                     <div className="w-100">
-                                        <input ref={Building} required className="w-100 p-2" type="text" placeholder={t("Building")} />
+                                        <input ref={City} required className="w-100 p-2" type="text" placeholder={t("City")} />
                                     </div>
                                 </div>
                                 <div className="w-100 py-4">
                                     <input ref={Street} required className="w-100 p-2" type="text" placeholder={t("Street")} />
                                 </div>
-                                <div className="d-flex w-100">
+                                <div className="w-100">
+                                    <input ref={Floor} required className="w-100 p-2" type="text" placeholder={t("Floor")} />
+                                </div>
+                                {/* <div className="d-flex w-100">
                                     <div className="pe-1">
                                         <input ref={Flat} required className="w-100 p-2" type="text" placeholder={t("Flat")} />
                                     </div>
@@ -95,7 +120,7 @@ function Checkout() {
                                     <div className="ps-1">
                                         <input ref={PaciNo} required className="w-100 p-2" type="text" placeholder={t("Paci No")} />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="w-100 pt-4">
                                     <textarea ref={OrderNotes} required className="w-100 p-2" type="text" placeholder={t("Order Notes")} />
                                 </div>
@@ -104,35 +129,6 @@ function Checkout() {
                     </div>
                     <div className="right-data col-md-8 col-12 py-4">
                         <div>
-                            <div className="title d-flex align-items-center p-1">
-                                <div>
-                                    <div className="step-one px-3 py-2 text-white">
-                                        2
-                                    </div>
-                                </div>
-                                <div className="address">
-                                    <p>{t("Payement Method")}</p>
-                                </div>
-                            </div>
-                            {
-                                showPaymentMethods ?
-                                    <form id="payment-method" className="d-flex align-items-center justify-content-evenly py-2">
-                                        <div className="d-flex">
-                                            <input type="radio" name="payement-method" id="visa-master" value="visa"/>
-                                            <label htmlFor="visa-master">
-                                                <img src={VisaMasterCard} alt="" />
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="payement-method" id="cash-on-delivey" value="cash"/>
-                                            <label htmlFor="cash-on-delivey">
-                                                <img src={CashOnDelivery} alt="" />
-                                            </label>
-                                        </div>
-                                    </form>
-                                :
-                                    <p className="my-3 px-4 py-3 rounded-pill bg-warning">{t("No Country Message")}</p>
-                            }
                             <div className="title d-flex align-items-center p-1">
                                 <div>
                                     <div className="step-one px-3 py-2 text-white">
@@ -212,7 +208,7 @@ function Checkout() {
                     </div>
                 </div>
                 <div className="payement-button py-3 text-center">
-                    <button type="button">{t("Pay")}</button>
+                    <button type="submit" form="order-details">{t("Pay")}</button>
                 </div>
             </div>
         </section>

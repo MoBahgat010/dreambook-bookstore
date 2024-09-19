@@ -29,6 +29,7 @@
     color: #916741;
 }
 
-.payement-failed h2 {
+.payement-failed h2,
+.payement-failed p {
     color: #636363;
 }

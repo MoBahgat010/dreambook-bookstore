@@ -27,8 +27,6 @@ function SinglePage() {
     const [quantity, setQuantity] = useState(1);
     const WholeHeart = useRef();
 
-    console.log(certainProduct)
-
     function handleSettingLiked() {
         if(WholeHeart.current.classList.contains("like-active"))
             dispatch(RemoveThenGetWishList(params.productId));

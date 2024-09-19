@@ -442,7 +442,7 @@ function Header() {
                     }
                     {
                         otherCategories.length != 0  &&
-                        <div className="has-dropdown others mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(categories.length + 3)}>
+                        <div className="has-dropdown others mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(categories.length + 2)}>
                             <div className="w-100 h-100 d-flex align-items-center">
                                 <Link onClick={(e) => {
                                     e.stopPropagation();

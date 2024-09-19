@@ -7,6 +7,13 @@
 .mySwiper,
 .mySwiper .swiper-slide {
     width: 100%;
+    height: auto;
+    direction: ltr;
+}
+
+.home .upper .mySwiper,
+.home .upper .mySwiper .swiper-slide {
+    width: 100%;
     height: 100%;
     direction: ltr;
 }
@@ -66,9 +73,9 @@
     background-color: #2a8b79;
 }
 
-.home .home-body .container > div:not(.categories) .swiper-slide {
+/* .home .home-body .container > div:not(.categories) .swiper-slide {
     min-height: 38rem;
-}
+} */
 
 .home .home-body .container > div:not(.categories) .options .text a {
     font-weight: 700;

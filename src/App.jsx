@@ -26,7 +26,7 @@ import toast from 'react-hot-toast';
 import PopUpProduct from './components/PopUpProduct/PopUpProduct';
 import UpArrow from './components/UpArrow/UpArrow';
 import i18next from 'i18next';
-import { FetchProducts } from './RTK/Slices/FetchProductsSlice';
+import { FetchProducts, SetFilterStatus } from './RTK/Slices/FetchProductsSlice';
 import { GetAllWishedProducts } from './RTK/Slices/ProductsWishListSlice';
 import { GetAllCartProducts } from './RTK/Slices/ProductCartSlice';
 import PayementSuccess from './pages/PayementSuccess/PayementSuccess';
@@ -42,6 +42,7 @@ function App() {
   // const location = useLocation();
   const navigate = useNavigate();
   const firstUpdate = useRef(false);
+  const location = useLocation();
 
   if(i18next.language === 'en')
     document.documentElement.classList.remove("arabic-format");
@@ -60,13 +61,15 @@ function App() {
   }, [InsuffecientProductQuantity])
   
   useEffect(() => {
-    console.log("fetch productssssssssssssssssssssssssss")
+    // console.log("fetch productssssssssssssssssssssssssss")
     dispatch(FetchProducts(1));
   }, [])
 
   useEffect(() => {
-    console.log(startToFilter);
-  }, [startToFilter])
+    // console.log(location.pathname);
+    if(location.pathname !== "/shop-page" && startToFilter)
+      dispatch(SetFilterStatus(false));
+  }, [location.pathname])
 
   useEffect(() => {
     dispatch(GetAllWishedProducts());
@@ -92,8 +95,8 @@ function App() {
         <Route path='contact-us' element={<ContactUs />} />
         <Route path='login/forgot-password/:tempToken' element={<ForgotPassword />} />
         <Route path='login/target-email' element={<TargetEmail />} />
-        <Route path='/payement-success' element={<PayementSuccess />} />
-        <Route path='/payement-failed' element={<PayementFailed />} />
+        <Route path='/success' element={<PayementSuccess />} />
+        <Route path='/error' element={<PayementFailed />} />
       </Routes>
       <UpArrow />
       <Footer />
