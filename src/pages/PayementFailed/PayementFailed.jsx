@@ -10,11 +10,11 @@ function PayementFailed() {
     function RenderErrorMessage() {
         switch(message) {
             case "amountNM":
-                return <p className="error-message">Money available is less than the required</p>;
+                return <p className="error-message mb-4">Money available is less than the required</p>;
             case "pending":
-                return <p className="error-message">Issue With Payment Try Again or Contact Support</p>;
+                return <p className="error-message mb-4">Issue With Payment Try Again or Contact Support</p>;
             case "canceled":
-                return <p className="error-message">Payment Canceled</p>;
+                return <p className="error-message mb-4">Payment Canceled</p>;
             default:;
         }
     }
@@ -24,7 +24,7 @@ function PayementFailed() {
             <i class="fa-solid fa-exclamation"></i>
             <h2 className="fs-2 my-4">Your Payement was failed</h2>
             { RenderErrorMessage() }
-            <Link to={"/home"}>Back To Home</Link>
+            <Link to={"/checkout"}>Back To Checkout</Link>
         </section>
     );
 }

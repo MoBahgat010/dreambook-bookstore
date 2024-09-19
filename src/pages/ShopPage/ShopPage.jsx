@@ -54,6 +54,13 @@ function ShopPage () {
     }
 
     useEffect(() => {
+        for(let i in CategoriesCheckBoxes.current)
+            CategoriesCheckBoxes.current[i].checked = false;
+        for(let i in SubCategoryCheckBoxes.current)
+            SubCategoryCheckBoxes.current[i].checked = false;
+    }, [i18next.language, countryCurrency, countryName])
+
+    useEffect(() => {
         FilterProducts();
     }, [reFilter, allCategories, allSubCategories])
     
@@ -74,13 +81,6 @@ function ShopPage () {
             FilterProducts();
         }
     }, [location.state?.data, allCategories, allSubCategories])
-
-    useEffect(() => {
-        for(let i in CategoriesCheckBoxes.current)
-            CategoriesCheckBoxes.current[i].checked = false;
-        for(let i in SubCategoryCheckBoxes.current)
-            SubCategoryCheckBoxes.current[i].checked = false;
-    }, [i18next.language, countryCurrency, countryName])
 
     useEffect(() => {
         window.scrollTo(0,0)
