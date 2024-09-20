@@ -61,11 +61,12 @@ function ShopPage () {
     }, [i18next.language, countryCurrency, countryName])
 
     useEffect(() => {
+        console.log("FilterProducts");
         FilterProducts();
     }, [reFilter, allCategories, allSubCategories])
     
     useEffect(() => {
-        if(location.state?.data != "") {
+        if(location.state?.data && location.state?.data != "") {
             for(let i in CategoriesCheckBoxes.current) {
                 if(CategoriesCheckBoxes.current[i].id == location.state?.data) {
                     CategoriesCheckBoxes.current[i].checked = true;
@@ -78,9 +79,10 @@ function ShopPage () {
                     break;
                 }
             }
+            navigate(location.pathname, {});
             FilterProducts();
         }
-    }, [location.state?.data, allCategories, allSubCategories])
+    }, [location.state?.data])
 
     useEffect(() => {
         window.scrollTo(0,0)
