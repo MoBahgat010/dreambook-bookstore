@@ -164,7 +164,7 @@ function ShopPage () {
                         FetchedProducts.map((product, index) => {
                                 return (
                                     <div key={product.id + `${index}`} className="col-lg-4 p-2 col-md-6 col-12">
-                                        <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={product.new} image={product.image} title={product.title} price={product.price} />
+                                        <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} />
                                     </div>
                                 );
                             })
