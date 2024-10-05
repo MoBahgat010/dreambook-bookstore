@@ -47,11 +47,7 @@ function App() {
 
   useEffect(() => {
     if(!RedirectToLogin && lastPage != null)
-      {
-        console.log(lastPage.current);
-        console.log("RedirectToLogin");
         navigate(lastPage.current);
-    }
   }, [RedirectToLogin])
 
   useEffect(() => {

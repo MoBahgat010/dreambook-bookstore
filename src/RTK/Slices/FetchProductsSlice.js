@@ -173,7 +173,6 @@ export const FetchProductsSlice = createSlice({
             })
             .addCase(GetSpecificCategory.fulfilled, (state, action) => {
                 state.filteredProducts = [...state.filteredProducts, ...action.payload]
-                console.log(state.filteredProducts);
                 // state.ProductsLoader = false;
             })
             .addCase(GetSpecificCategory.rejected, (state, action) => {

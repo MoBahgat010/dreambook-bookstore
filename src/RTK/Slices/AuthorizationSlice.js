@@ -31,7 +31,7 @@ export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ g
               }
             }
         );
-        dispatch(NavigateToAction(""));
+        // dispatch(NavigateToAction(""));
         dispatch(StartNavigation());
     }
     catch(error) {
@@ -80,7 +80,7 @@ export const LoginAuthorization = createAsyncThunk("AuthorizationSlice/login", a
             }
         );
         // dispatch(RedirectExecutionAction(false));
-        dispatch(NavigateToAction(""));
+        // dispatch(NavigateToAction(""));
         dispatch(StartNavigation());
         return response.data.token;  
     }
