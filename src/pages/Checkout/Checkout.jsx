@@ -7,7 +7,7 @@ import CashOnDelivery from "../../assets/cash_on_delivery.png"
 import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, RemoveThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { useTranslation } from "react-i18next";
-import { SendPayment } from "../../RTK/Slices/PaymentSlice";
+import { GetUserOrders, SendPayment } from "../../RTK/Slices/PaymentSlice";
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
@@ -31,7 +31,7 @@ function Checkout() {
 
     const { countryName, countryCurrency } = useSelector(state => state.SelectCountry);
     const { CartProducts, cartTotal } = useSelector(state => state.Cart);
-    const { redirectURL } = useSelector(state => state.Payment);
+    const { redirectURL, shippingData } = useSelector(state => state.Payment);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPaymentMethods, setShowPaymentMethods] = useState(false);
@@ -52,6 +52,21 @@ function Checkout() {
             window.location.href = redirectURL;
     }, [redirectURL])
 
+    useEffect(() => {
+      console.log("User Orders");
+      dispatch(GetUserOrders());
+    }, [CartProducts])
+
+    useEffect(() => {
+      Street.current.value = shippingData.street != undefined ? shippingData.street : "";
+      Block.current.value = shippingData.building != undefined ? shippingData.building : "";
+      Area.current.value = shippingData.area != undefined ? shippingData.area : "";
+      Floor.current.value = shippingData.floor != undefined ? shippingData.floor : "";
+      Appartement.current.value = shippingData.apartment != undefined ? shippingData.apartment : "";
+      City.current.value = shippingData.city != undefined ? shippingData.city : "";
+      Mobile.current.value = shippingData.phone != undefined ? shippingData.phone : "";
+    }, [shippingData])
+
     return (
         <section className="checkout py-5">
             <div className="container bg-white">
@@ -69,18 +84,18 @@ function Checkout() {
                                 </div>
                             </div>
                             <form id="order-details" onSubmit={(e) => {
-                                e.preventDefault();
-                                e.target.reset();
-                                dispatch(SendPayment({
-                                    street: Street.current.value,
-                                    building: Block.current.value,
-                                    area: Area.current.value,
-                                    floor: Floor.current.value,
-                                    apartment: Appartement.current.value,
-                                    city: City.current.value,
-                                    phone: Mobile.current.value,
-                                    country: countryName
-                                }));
+                              dispatch(SendPayment({
+                                  street: Street.current.value,
+                                  building: Block.current.value,
+                                  area: Area.current.value,
+                                  floor: Floor.current.value,
+                                  apartment: Appartement.current.value,
+                                  city: City.current.value,
+                                  phone: Mobile.current.value,
+                                  country: countryName
+                              }));
+                              e.preventDefault();
+                              e.target.reset();
                             }} className=" w-100">
                                 {/* <div className="d-flex gap-1 py-4 w-100">
                                     <div className="w-100">
@@ -134,7 +149,7 @@ function Checkout() {
                                     </div>
                                 </div> */}
                                 <div className="w-100 pt-4">
-                                    <textarea ref={OrderNotes} required className="w-100 p-2" type="text" placeholder={t("Order Notes")} />
+                                    <textarea ref={OrderNotes} className="w-100 p-2" type="text" placeholder={t("Order Notes")} />
                                 </div>
                             </form>
                         </div>

@@ -7,9 +7,11 @@ import { AddThenGetWishList, RemoveThenGetWishList } from "../../RTK/Slices/Prod
 import { AddThenGetCartProducts } from "../../RTK/Slices/ProductCartSlice";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 function Card(props) {
 
+    const { isToastful } = useSelector(state => state.Cart);
     const { wishproducts } = useSelector(state => state.WishList);
     const { countryCurrency } = useSelector(state => state.SelectCountry);
     const WholeHeart = useRef();

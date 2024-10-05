@@ -37,12 +37,31 @@ function App() {
   const { startToFilter } = useSelector(state => state.ShopPage); 
   const { StartNavigation, NavigateTo, RegenerateData } = useSelector(state => state.Authorization);
   const { InsuffecientProductQuantity } = useSelector(state => state.Cart);
-  // const { RedirectToLogin, RedirectExecution, aidRedirection } = useSelector(state => state.Authorization);
+  const { RedirectToLogin } = useSelector(state => state.Authorization);
   const dispatch = useDispatch();
   // const location = useLocation();
   const navigate = useNavigate();
   const firstUpdate = useRef(false);
+  const lastPage = useRef(null);
   const location = useLocation();
+
+  useEffect(() => {
+    if(!RedirectToLogin && lastPage != null)
+      {
+        console.log(lastPage.current);
+        console.log("RedirectToLogin");
+        navigate(lastPage.current);
+    }
+  }, [RedirectToLogin])
+
+  useEffect(() => {
+    if(location.pathname != "/login")
+      {
+        lastPage.current = location.pathname;
+        console.log(location.pathname)
+      }
+    window.scrollTo(0,0);
+  }, [location.pathname])
 
   if(i18next.language === 'en')
     document.documentElement.classList.remove("arabic-format");

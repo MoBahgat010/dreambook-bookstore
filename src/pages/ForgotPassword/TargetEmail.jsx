@@ -17,7 +17,7 @@ function TargetEmail() {
                     e.preventDefault();
                     e.target.reset();
                 }} action="">
-                    <div class="mb-3">
+                    <div className="mb-3">
                       <label htmlFor="exampleFormControlInput1" className="form-label">Enter Your Emial</label>
                       <input ref={emial} type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
                     </div>

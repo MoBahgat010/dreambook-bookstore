@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AidRedirectionAction, NavigateToAction, RedirectExecutionAction, RedirectToLoginAction, StartNavigation } from "./AuthorizationSlice";
-import { ErrorIcon } from "react-hot-toast";
+import toast, { ErrorIcon } from "react-hot-toast";
 
 const initialstate = {
     cartId: null,
     CartProducts: [],
     Cartloader: false,
     cartTotal: 0,
-    InsuffecientProductQuantity: false
+    InsuffecientProductQuantity: false,
+    isToastful: false
 }
 
 export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { dispatch, getState, rejectWithValue }) => {
@@ -144,6 +145,7 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(AddToCartAction.fulfilled, (state) => {
                 state.Cartloader = false;
+                toast.success("Book is added successfully");
             })
             .addCase(AddToCartAction.rejected, (state, action) => {
                 if(action.payload === "Insufficient product quantity")
@@ -164,6 +166,7 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
+                console.log(action.payload.cart);
                 state.cartId = action.payload.cart._id;
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;

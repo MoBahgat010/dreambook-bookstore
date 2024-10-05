@@ -493,4 +493,4 @@ function Header() {
 export default Header
 
 /* =============================== Note for drop downs =============================== */
-/* divs with class has-dropdown are the divs which can display drop down only */
+/* divs with className has-dropdown are the divs which can display drop down only */

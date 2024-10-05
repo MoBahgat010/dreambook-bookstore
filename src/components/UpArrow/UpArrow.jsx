@@ -57,7 +57,7 @@ function UpArrow() {
 
     return (
         <button ref={ArrowComponent} onClick={ResetToPageStart} className="up-arrow">
-            <i class="fa-solid fa-turn-up"></i>
+            <i className="fa-solid fa-turn-up"></i>
         </button>
     );
 }
