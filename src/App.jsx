@@ -55,7 +55,7 @@ function App() {
     if(location.pathname != "/login")
       {
         lastPage.current = location.pathname;
-        console.log(location.pathname)
+        // console.log(location.pathname)
       }
     window.scrollTo(0,0);
   }, [location.pathname])

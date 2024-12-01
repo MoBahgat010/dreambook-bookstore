@@ -28,7 +28,7 @@ function CartPage() {
       temp_totalPriceBeforeDiscount += product.priceAfterDiscount * product.quantity;
       return product.product._id
     })
-    console.log(temp_totalPriceBeforeDiscount);
+    // console.log(temp_totalPriceBeforeDiscount);
     setTotalPriceBeforeDiscount(temp_totalPriceBeforeDiscount);
     let indexing = 0;
     FetchedProducts.forEach(product => {

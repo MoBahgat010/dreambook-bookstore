@@ -53,7 +53,7 @@ function Checkout() {
     }, [redirectURL])
 
     useEffect(() => {
-      console.log("User Orders");
+      // console.log("User Orders");
       dispatch(GetUserOrders());
     }, [CartProducts])
 

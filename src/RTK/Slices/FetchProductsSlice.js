@@ -48,7 +48,7 @@ export const GetAllCategories = createAsyncThunk("FetchProductsSlice/getAllCateg
         return response.data.result;
     }
     catch(error) {
-        console.log(error);
+        // console.log(error);
     }
 })
 
@@ -64,7 +64,7 @@ export const GetSpecificCategory = createAsyncThunk("FetchProductsSlice/getSpeci
         return response.data.products;
     }
     catch(error) {
-        console.log(error);
+        // console.log(error);
     }
 })
 
@@ -77,11 +77,11 @@ export const GetAllSubCategories = createAsyncThunk("FetchProductsSlice/getAllSu
                 "currency": countryCurrency
             }
         })
-        console.log(response);
+        // console.log(response);
         return response.data.result;
     }
     catch(error) {
-        console.log(error);
+        // console.log(error);
     }
 })
 
@@ -94,11 +94,11 @@ export const GetSpecificSubCategory = createAsyncThunk("FetchProductsSlice/getSp
                 "currency": countryCurrency
             }
         })
-        console.log(response);
+        // console.log(response);
         return response.data.products;
     }
     catch(error) {
-        console.log(error);
+        // console.log(error);
     }
 })
 
@@ -110,11 +110,11 @@ export const GetAllAuthors = createAsyncThunk("FetchProductsSlice/getAllAuthors"
                 "currency": countryCurrency
             }
         })
-        console.log(response);
+        // console.log(response);
         return response.data.result;
     }
     catch(error) {
-        console.log(error);
+        // console.log(error);
     }
 })
 
@@ -199,7 +199,7 @@ export const FetchProductsSlice = createSlice({
             })
             .addCase(GetSpecificSubCategory.fulfilled, (state, action) => {
                 state.filteredProducts = [...state.filteredProducts, ...action.payload]
-                console.log(state.filteredProducts);
+                // console.log(state.filteredProducts);
                 // state.ProductsLoader = false;
             })
             .addCase(GetSpecificSubCategory.rejected, (state, action) => {

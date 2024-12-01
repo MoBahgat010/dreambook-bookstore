@@ -44,7 +44,7 @@ export const GetUserOrders = createAsyncThunk("PaymentSlice/getUserOrders", asyn
 export const SendPayment = createAsyncThunk("PaymentSlice/sendPayment", async (shippingAddress, { getState, dispatch, rejectWithValue }) => {
     const { token } = getState().Authorization;
     const { cartId } = getState().Cart;
-    console.log("api/v1/orders/pay/" + cartId);
+    // console.log("api/v1/orders/pay/" + cartId);
     try {
         const response = await axios.post( process.env.REACT_APP_BASE_URL + "api/v1/orders/pay/" + cartId,
             {

@@ -61,7 +61,7 @@ function ShopPage () {
     }, [i18next.language, countryCurrency, countryName])
 
     useEffect(() => {
-        console.log("FilterProducts");
+        // console.log("FilterProducts");
         FilterProducts();
     }, [reFilter, allCategories, allSubCategories])
     

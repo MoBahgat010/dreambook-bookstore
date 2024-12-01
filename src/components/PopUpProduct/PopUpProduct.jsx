@@ -29,13 +29,13 @@ function PopUpProduct() {
                 setPopupProduct(null);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
         })
     }, [])
 
     function ShowPopUp() {
-        console.log("I am here in ShowPopUp");
-        console.log(popupProduct);
+        // console.log("I am here in ShowPopUp");
+        // console.log(popupProduct);
         gsap.to(".pop-up-product", {
             opacity: 1,
             visibility: "visible",
