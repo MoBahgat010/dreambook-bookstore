@@ -16,14 +16,20 @@ function CartPage() {
   const [updatedQuantity, setUpdatedQuantity] = useState([]);
   const [productsAvailableQuantities, setProductsAvailableQuantities] = useState([]);
 
+  const [totalPriceBeforeDiscount, setTotalPriceBeforeDiscount] = useState();
+
   useEffect(() => {
     let temp_array = [];
     let temp_array_qua = [];
     let temp_array_ids = [];
+    let temp_totalPriceBeforeDiscount = 0;
     temp_array_ids = CartProducts.map((product, index) => {
-      temp_array[index] = product.quantity;
+      temp_array[index] = product.quantity;      
+      temp_totalPriceBeforeDiscount += product.priceAfterDiscount * product.quantity;
       return product.product._id
     })
+    console.log(temp_totalPriceBeforeDiscount);
+    setTotalPriceBeforeDiscount(temp_totalPriceBeforeDiscount);
     let indexing = 0;
     FetchedProducts.forEach(product => {
       if (temp_array_ids.includes(product._id))
@@ -127,19 +133,19 @@ function CartPage() {
                   <div className="p-2">
                     <div className="total-amount d-flex justify-content-between">
                       <div>{t("Total Amount")}:</div>
-                      <div>{countryCurrency} {cartTotal}</div>
+                      <div>{countryCurrency} {totalPriceBeforeDiscount}</div>
                     </div>
                     <div className="discount d-flex justify-content-between">
                       <div>{t("Discount or Coupon")}</div>
-                      <div>{countryCurrency} 0.000</div>
+                      <div>{countryCurrency} {(totalPriceBeforeDiscount - cartTotal).toFixed(2)}</div>
                     </div>
                     <div className="shipping d-flex justify-content-between">
                       <div>{t("Shipping")}</div>
-                      <div>{countryCurrency} {(0.05 * cartTotal).toFixed(2)}</div>
+                      <div>{countryCurrency} {0}</div>
                     </div>
                     <div className="total d-flex justify-content-between">
                       <div>{t("Grand Total")}</div>
-                      <div>{countryCurrency} {(1.05 * cartTotal).toFixed(2)}</div>
+                      <div>{countryCurrency} {cartTotal}</div>
                     </div>
                     <Link to={"/checkout"}>{t("Checkout")}</Link>
                   </div>

@@ -31,6 +31,7 @@ import { GetAllWishedProducts } from './RTK/Slices/ProductsWishListSlice';
 import { GetAllCartProducts } from './RTK/Slices/ProductCartSlice';
 import PayementSuccess from './pages/PayementSuccess/PayementSuccess';
 import PayementFailed from './pages/PayementFailed/PayementFailed';
+import Error from './pages/Error/Error';
 
 function App() {
 
@@ -96,6 +97,7 @@ function App() {
       <PopUpCart />
       <PopUpProduct />
       <Routes>
+        <Route path='*' element={<Error />}></Route>
         <Route path='/' element={<SelectCountry />} />
         <Route path='home' element={<Home />} />
         <Route path='shop-page' element={<ShopPage />} />

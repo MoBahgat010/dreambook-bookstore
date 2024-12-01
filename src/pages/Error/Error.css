@@ -1,0 +1,33 @@
+.error {
+    text-align: center;
+}
+
+.error > h1 {
+    font-size: 8rem;
+    letter-spacing: 15px;
+}
+
+.error > h2 {
+    color: #916741;
+}
+
+.error > a {
+    color: white;
+    background-color: #916741;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10rem;
+    transition: 300ms;
+    border: 2px solid #916741;
+}
+
+.error > a:hover {
+    color: #916741;
+    background-color: white;
+    transition: 300ms;
+}
+
+.error > p {
+    font-weight: bold;
+    padding: 1rem 0;
+    margin-bottom: 0.8rem;
+}

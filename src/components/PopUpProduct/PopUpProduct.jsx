@@ -34,6 +34,8 @@ function PopUpProduct() {
     }, [])
 
     function ShowPopUp() {
+        console.log("I am here in ShowPopUp");
+        console.log(popupProduct);
         gsap.to(".pop-up-product", {
             opacity: 1,
             visibility: "visible",
@@ -70,7 +72,8 @@ function PopUpProduct() {
     }
 
     useEffect(() => {
-        if(location.pathname === "/home" && !isPopupShowed && popupProduct) {
+        if(location.pathname === "/home" && !isPopupShowed && popupProduct && 
+            Object.keys(popupProduct).length !== 0 && popupProduct.constructor === Object) {
             setIsPopupShowed(true);
             setTimeout(ShowPopUp, 2000);
         }

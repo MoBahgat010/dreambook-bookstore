@@ -166,7 +166,7 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
-                console.log(action.payload.cart);
+                console.log("action.payload.cart: ", action.payload.cart);
                 state.cartId = action.payload.cart._id;
                 state.CartProducts = action.payload.cart.cartItems;
                 state.Cartloader = false;

@@ -143,7 +143,7 @@ function Home() {
                                         FetchedProducts.slice(0,15).map((product, index) => {
                                             return (
                                                 <SwiperSlide key={product._id + `${index}`}>
-                                                    <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} />
+                                                    <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} quantity={product.quantity}/>
                                                 </SwiperSlide>
                                             );
                                         })
@@ -203,7 +203,7 @@ function Home() {
                                                 categoryProducts.slice(0,15).map((product, index) => {
                                                     return (
                                                         <SwiperSlide key={product._id + `${index}`}>
-                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} />
+                                                            <Card key={product._id} discount={Math.round((product.price - product.priceAfterDiscount) / product.price * 100)} id={product._id} newBadge={false} image={product.image} title={product.title} price={product.price} quantity={product.quantity}/>
                                                         </SwiperSlide>
                                                     );
                                                 })

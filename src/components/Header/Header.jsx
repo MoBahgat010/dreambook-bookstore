@@ -405,7 +405,7 @@ function Header() {
                     {
                         categories.map(([category, subCategories], index) => {
                             return (
-                                <div className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(index + 2)}>
+                                <div key={index} className="has-dropdown mb-md-0 position-relative px-1" onClick={() => ManipulateSubDropDowns(index + 2)}>
                                     <div className="w-100 h-100 d-flex align-items-center">
                                         <Link onClick={(e) => {
                                             e.stopPropagation();

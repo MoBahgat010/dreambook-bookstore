@@ -37,7 +37,7 @@ function Card(props) {
         } else {
             WholeHeart.current.classList.remove("like-active");
         }
-    }, [wishproducts])
+    }, [wishproducts])    
 
     return (
         <Link to={`/single-page/${props.id}`} className="card w-100 position-relative overflow-hidden">
@@ -62,6 +62,10 @@ function Card(props) {
                         </div>
                     :
                         <p className="card-text">{props.price} {countryCurrency}</p>
+                }
+                {
+                    props.quantity == 0 && 
+                    <p className="m-0 p-0 card-text text-center old-price">out of stock</p>
                 }
                 <div className="options mt-3 d-flex justify-content-center align-items-center">
                     <div className="button rounded add-button">
