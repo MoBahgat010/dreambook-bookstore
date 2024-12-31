@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const initialState = {
-    token: localStorage.getItem("token") == null ? "" : localStorage.getItem("token"),
+    login_token: localStorage.getItem("login_token") == null ? "" : localStorage.getItem("login_token"),
     loader: false,
     RedirectToLogin: false,
     // RedirectExecution: false,
@@ -18,7 +18,7 @@ const initialState = {
 }
 
 export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ getState, dispatch, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.post(
@@ -26,7 +26,7 @@ export const LogOut = createAsyncThunk("AuthorizationSlice/logout", async (_,{ g
             '',
             {
               headers: {
-                'token': token,
+                'token': login_token,
                 'currency': countryCurrency
               }
             }
@@ -180,8 +180,8 @@ export const AuthorizationSlice = createSlice({
             .addCase(LoginAuthorization.fulfilled, (state = initialState, action) => {
                 AuthorizationSlice.caseReducers.RedirectToLoginAction(state, { payload: false });
                 state.loader = false;
-                state.token = action.payload;
-                localStorage.setItem("token", state.token);
+                state.login_token = action.payload;
+                localStorage.setItem("login_token", state.login_token);
                 state.RedirectToLogin = false;
                 state.RedirectExecution = false;
                 state.aidRedirection = !state.aidRedirection;
@@ -197,10 +197,10 @@ export const AuthorizationSlice = createSlice({
             })
             .addCase(LogOut.fulfilled, (state, action) => {
                 state.loader = false;
-                state.token = null;
+                state.login_token = null;
                 state.RedirectToLogin = true;
                 state.RedirectExecution = false;
-                localStorage.removeItem("token");
+                localStorage.removeItem("login_token");
                 state.aidRedirection = !state.aidRedirection;
                 state.RegenerateData = !state.RegenerateData;
             })

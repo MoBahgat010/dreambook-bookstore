@@ -8,14 +8,14 @@ const initialstate = {
 }
 
 export const AddToWishListAction = createAsyncThunk("ProductsWishListSlice/addToWishList", async (wished_product_id, { dispatch, getState }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
     const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}api/v1/wishlist/${wished_product_id}`,
         '',
         {
           headers: {
-            'token': token,
+            'token': login_token,
             'currency': countryCurrency,
             'content-type': 'application/x-www-form-urlencoded'
           }
@@ -35,11 +35,11 @@ export const AddThenGetWishList = createAsyncThunk("ProductsWishListSlice/addThe
 })
 
 export const RemoveFromWishListAction = createAsyncThunk("ProductsWishListSlice/removeToWishList", async (wished_product_id, { dispatch, getState }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;    
     const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}api/v1/wishlist/${wished_product_id}`, {
         headers: {
-          'token': token,
+          'token': login_token,
           'currency': countryCurrency,
           'Content-Type': 'application/json'
         }
@@ -52,12 +52,12 @@ export const RemoveThenGetWishList = createAsyncThunk("ProductsWishListSlice/rem
 })
 
 export const GetAllWishedProducts = createAsyncThunk("ProductsWishListSlice/getAllWishedProducts", async (_, { dispatch, getState, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.get(process.env.REACT_APP_BASE_URL + 'api/v1/wishlist', {
             headers: {
-              'token': token,
+              'token': login_token,
               'currency': countryCurrency
             }
         });

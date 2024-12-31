@@ -15,7 +15,7 @@ function SinglePage() {
     const params  = useParams();
     
     const { wishproducts } = useSelector(state => state.WishList);
-    // const { token } = useSelector(state => state.Authorization);
+    // const { login_token } = useSelector(state => state.Authorization);
     const { countryCurrency } = useSelector(state => state.SelectCountry);
     const dispatch = useDispatch();
     

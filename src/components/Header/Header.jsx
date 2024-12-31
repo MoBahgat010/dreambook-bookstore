@@ -26,7 +26,7 @@ function Header() {
 
     const { i18n, t } = useTranslation();
 
-    // const { token } = useSelector(state => state.Authorization);
+    // const { login_token } = useSelector(state => state.Authorization);
 
     const { SearchBarComponent } = useSelector(state => state.Components);
     const { countryImg, countryName, countryCurrency } = useSelector(state => state.SelectCountry);

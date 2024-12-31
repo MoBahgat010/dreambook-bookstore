@@ -8,11 +8,11 @@ const initialstate = {
 
 export const GetUserOrders = createAsyncThunk("PaymentSlice/getUserOrders", async (_, { getState, dispatch, rejectWithValue}) => {
     const { CartProducts } = getState().Cart;
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     try {
         const response = await axios.get( process.env.REACT_APP_BASE_URL + "api/v1/orders", {
             headers: {
-                'token': token      
+                'token': login_token      
             }
         })
         let ShippingData = {};
@@ -42,7 +42,7 @@ export const GetUserOrders = createAsyncThunk("PaymentSlice/getUserOrders", asyn
 })
 
 export const SendPayment = createAsyncThunk("PaymentSlice/sendPayment", async (shippingAddress, { getState, dispatch, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { cartId } = getState().Cart;
     // console.log("api/v1/orders/pay/" + cartId);
     try {
@@ -61,7 +61,7 @@ export const SendPayment = createAsyncThunk("PaymentSlice/sendPayment", async (s
             },
             {
                 headers: {
-                    "token": token
+                    "token": login_token
                 },
             }
         )

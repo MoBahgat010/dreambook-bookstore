@@ -13,7 +13,7 @@ const initialstate = {
 }
 
 export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", async ({ id, quantity}, { dispatch, getState, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry; 
     try {
         const response = await axios.post(process.env.REACT_APP_BASE_URL + 'api/v1/carts', {
@@ -21,7 +21,7 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
             'quantity': quantity
           }, {
             headers: {
-              'token': token,
+              'token': login_token,
               'currency': countryCurrency,
               'Content-Type': 'application/json'
             }
@@ -34,11 +34,11 @@ export const AddToCartAction = createAsyncThunk("ProductCartSlice/addToCart", as
 })
 
 export const RemoveFromCart = createAsyncThunk("ProductCartSlice/RemoveFromCart", async (id, { getState }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     const response = await axios.delete(process.env.REACT_APP_BASE_URL + `api/v1/carts/${id}`, {
         headers: {
-          'token': token,
+          'token': login_token,
           'currency': countryCurrency,
           'content-type': 'application/x-www-form-urlencoded'
         },
@@ -63,7 +63,7 @@ export const RemoveThenGetCartProducts = createAsyncThunk("ProductCartSlice/remo
 })
 
 export const UpdateQuantity = createAsyncThunk("ProductCartSlice/updateCartProducts", async ({id, quantity},{ getState, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.put(
@@ -73,7 +73,7 @@ export const UpdateQuantity = createAsyncThunk("ProductCartSlice/updateCartProdu
             },
             {
               headers: {
-                'token': token,
+                'token': login_token,
                 'currency': countryCurrency,
                 'Content-Type': 'application/json'
               }
@@ -92,12 +92,12 @@ export const UpdateQuantityThenGetCartProducts = createAsyncThunk("ProductCartSl
 })
 
 export const GetAllCartProducts = createAsyncThunk("ProductCartSlice/GetAllCartProducts", async (_, { getState, dispatch, rejectWithValue }) => {
-    const { token } = getState().Authorization;
+    const { login_token } = getState().Authorization;
     const { countryCurrency } = getState().SelectCountry;
     try {
         const response = await axios.get( process.env.REACT_APP_BASE_URL + 'api/v1/carts', {
             headers: {
-              'token': token,
+              'token': login_token,
               'currency': countryCurrency
             }
         })
@@ -176,7 +176,7 @@ export const ProductCartSlice = createSlice({
                 state.CartProducts = [];
                 state.cartTotal = 0;
                 if(action.payload.response.data.err !== "Cart not found")
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("login_token");
             })
             .addCase(UpdateQuantity.pending, (state) => {
                 state.Cartloader = true;
