@@ -35,7 +35,8 @@ import Error from './pages/Error/Error';
 
 function App() {
 
-  const { startToFilter } = useSelector(state => state.ShopPage); 
+  
+  const { startToFilter, filteredProducts } = useSelector(state => state.ShopPage); 
   const { StartNavigation, NavigateTo, RegenerateData } = useSelector(state => state.Authorization);
   const { InsuffecientProductQuantity } = useSelector(state => state.Cart);
   const { RedirectToLogin } = useSelector(state => state.Authorization);

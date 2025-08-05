@@ -59,7 +59,7 @@
     object-fit: contain;
 }
 
-.home .home-body .container .categories .options > div > div {
+.home .home-body .container .categories .options > div > div > div {
     cursor: pointer;
     background-color: #2a8b79;
 }
@@ -96,6 +96,22 @@
 
 .home h3 {
     color: #2a8b79;
+}
+
+.offer-photo {
+    width: 100%;
+    max-height: 100dvh;
+}
+
+.categories-slider img {
+    width: 50%;
+    object-fit: contain;
+}
+
+.offer-photo img {
+    width: 100%;
+    height: 50dvh;
+    object-fit: fill;
 }
 
 @media (min-width: 576px) {

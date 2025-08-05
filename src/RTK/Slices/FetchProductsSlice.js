@@ -11,6 +11,7 @@ const initialState = {
   filteredProducts: [],
   certainProduct: {},
   ProductsLoader: false,
+  shopPageSpinner: false,
   allCategories: [],
   allSubCategories: [],
   allAuthors: [],
@@ -30,6 +31,8 @@ export const FetchProducts = createAsyncThunk(
         },
       }
     );
+    console.log("fetched data:", response.data);
+    
     return response.data;
   }
 );
@@ -39,7 +42,7 @@ export const FetchMostSoldProducts = createAsyncThunk(
   async (options = "", { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}api/v1/products/most-sold${options}`,
+      `${process.env.REACT_APP_BASE_URL}api/v1/products/most-sold?${options}`,
       {
         headers: {
           currency: countryCurrency,
@@ -55,7 +58,7 @@ export const FetchNewArrivals = createAsyncThunk(
   async (options = "", { getState }) => {
     const { countryCurrency } = getState().SelectCountry;
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}api/v1/products/new-arrivals${options}`,
+      `${process.env.REACT_APP_BASE_URL}api/v1/products/new-arrivals?${options}`,
       {
         headers: {
           currency: countryCurrency,
@@ -197,7 +200,33 @@ export const FetchProductsSlice = createSlice({
       state.filteredProducts = [];
     },
     SetFilterStatus: (state, action) => {
+      console.log("I am in here with flag:", action.payload);
       state.startToFilter = action.payload;
+    },
+    PrepareFilteredProducts: (state, action) => {
+      let new_arrivals = [...state.newArrivalProducts];
+      let most_sold = [...state.mostSoldProducts];
+      let filteredProducts = state.filteredProducts;
+
+      let mergedProducts = [
+        ...filteredProducts,
+        ...new_arrivals,
+        ...most_sold.map(product => ({ ...product, newBadge: true }))
+      ];
+
+      let uniqueProductsMap = new Map();
+      mergedProducts.forEach(product => {
+        if (!uniqueProductsMap.has(product._id))
+          uniqueProductsMap.set(product._id, product);
+        else {
+          let existingProduct = uniqueProductsMap.get(product._id);
+          if (product.newBadge && !existingProduct.newBadge)
+            uniqueProductsMap.set(product._id, product);
+        }
+      });
+
+      let uniqueProducts = Array.from(uniqueProductsMap.values());
+      state.filteredProducts = uniqueProducts;
     },
   },
   extraReducers: (builder) => {
@@ -243,14 +272,14 @@ export const FetchProductsSlice = createSlice({
       ///////////////////////////////////////////////////////////////////////////////
       /******************************GetSpecificCategory******************************/
       .addCase(GetSpecificCategory.pending, (state, action) => {
-        // state.ProductsLoader = true;
+        state.shopPageSpinner = true;
       })
       .addCase(GetSpecificCategory.fulfilled, (state, action) => {
         state.filteredProducts = [...state.filteredProducts, ...action.payload];
-        // state.ProductsLoader = false;
+        state.shopPageSpinner = false;        
       })
       .addCase(GetSpecificCategory.rejected, (state, action) => {
-        // state.ProductsLoader = false;
+        state.shopPageSpinner = false;
       })
       /******************************GetSpecificCategory******************************/
       /////////////////////////////////////////////////////////////////////////////////
@@ -269,38 +298,50 @@ export const FetchProductsSlice = createSlice({
       /////////////////////////////////////////////////////////////////////////////////
       /******************************GetSpecificSubCategory******************************/
       .addCase(GetSpecificSubCategory.pending, (state, action) => {
-        // state.ProductsLoader = true;
+        state.shopPageSpinner = true;
       })
       .addCase(GetSpecificSubCategory.fulfilled, (state, action) => {
         state.filteredProducts = [...state.filteredProducts, ...action.payload];
         // console.log(state.filteredProducts);
-        // state.ProductsLoader = false;
+        state.shopPageSpinner = false;
       })
       .addCase(GetSpecificSubCategory.rejected, (state, action) => {
-        // state.ProductsLoader = false;
+        state.shopPageSpinner = false;
       })
       /******************************GetSpecificSubCategory******************************/
       /******************************GetMostSold******************************/
       .addCase(FetchMostSoldProducts.pending, (state) => {
-        state.ProductsLoader = true;
+        console.log("state.startToFilter:", state.startToFilter);
+        if(state.startToFilter)
+          state.shopPageSpinner = true;
+        else
+          state.ProductsLoader = true;
       })
       .addCase(FetchMostSoldProducts.fulfilled, (state, action) => {
         state.mostSoldProducts = action.payload;
+        state.shopPageSpinner = false;
         state.ProductsLoader = false;
       })
       .addCase(FetchMostSoldProducts.rejected, (state) => {
+        state.shopPageSpinner = false;
         state.ProductsLoader = false;
       })
       /******************************GetMostSold******************************/
       /******************************GetNewArrivals******************************/
       .addCase(FetchNewArrivals.pending, (state) => {
-        state.ProductsLoader = true;
+        console.log("Start to filter:", state.startToFilter);
+        if(state.startToFilter) 
+          state.shopPageSpinner = true;
+        else
+          state.ProductsLoader = true;
       })
       .addCase(FetchNewArrivals.fulfilled, (state, action) => {
         state.newArrivalProducts = action.payload;
+        state.shopPageSpinner = false;
         state.ProductsLoader = false;
       })
       .addCase(FetchNewArrivals.rejected, (state) => {
+        state.shopPageSpinner = false;
         state.ProductsLoader = false;
       })
       /******************************GetNewArrivals******************************/
@@ -317,6 +358,6 @@ export const FetchProductsSlice = createSlice({
   },
 });
 
-export const { ClearFilteredProducts, SetFilterStatus } =
+export const { ClearFilteredProducts, SetFilterStatus, PrepareFilteredProducts } =
   FetchProductsSlice.actions;
 export default FetchProductsSlice.reducer;

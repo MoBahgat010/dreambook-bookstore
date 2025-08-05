@@ -10,13 +10,20 @@ import i18n from "../../i18n";
 import gsap from "gsap";
 import {
   ClearFilteredProducts,
+  FetchMostSoldProducts,
+  FetchNewArrivals,
   FetchProducts,
   GetSpecificCategory,
   GetSpecificSubCategory,
+  PrepareFilteredProducts,
   SetFilterStatus,
 } from "../../RTK/Slices/FetchProductsSlice";
+import Spinner from "../../components/Spinner/Spinner";
 
 function ShopPage() {
+
+  const PAGINATION_THRESHOLD = 20;
+
   const {
     FetchedProducts,
     filteredProducts,
@@ -25,6 +32,7 @@ function ShopPage() {
     totalPages,
     startToFilter,
     allAuthors,
+    shopPageSpinner,
   } = useSelector((state) => state.ShopPage);
   const { countryName, countryCurrency } = useSelector(
     (state) => state.SelectCountry
@@ -41,6 +49,9 @@ function ShopPage() {
 
   const CategoriesCheckBoxes = useRef([]);
   const SubCategoryCheckBoxes = useRef([]);
+  const NewArrivalsCheckBox = useRef([]);
+  const MostSoldCheckBox = useRef([]);
+
   const PublicationCheckBoxes = useRef([]);
   const AuthorCheckBoxes = useRef([]);
 
@@ -48,21 +59,35 @@ function ShopPage() {
     if (startToFilter) dispatch(FetchProducts(pagenumber + 1));
   }, [pagenumber]);
 
-  function FilterProducts() {
-    dispatch(ClearFilteredProducts());
+  async function FilterProducts() {
+    dispatch(ClearFilteredProducts());    
+    dispatch(SetFilterStatus(true));
     let flag = false;
     for (let i in CategoriesCheckBoxes.current) {
       if (CategoriesCheckBoxes.current[i].checked) {
         flag = true;
-        dispatch(GetSpecificCategory(CategoriesCheckBoxes.current[i].id));
+        await dispatch(GetSpecificCategory(CategoriesCheckBoxes.current[i].id)).unwrap();
       }
     }
     for (let i in SubCategoryCheckBoxes.current) {
       if (SubCategoryCheckBoxes.current[i].checked) {
         flag = true;
-        dispatch(GetSpecificSubCategory(SubCategoryCheckBoxes.current[i].id));
+        await dispatch(GetSpecificSubCategory(SubCategoryCheckBoxes.current[i].id)).unwrap();
       }
     }
+    if(NewArrivalsCheckBox.current.checked) {
+      await dispatch(FetchNewArrivals()).unwrap();
+      dispatch(PrepareFilteredProducts());
+      flag = true;
+    }
+    if(MostSoldCheckBox.current.checked) {
+      console.log("Making solds");
+      
+      await dispatch(FetchMostSoldProducts()).unwrap();
+      dispatch(PrepareFilteredProducts());
+      flag = true;
+    }
+    console.log("Flag:", flag);
     dispatch(SetFilterStatus(flag));
     setPagenumber(0);
   }
@@ -75,11 +100,16 @@ function ShopPage() {
   }, [i18next.language, countryCurrency, countryName]);
 
   useEffect(() => {
-    // console.log("FilterProducts");
     FilterProducts();
   }, [reFilter, allCategories, allSubCategories]);
 
   useEffect(() => {
+    if(location.state?.data === "new_arrivals" && location.state?.data != "") {      
+      NewArrivalsCheckBox.current.checked = true;
+    }
+    if(location.state?.data === "most_sold" && location.state?.data != "") {   
+      MostSoldCheckBox.current.checked = true;
+    }
     if (location.state?.data && location.state?.data != "") {
       for (let i in CategoriesCheckBoxes.current) {
         if (CategoriesCheckBoxes.current[i].id == location.state?.data) {
@@ -106,7 +136,7 @@ function ShopPage() {
     return startToFilter
       ? Array(
           Math.ceil(
-            filteredProducts.length > 0 ? filteredProducts.length / 20.0 : 1
+            filteredProducts.length > 0 ? filteredProducts.length / PAGINATION_THRESHOLD : 1
           )
         )
           .fill()
@@ -143,6 +173,32 @@ function ShopPage() {
       <div className="container d-flex flex-column-reverse align-items-center align-items-md-start flex-md-row">
         <aside className="filter mt-4 top-5 px-3">
           <div className="w-100">
+            <div className="new-arrivals d-flex justify-content-between align-items-center my-2 px-2">
+              <p className="text-capitalize">
+                { t("New Arrivals") }
+              </p>
+              <input
+                onChange={() => {
+                  setReFilter(!reFilter);
+                  navigate(location.pathname, {});
+                }}
+                ref={NewArrivalsCheckBox}
+                type="checkbox"
+              />
+            </div>
+            <div className="most-sold d-flex justify-content-between align-items-center my-2 px-2">
+              <p className="text-capitalize">
+                { t("Most Sold") }
+              </p>
+              <input
+                onChange={() => {
+                  setReFilter(!reFilter);
+                  navigate(location.pathname, {});
+                }}
+                ref={MostSoldCheckBox}
+                type="checkbox"
+              />
+            </div>
             <div className="department mb-5">
               <div className="d-flex px-1 rounded bg-white justify-content-between">
                 <p>{t("DEPARTEMENTS")}</p>
@@ -208,8 +264,8 @@ function ShopPage() {
         </aside>
         <div className="inner-container row">
           {startToFilter
-            ? filteredProducts
-                .slice(pagenumber * 20, (pagenumber + 1) * 20)
+            ? shopPageSpinner ? <Spinner /> : filteredProducts
+                .slice(pagenumber * PAGINATION_THRESHOLD, (pagenumber + 1) * PAGINATION_THRESHOLD)
                 .map((product, index) => {
                   return (
                     <div
@@ -224,7 +280,7 @@ function ShopPage() {
                             100
                         )}
                         id={product._id}
-                        newBadge={false}
+                        newBadge={product.newBadge ?? false}
                         image={product.image}
                         title={product.title}
                         price={product.price}
@@ -247,7 +303,7 @@ function ShopPage() {
                           100
                       )}
                       id={product._id}
-                      newBadge={false}
+                      newBadge={product.newBadge ?? false}
                       image={product.image}
                       title={product.title}
                       price={product.price}
