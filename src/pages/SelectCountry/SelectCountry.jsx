@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SelectCountry.css"
 import bahrain from "../../assets/bahrain.png"
 import emirates from "../../assets/emirates.png"
@@ -9,12 +9,19 @@ import logo from "../../assets/logo.png"
 import { useDispatch } from "react-redux";
 import { changeCountry } from "../../RTK/Slices/SelectedCountrySlice";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function SelectCountry() {
-
     const { t } = useTranslation();
-
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loginToken = !!localStorage.getItem('login_token');
+        const currency = !!localStorage.getItem('currency');
+        if (loginToken && currency)
+            window.location.href = "/home";
+    }, [])
 
     return (
         <section className="select-country py-5">

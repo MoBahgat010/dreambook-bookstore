@@ -201,6 +201,7 @@ export const AuthorizationSlice = createSlice({
                 state.RedirectToLogin = true;
                 state.RedirectExecution = false;
                 localStorage.removeItem("login_token");
+                localStorage.removeItem("currency");
                 state.aidRedirection = !state.aidRedirection;
                 state.RegenerateData = !state.RegenerateData;
             })

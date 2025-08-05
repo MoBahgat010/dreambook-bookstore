@@ -120,21 +120,8 @@ function Home() {
       <div className="home-body py-5">
         <div className="container">
           <div className="categories mb-5">
-            <div className="options d-flex justify-content-end mb-2 mb-md-4 pe-lg-5 pe-md-4 pe-sm-3 pe-2">
-              <div className="d-flex">
-                <div className="p-md-2 p-1">
-                  <div className="rounded-pill category-prev py-md-2 py-0 px-md-3 px-2">
-                    <i className="text-white fa-solid fa-chevron-left"></i>
-                  </div>
-                </div>
-                <div className="p-md-2 p-1">
-                  <div className="rounded-pill category-next py-md-2 py-0 px-md-3 px-2">
-                    <i className="text-white fa-solid fa-chevron-right"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-                            <Swiper
+              
+                <Swiper
                   modules={[Autoplay, Pagination, Navigation]}
                   navigation={{
                     nextEl: ".swiper-next1",
@@ -159,39 +146,39 @@ function Home() {
                   loop={true}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
+                <SwiperSlide>
                   <Link to={"/shop-page"} state={{data: "Kids Books"}} className="d-block bg-white text-center rounded py-3">
                       <div className="image-container">
-                          <img src={KidsBooks} alt="KidsBooks" />
+                          <img src={KidsBooks} alt="Kids Books" />
                       </div>
                       <p className="fw-bolder">{t("Kids Books")}</p>
                   </Link>
               </SwiperSlide>
-              <SwiperSlide>
-                  <Link to={"/shop-page"} state={{data: "Stationary"}} className="d-block bg-white text-center rounded py-3">
+                <SwiperSlide>
+                  <Link to={"/shop-page"} state={{data: "Kids Books"}} className="d-block bg-white text-center rounded py-3">
                       <div className="image-container">
-                          <img src={Stationary} alt="Stationary" />
-                      </div>
-                      <p className="fw-bolder">{t("Staionary")}</p>
-                  </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                  <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block bg-white text-center rounded py-3">
-                      <div className="image-container">
-                          <img src={LearningLanguages} alt="Offers and Discounts" />
+                          <img src={LearningLanguages} alt="Learning Languages" />
                       </div>
                       <p className="fw-bolder">{t("Learning Languages")}</p>
                   </Link>
               </SwiperSlide>
-              <SwiperSlide>
-                  <Link to={"/shop-page"} state={{data: "Offers and discounts"}} className="d-block bg-white text-center rounded py-3">
+                <SwiperSlide>
+                  <Link to={"/shop-page"} state={{data: "Kids Books"}} className="d-block bg-white text-center rounded py-3">
                       <div className="image-container">
-                          <img src={EnglishBooks} alt="Offers and Discounts" />
+                          <img src={EnglishBooks} alt="English Books" />
                       </div>
                       <p className="fw-bolder">{t("English Books")}</p>
                   </Link>
               </SwiperSlide>
-                </Swiper>
+                <SwiperSlide>
+                  <Link to={"/shop-page"} state={{data: "Kids Books"}} className="d-block bg-white text-center rounded py-3">
+                      <div className="image-container">
+                          <img src={Stationary} alt="Stationary" />
+                      </div>
+                      <p className="fw-bolder">{t("Stationary")}</p>
+                  </Link>
+              </SwiperSlide>
+            </Swiper>
           </div>
           <div className="non-categories">
             {FetchedProducts.length != 0 && (

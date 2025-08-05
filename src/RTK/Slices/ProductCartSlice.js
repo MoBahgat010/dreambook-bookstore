@@ -8,6 +8,7 @@ const initialstate = {
     CartProducts: [],
     Cartloader: false,
     cartTotal: 0,
+    cartTotalBeforeDiscount: 0,
     InsuffecientProductQuantity: false,
     isToastful: false
 }
@@ -166,6 +167,7 @@ export const ProductCartSlice = createSlice({
             })
             .addCase(GetAllCartProducts.fulfilled, (state = initialstate, action) => {
                 state.cartTotal = action.payload.cart.totalPriceExchanged.toFixed(2);
+                state.cartTotalBeforeDiscount = action.payload.cart.totalPriceBeforeDiscount.toFixed(2);
                 // console.log("action.payload.cart: ", action.payload.cart);
                 state.cartId = action.payload.cart._id;
                 state.CartProducts = action.payload.cart.cartItems;

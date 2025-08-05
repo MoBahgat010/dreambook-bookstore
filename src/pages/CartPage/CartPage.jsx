@@ -14,27 +14,21 @@ import toast from "react-hot-toast";
 function CartPage() {
   const { RegenerateData } = useSelector((state) => state.Authorization);
   const { FetchedProducts } = useSelector((state) => state.ShopPage);
-  const { CartProducts, cartTotal } = useSelector((state) => state.Cart);
+  const { CartProducts, cartTotal, cartTotalBeforeDiscount } = useSelector((state) => state.Cart);
   const { countryCurrency } = useSelector((state) => state.SelectCountry);
   const [updatedQuantity, setUpdatedQuantity] = useState([]);
   const [productsAvailableQuantities, setProductsAvailableQuantities] =
     useState([]);
 
-  const [totalPriceBeforeDiscount, setTotalPriceBeforeDiscount] = useState();
 
   useEffect(() => {
     let temp_array = [];
     let temp_array_qua = [];
     let temp_array_ids = [];
-    let temp_totalPriceBeforeDiscount = 0;
     temp_array_ids = CartProducts.map((product, index) => {
       temp_array[index] = product.quantity;
-      temp_totalPriceBeforeDiscount +=
-        product.priceAfterDiscount * product.quantity;
       return product.product._id;
     });
-    // console.log(temp_totalPriceBeforeDiscount);
-    setTotalPriceBeforeDiscount(temp_totalPriceBeforeDiscount);
     let indexing = 0;
     FetchedProducts.forEach((product) => {
       if (temp_array_ids.includes(product._id))
@@ -168,14 +162,14 @@ function CartPage() {
                 <div className="total-amount d-flex justify-content-between">
                   <div>{t("Total Amount")}:</div>
                   <div>
-                    {countryCurrency} {totalPriceBeforeDiscount}
+                    {countryCurrency} {cartTotalBeforeDiscount}
                   </div>
                 </div>
                 <div className="discount d-flex justify-content-between">
                   <div>{t("Discount or Coupon")}</div>
                   <div>
                     {countryCurrency}{" "}
-                    {(totalPriceBeforeDiscount - cartTotal).toFixed(2)}
+                    {(cartTotalBeforeDiscount - cartTotal).toFixed(2)}
                   </div>
                 </div>
                 <div className="shipping d-flex justify-content-between">
